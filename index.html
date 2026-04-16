@@ -15,132 +15,150 @@
         *{margin:0;padding:0;box-sizing:border-box}
         :root{
             --bg1:#F0EBE3;--bg2:#FFF8EE;--dark:#1A1A1A;--accent:#E54D2E;
-            --green:#6ECB63;--pink:#F7A8B8;--blue:#7EC8E3;--yellow:#FFD93D;
+            --green:#6ECB63;--surface:#E8E2D8;
         }
         body{
             font-family:'Inter',sans-serif;background:var(--bg1);
             color:var(--dark);overflow-x:hidden;-webkit-font-smoothing:antialiased;
         }
 
-        /* Scroll progress */
-        .progress{position:fixed;top:0;left:0;height:4px;background:var(--accent);width:0;z-index:9999}
-
-        /* Floating stars */
-        .star{position:absolute;pointer-events:none;z-index:10}
-        .star svg{animation:spin 4s linear infinite}
-        @keyframes spin{to{transform:rotate(360deg)}}
-        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
-        @keyframes floatSlow{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-10px) rotate(5deg)}}
-        @keyframes popIn{0%{transform:scale(0) rotate(-20deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
+        /* Animations */
+        @keyframes floatSlow{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-12px) rotate(3deg)}}
+        @keyframes popIn{0%{transform:scale(0) rotate(-15deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
         @keyframes slideUp{to{opacity:1;transform:translateY(0)}}
         @keyframes heroScale{to{opacity:1;transform:scale(1)}}
-        @keyframes wiggle{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        @keyframes dash{to{stroke-dashoffset:0}}
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+        @keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 
-        /* ========== HEADER ========== */
+        /* Progress */
+        .progress{position:fixed;top:0;left:0;height:3px;background:var(--accent);width:0;z-index:9999}
+
+        /* Decorative star SVG */
+        .deco-star{position:absolute;pointer-events:none}
+        .deco-star svg{width:20px;height:20px;fill:var(--dark);animation:spin 8s linear infinite}
+        .deco-star.light svg{fill:var(--surface);opacity:0.6}
+
+        /* ===== HEADER ===== */
         header{
             position:fixed;top:0;left:0;right:0;z-index:1000;
-            display:flex;align-items:center;justify-content:center;
-            padding:24px 40px;
+            display:flex;align-items:center;justify-content:center;padding:24px;
         }
         .header-logo{
-            font-family:'Fugaz One',cursive;font-size:24px;
-            color:var(--dark);text-decoration:none;
-            background:white;padding:8px 20px;border-radius:40px;
-            box-shadow:0 2px 20px rgba(0,0,0,0.06);
+            font-family:'Fugaz One',cursive;font-size:22px;color:var(--dark);
+            text-decoration:none;background:white;padding:8px 22px;border-radius:40px;
+            box-shadow:0 2px 20px rgba(0,0,0,0.05);
         }
 
-        /* ========== HERO ========== */
+        /* ===== HERO ===== */
         .hero{
             min-height:100vh;display:flex;flex-direction:column;
             align-items:center;justify-content:center;text-align:center;
             padding:140px 24px 100px;position:relative;
-            background:linear-gradient(180deg,var(--bg2) 0%,var(--bg1) 50%,#EDE3D5 100%);
+            background:linear-gradient(170deg,var(--bg2) 0%,var(--bg1) 40%,var(--surface) 100%);
         }
+
         .hero-title{
             font-family:'Fugaz One',cursive;
-            font-size:clamp(72px,20vw,260px);
-            line-height:0.85;letter-spacing:-3px;color:var(--dark);
+            font-size:clamp(80px,22vw,280px);
+            line-height:0.85;letter-spacing:-4px;color:var(--dark);
             opacity:0;transform:scale(0.9);
             animation:heroScale 1s cubic-bezier(0.16,1,0.3,1) forwards 0.2s;
         }
-        .hero-sub{
-            font-size:clamp(14px,2vw,18px);color:#6B6B6B;
-            margin-top:28px;max-width:400px;line-height:1.7;
-            opacity:0;transform:translateY(20px);
-            animation:slideUp 0.7s ease forwards 0.7s;
-        }
 
-        /* Floating badges */
-        .badge{
-            position:absolute;padding:10px 18px;border-radius:30px;
-            background:white;box-shadow:0 4px 24px rgba(0,0,0,0.08);
-            font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px;
-            animation:floatSlow 4s ease-in-out infinite;
-            opacity:0;animation:popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards;
+        .hero-sub{
+            font-size:clamp(15px,2.2vw,19px);color:#6B6B6B;
+            margin-top:32px;max-width:420px;line-height:1.7;
+            opacity:0;transform:translateY(20px);
+            animation:slideUp 0.7s ease forwards 0.8s;
         }
-        .badge.b1{top:18%;right:12%;animation-delay:0.8s;background:var(--green);color:var(--dark)}
-        .badge.b2{top:25%;left:8%;animation-delay:1s;background:var(--accent);color:white}
-        .badge.b3{bottom:22%;right:15%;animation-delay:1.2s}
-        .badge.b4{bottom:28%;left:10%;animation-delay:1.4s;background:var(--yellow)}
+        .hero-sub strong{color:var(--dark)}
+
+        /* Floating badges — no emoji, just text + shapes */
+        .badge{
+            position:absolute;padding:10px 20px;border-radius:30px;
+            box-shadow:0 4px 24px rgba(0,0,0,0.07);
+            font-size:12px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;
+            opacity:0;
+        }
+        .badge.b1{top:20%;right:10%;background:var(--green);color:var(--dark);animation:popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards 1s}
+        .badge.b2{top:28%;left:6%;background:var(--accent);color:white;animation:popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards 1.2s}
+        .badge.b3{bottom:24%;right:12%;background:white;color:var(--dark);animation:popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards 1.4s}
+        .badge.b4{bottom:30%;left:8%;background:var(--dark);color:var(--bg1);animation:popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards 1.6s}
 
         .scroll-invite{
-            margin-top:48px;display:flex;align-items:center;gap:8px;
-            padding:12px 24px;border-radius:40px;border:1.5px solid rgba(0,0,0,0.1);
-            font-size:13px;color:#6B6B6B;font-weight:500;
-            opacity:0;animation:slideUp 0.7s ease forwards 1s;
+            margin-top:56px;display:flex;align-items:center;gap:8px;
+            padding:12px 24px;border-radius:40px;border:1.5px solid rgba(0,0,0,0.08);
+            font-size:13px;color:#9B9B9B;font-weight:500;
+            opacity:0;animation:slideUp 0.7s ease forwards 1.2s;
         }
-        .scroll-invite .arrow{animation:float 2s ease-in-out infinite}
+        .scroll-invite .arrow{animation:float 2s ease-in-out infinite;display:inline-block}
 
-        /* Hand emoji hero */
-        .hero-hands{
-            font-size:clamp(80px,15vw,180px);margin-top:20px;
-            opacity:0;animation:popIn 0.6s cubic-bezier(0.34,1.56,0.64,1) forwards 0.5s;
+        /* Abstract shape instead of emoji */
+        .hero-shape{
+            width:clamp(100px,18vw,200px);height:clamp(100px,18vw,200px);
+            margin-top:24px;position:relative;
+            opacity:0;animation:popIn 0.7s cubic-bezier(0.34,1.56,0.64,1) forwards 0.5s;
+        }
+        .hero-shape .ring{
+            width:100%;height:100%;border-radius:50%;
+            border:3px solid var(--dark);position:absolute;
+            animation:spin 20s linear infinite;
+        }
+        .hero-shape .ring:nth-child(2){
+            width:80%;height:80%;top:10%;left:10%;
+            border-color:var(--accent);animation-direction:reverse;animation-duration:15s;
+        }
+        .hero-shape .dot{
+            width:12px;height:12px;border-radius:50%;background:var(--accent);
+            position:absolute;top:-6px;left:50%;margin-left:-6px;
         }
 
-        /* ========== SECTION FULLSCREEN ========== */
+        /* ===== FULL SECTIONS ===== */
         .full-section{
             min-height:100vh;display:flex;flex-direction:column;
             align-items:center;justify-content:center;text-align:center;
-            padding:100px 24px;position:relative;
+            padding:120px 24px;position:relative;
         }
 
         .section-small{
-            font-size:13px;font-weight:500;color:#9B9B9B;margin-bottom:20px;
-            letter-spacing:1px;
+            font-size:12px;font-weight:600;color:#9B9B9B;margin-bottom:20px;
+            letter-spacing:2px;text-transform:uppercase;
         }
 
         .big-title{
             font-family:'Fugaz One',cursive;
-            font-size:clamp(40px,10vw,100px);
-            line-height:1;letter-spacing:-2px;color:var(--dark);
-            max-width:900px;
+            font-size:clamp(44px,11vw,110px);
+            line-height:1;letter-spacing:-2px;max-width:900px;
         }
 
         .big-title .hl{
             background:var(--accent);color:white;
-            padding:2px 16px;border-radius:10px;
-            display:inline-block;transform:rotate(-1deg);
+            padding:0 14px;border-radius:8px;
+            display:inline-block;transform:rotate(-1.5deg);
         }
 
         .big-title .hl-green{
             background:var(--green);color:var(--dark);
-            padding:2px 16px;border-radius:10px;display:inline-block;
-        }
-
-        .section-emoji{
-            font-size:clamp(80px,12vw,140px);margin-top:24px;
-            animation:floatSlow 5s ease-in-out infinite;
+            padding:0 14px;border-radius:8px;display:inline-block;
         }
 
         .section-body{
-            max-width:520px;font-size:16px;line-height:1.8;
-            color:#6B6B6B;margin-top:24px;
+            max-width:500px;font-size:16px;line-height:1.8;
+            color:#6B6B6B;margin-top:32px;
         }
 
-        /* ========== TILTED CARDS ========== */
+        /* Divider line */
+        .section-line{
+            width:40px;height:3px;background:var(--accent);
+            border-radius:2px;margin:32px auto 0;
+        }
+
+        /* ===== TILTED CARDS ===== */
         .cards-section{
-            padding:100px 24px;position:relative;
-            background:linear-gradient(180deg,#EDE3D5 0%,var(--bg1) 100%);
+            padding:120px 24px;position:relative;
+            background:linear-gradient(180deg,var(--surface) 0%,var(--bg1) 100%);
         }
 
         .cards-container{
@@ -148,16 +166,13 @@
             display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;
         }
 
-        .cards-title{
-            font-family:'Fugaz One',cursive;
-            font-size:clamp(36px,6vw,64px);line-height:1.05;
-        }
+        .cards-title{font-family:'Fugaz One',cursive;font-size:clamp(36px,6vw,64px);line-height:1.05}
 
-        .cards-stack{display:flex;flex-direction:column;gap:24px;position:relative}
+        .cards-stack{display:flex;flex-direction:column;gap:24px}
 
         .tilt-card{
             background:white;border-radius:20px;padding:32px 28px;
-            box-shadow:0 8px 40px rgba(0,0,0,0.06);
+            box-shadow:0 8px 40px rgba(0,0,0,0.05);
             transform:rotate(var(--rot,2deg));
             transition:transform 0.4s cubic-bezier(0.16,1,0.3,1),box-shadow 0.3s;
             opacity:0;
@@ -165,44 +180,33 @@
         .tilt-card.visible{opacity:1;animation:popIn 0.6s cubic-bezier(0.34,1.56,0.64,1) forwards}
         .tilt-card:hover{transform:rotate(0deg) translateY(-4px);box-shadow:0 16px 60px rgba(0,0,0,0.1)}
 
-        .tilt-card .card-header{
-            display:flex;align-items:center;gap:12px;margin-bottom:12px;
-        }
+        .tilt-card .card-header{display:flex;align-items:center;gap:12px;margin-bottom:14px}
         .tilt-card .card-num{
-            width:32px;height:32px;border-radius:50%;
-            background:var(--dark);color:white;
+            width:28px;height:28px;border-radius:50%;background:var(--dark);color:white;
             display:flex;align-items:center;justify-content:center;
-            font-family:'Fugaz One',cursive;font-size:14px;
+            font-family:'Fugaz One',cursive;font-size:13px;
         }
-        .tilt-card .card-label{
-            font-size:12px;font-weight:700;text-transform:uppercase;
-            letter-spacing:1px;color:var(--accent);
-        }
-        .tilt-card h3{font-size:20px;font-weight:800;margin-bottom:8px}
+        .tilt-card .card-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent)}
+        .tilt-card h3{font-size:19px;font-weight:800;margin-bottom:8px}
         .tilt-card p{font-size:14px;color:#6B6B6B;line-height:1.6}
 
-        .tilt-card .card-pill{
+        .card-tag{
             display:inline-block;padding:4px 12px;border-radius:20px;
-            font-size:11px;font-weight:600;margin-top:12px;
+            font-size:11px;font-weight:600;margin-top:14px;
+            background:var(--bg1);color:var(--dark);
         }
 
-        /* ========== STATS ========== */
-        .stats-bar{
-            display:flex;justify-content:center;gap:60px;padding:80px 24px;
-            flex-wrap:wrap;
-        }
+        /* ===== STATS ===== */
+        .stats-bar{display:flex;justify-content:center;gap:64px;padding:100px 24px;flex-wrap:wrap}
         .stat-item{text-align:center}
-        .stat-num{
-            font-family:'Fugaz One',cursive;
-            font-size:clamp(48px,8vw,80px);color:var(--accent);
-        }
-        .stat-label{font-size:14px;color:#9B9B9B;margin-top:4px}
+        .stat-num{font-family:'Fugaz One',cursive;font-size:clamp(48px,9vw,88px);color:var(--accent)}
+        .stat-label{font-size:13px;color:#9B9B9B;margin-top:4px;font-weight:500}
 
-        /* ========== FINAL CTA ========== */
+        /* ===== FINAL ===== */
         .final{
             min-height:80vh;display:flex;flex-direction:column;
             align-items:center;justify-content:center;text-align:center;
-            padding:100px 24px;position:relative;
+            padding:120px 24px;position:relative;
             background:var(--dark);color:var(--bg1);overflow:hidden;
         }
         .final .big-title{color:var(--bg1)}
@@ -211,8 +215,7 @@
         .final-bg{
             position:absolute;font-family:'Fugaz One',cursive;
             font-size:clamp(200px,40vw,500px);color:rgba(255,255,255,0.03);
-            top:50%;left:50%;transform:translate(-50%,-50%);white-space:nowrap;
-            pointer-events:none;
+            top:50%;left:50%;transform:translate(-50%,-50%);white-space:nowrap;pointer-events:none;
         }
 
         .cta-btn{
@@ -225,51 +228,37 @@
         .cta-btn:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 12px 40px rgba(0,0,0,0.15)}
         .cta-btn:active{transform:scale(0.97)}
         .cta-btn.white{background:white;color:var(--dark)}
-        .cta-btn.accent{background:var(--accent);color:white}
 
-        /* ========== BOTTOM NAV ========== */
+        /* ===== BOTTOM NAV ===== */
         .bottom-nav{
             position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(120px);
-            z-index:1000;display:flex;align-items:center;gap:8px;
-            padding:8px;border-radius:40px;
-            background:rgba(255,255,255,0.92);
-            backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-            box-shadow:0 4px 30px rgba(0,0,0,0.1);
+            z-index:1000;display:flex;align-items:center;gap:6px;
+            padding:6px;border-radius:40px;
+            background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+            box-shadow:0 4px 30px rgba(0,0,0,0.08);
             transition:transform 0.5s cubic-bezier(0.16,1,0.3,1);
         }
         .bottom-nav.visible{transform:translateX(-50%) translateY(0)}
         .bottom-nav a{
-            padding:10px 20px;border-radius:30px;font-size:13px;font-weight:600;
-            text-decoration:none;color:var(--dark);transition:background 0.2s;
+            padding:10px 18px;border-radius:30px;font-size:12px;font-weight:600;
+            text-decoration:none;color:var(--dark);transition:all 0.2s;
         }
-        .bottom-nav a:hover{background:rgba(0,0,0,0.05)}
+        .bottom-nav a:hover{background:rgba(0,0,0,0.04)}
         .bottom-nav a.active{background:var(--dark);color:white}
 
-        /* ========== FOOTER ========== */
-        footer{
-            padding:40px 24px;text-align:center;background:var(--dark);
-            border-top:1px solid #2A2A2A;
-        }
+        /* ===== FOOTER ===== */
+        footer{padding:40px 24px;text-align:center;background:var(--dark);border-top:1px solid #2A2A2A}
         footer .flogo{font-family:'Fugaz One',cursive;font-size:18px;color:var(--bg1);margin-bottom:12px}
-        footer a{color:#6B6B6B;text-decoration:none;font-size:12px;margin:0 12px}
+        footer a{color:#555;text-decoration:none;font-size:12px;margin:0 12px;transition:color 0.2s}
         footer a:hover{color:var(--bg1)}
-        footer .copy{color:#444;font-size:11px;margin-top:20px}
+        footer .copy{color:#333;font-size:11px;margin-top:20px}
 
-        /* ========== DECORATIVE ========== */
-        .deco-star{
-            position:absolute;pointer-events:none;
-        }
-        .deco-star svg{
-            fill:var(--dark);width:24px;height:24px;
-            animation:spin 6s linear infinite;
-        }
-
-        /* ========== RESPONSIVE ========== */
+        /* ===== RESPONSIVE ===== */
         @media(max-width:768px){
             .cards-container{grid-template-columns:1fr;gap:40px}
             .badge{display:none}
             .stats-bar{gap:32px}
-            .bottom-nav a span{display:none}
+            header{padding:16px 20px}
         }
     </style>
 </head>
@@ -281,142 +270,138 @@
     <a href="#" class="header-logo">done</a>
 </header>
 
-<!-- ========== HERO ========== -->
-<section class="hero" id="hero">
-    <!-- Floating badges -->
-    <div class="badge b1" style="animation-delay:1s">✅ Tache faite !</div>
-    <div class="badge b2" style="animation-delay:1.3s">🔥 3j de streak</div>
-    <div class="badge b3" style="animation-delay:1.6s">👥 Tom a rejoint</div>
-    <div class="badge b4" style="animation-delay:1.9s">🏆 #1 ce mois</div>
+<!-- ===== HERO ===== -->
+<section class="hero">
+    <div class="badge b1">Aspi fait</div>
+    <div class="badge b2">12j de streak</div>
+    <div class="badge b3">Lea a rejoint</div>
+    <div class="badge b4">#1 du mois</div>
 
-    <!-- Stars -->
-    <div class="deco-star" style="top:15%;left:20%"><svg viewBox="0 0 24 24"><path d="M12 0l3 9h9l-7.5 5.5L19.5 24 12 18l-7.5 6 3-9.5L0 9h9z"/></svg></div>
-    <div class="deco-star" style="top:60%;right:18%;animation-delay:2s"><svg viewBox="0 0 24 24"><path d="M12 0l3 9h9l-7.5 5.5L19.5 24 12 18l-7.5 6 3-9.5L0 9h9z"/></svg></div>
+    <div class="deco-star" style="top:12%;left:18%"><svg viewBox="0 0 24 24"><path d="M12 0l2.5 8h8.5l-7 5 2.5 8-6.5-5-6.5 5 2.5-8-7-5h8.5z"/></svg></div>
+    <div class="deco-star" style="top:65%;right:15%"><svg viewBox="0 0 24 24"><path d="M12 0l2.5 8h8.5l-7 5 2.5 8-6.5-5-6.5 5 2.5-8-7-5h8.5z"/></svg></div>
+    <div class="deco-star" style="bottom:15%;left:25%"><svg viewBox="0 0 24 24"><path d="M12 0l2.5 8h8.5l-7 5 2.5 8-6.5-5-6.5 5 2.5-8-7-5h8.5z"/></svg></div>
 
     <div class="hero-title">done</div>
-    <div class="hero-hands">🙌</div>
-    <p class="hero-sub">L'app qui transforme les corvees<br>en <strong>jeu d'equipe</strong>.</p>
+
+    <div class="hero-shape">
+        <div class="ring"><div class="dot"></div></div>
+        <div class="ring"></div>
+    </div>
+
+    <p class="hero-sub">Fini les "c'est toujours moi qui fais tout".<br><strong>Maintenant, tout le monde s'y met.</strong></p>
 
     <div class="scroll-invite">
         <span>Scroll et decouvre</span>
-        <span class="arrow">↓</span>
+        <span class="arrow">&darr;</span>
     </div>
 </section>
 
-<!-- ========== SECTION 1 ========== -->
-<section class="full-section" id="s1" style="background:linear-gradient(180deg,#EDE3D5,var(--bg1))">
-    <div class="section-small">Dis-moi plus.</div>
+<!-- ===== SECTION 1 ===== -->
+<section class="full-section" id="s1" style="background:linear-gradient(180deg,var(--surface),var(--bg1))">
+    <div class="section-small">Le probleme</div>
     <div class="big-title reveal">
-        Organise<br>
-        ton groupe.<br>
-        <span class="hl">Sans prise</span><br>
-        de tete.
+        Personne sait<br>
+        <span class="hl">qui fait</span><br>quoi.
     </div>
-    <div class="section-emoji reveal" style="animation-delay:0.3s">📋</div>
-    <div class="section-body reveal" style="animation-delay:0.5s">
-        Cree des taches, assigne-les, ajoute des deadlines. Les grosses taches peuvent demander plusieurs personnes — les points sont partages equitablement.
+    <div class="section-line reveal"></div>
+    <div class="section-body reveal">
+        Les poubelles qui debordent. La vaisselle qui s'accumule. Le menage que "quelqu'un" devait faire. Tu connais. done met tout a plat — qui fait quoi, quand, et combien ca vaut.
     </div>
 </section>
 
-<!-- ========== TILTED CARDS ========== -->
+<!-- ===== CARDS ===== -->
 <section class="cards-section" id="s2">
     <div class="cards-container">
-        <div class="cards-title reveal">
-            Comment<br>ca marche<br>pour moi ?
-        </div>
+        <div class="cards-title reveal">En 3 etapes,<br>c'est <span class="hl">regle</span>.</div>
         <div class="cards-stack">
             <div class="tilt-card" style="--rot:-2deg">
                 <div class="card-header">
                     <div class="card-num">1</div>
-                    <div class="card-label">Cree ton groupe</div>
+                    <div class="card-label">30 secondes</div>
                 </div>
-                <h3>Invite tes colocs</h3>
-                <p>Un code, un lien — 5 secondes et tout le monde est dedans. Coloc, famille, couple.</p>
-                <div class="card-pill" style="background:#E8F5E9;color:#2E7D32">🏠 Groupe cree</div>
+                <h3>Cree ton groupe</h3>
+                <p>"La Coloc", "Famille Martin", "Chez nous" — un nom, un code, et tout le monde rejoint.</p>
+                <div class="card-tag">Partage par iMessage, WhatsApp,...</div>
             </div>
             <div class="tilt-card" style="--rot:3deg">
                 <div class="card-header">
                     <div class="card-num">2</div>
-                    <div class="card-label">Ajoute des taches</div>
+                    <div class="card-label">Le quotidien</div>
                 </div>
-                <h3>Courses, menage, tout</h3>
-                <p>Cadran de poids, recurrence, deadlines, multi-places. C'est plus qu'une todo list.</p>
-                <div class="card-pill" style="background:#FFF3E0;color:#E65100">📝 5 taches a faire</div>
+                <h3>Ajoute ce qui traine</h3>
+                <p>"Sortir les poubelles" — recurrent, tous les mardis. "Ranger le grenier" — a 2, parce que c'est lourd. Chaque tache a un poids en points.</p>
+                <div class="card-tag">Recurrence, deadlines, multi-places</div>
             </div>
             <div class="tilt-card" style="--rot:-1deg">
                 <div class="card-header">
                     <div class="card-num">3</div>
-                    <div class="card-label">Fais-les</div>
+                    <div class="card-label">La magie</div>
                 </div>
-                <h3>Check, score, repeat</h3>
-                <p>Complete tes taches, gagne des points, monte dans le classement, garde ton streak.</p>
-                <div class="card-pill" style="background:#FFEBEE;color:var(--accent)">🔥 7 jours de streak</div>
+                <h3>Regarde tout le monde s'y mettre</h3>
+                <p>Personne veut etre dernier au classement. Les streaks motivent. Les points comptent. Soudainement, la vaisselle se fait toute seule.</p>
+                <div class="card-tag">Podium, streaks, points</div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ========== SECTION 2 ========== -->
+<!-- ===== SECTION 2 ===== -->
 <section class="full-section" style="background:var(--bg1)">
-    <div class="section-small">La question qui tue.</div>
+    <div class="section-small">La vraie question</div>
     <div class="big-title reveal">
-        Ca rend les<br>
-        corvees<br>
-        <span class="hl-green">vraiment</span><br>
-        fun ?
+        Et ca marche<br>
+        <span class="hl-green">vraiment</span> ?
     </div>
-    <div class="section-emoji reveal" style="animation-delay:0.3s">🤌</div>
-    <div class="section-body reveal" style="animation-delay:0.5s">
-        Le podium, les streaks, les points — ca change tout. Quand tu vois que t'es dernier au classement, tu te leves pour passer l'aspi. Ca marche.
+    <div class="section-line reveal"></div>
+    <div class="section-body reveal">
+        Quand ton coloc voit qu'il est dernier au classement avec 3 points pendant que toi t'en as 47 — mysterieusement, l'aspirateur sort du placard. La gamification change les comportements. Les mots ne suffisent pas. Les points, si.
     </div>
 </section>
 
-<!-- ========== STATS ========== -->
+<!-- ===== STATS ===== -->
 <div class="stats-bar">
-    <div class="stat-item reveal"><div class="stat-num">150+</div><div class="stat-label">Avatars emoji</div></div>
-    <div class="stat-item reveal"><div class="stat-num">6</div><div class="stat-label">Widgets iOS</div></div>
-    <div class="stat-item reveal"><div class="stat-num">0</div><div class="stat-label">Pubs & trackers</div></div>
-    <div class="stat-item reveal"><div class="stat-num">∞</div><div class="stat-label">Groupes</div></div>
+    <div class="stat-item reveal"><div class="stat-num">0</div><div class="stat-label">Pubs</div></div>
+    <div class="stat-item reveal"><div class="stat-num">0</div><div class="stat-label">Trackers</div></div>
+    <div class="stat-item reveal"><div class="stat-num">0</div><div class="stat-label">Excuses</div></div>
 </div>
 
-<!-- ========== FEATURES SECTION ========== -->
-<section class="full-section" style="background:linear-gradient(180deg,var(--bg1),#EDE3D5)">
-    <div class="section-small">Sous le capot.</div>
+<!-- ===== SECTION 3 ===== -->
+<section class="full-section" style="background:linear-gradient(180deg,var(--bg1),var(--surface))">
+    <div class="section-small">Pour les maniaques du detail</div>
     <div class="big-title reveal">
-        Dark mode.<br>
-        Widgets.<br>
-        <span class="hl">Haptiques.</span><br>
-        Calendrier.
+        Pense pour<br>ceux qui<br>
+        <span class="hl">font les</span><br>choses bien.
     </div>
-    <div class="section-emoji reveal" style="animation-delay:0.3s">✨</div>
-    <div class="section-body reveal" style="animation-delay:0.5s">
-        Sign in with Apple. Sync en temps reel entre tous les membres. Notifications de deadline. Streak journalier. Tout est la, rien ne manque.
+    <div class="section-line reveal"></div>
+    <div class="section-body reveal">
+        Dark mode pour le soir. Widgets sur l'ecran d'accueil pour ne rien oublier. Haptiques a chaque action pour le plaisir. Calendrier heatmap pour voir qui fait quoi, quand. Sync en temps reel entre tous les membres. Pas de compte Google, pas de mail — juste Sign in with Apple et c'est parti.
     </div>
 </section>
 
-<!-- ========== FINAL ========== -->
+<!-- ===== FINAL ===== -->
 <section class="final">
     <div class="final-bg">done</div>
-    <div class="big-title reveal" style="color:var(--bg1)">
-        Pret a faire<br>
-        <span class="hl">le menage</span> ?
+    <div class="deco-star light" style="top:20%;left:15%"><svg viewBox="0 0 24 24"><path d="M12 0l2.5 8h8.5l-7 5 2.5 8-6.5-5-6.5 5 2.5-8-7-5h8.5z"/></svg></div>
+    <div class="deco-star light" style="bottom:25%;right:20%"><svg viewBox="0 0 24 24"><path d="M12 0l2.5 8h8.5l-7 5 2.5 8-6.5-5-6.5 5 2.5-8-7-5h8.5z"/></svg></div>
+    <div class="big-title reveal">
+        La vaisselle<br>va pas se faire<br><span class="hl">toute seule</span>.
     </div>
-    <p style="color:rgba(255,255,255,0.5);margin-top:20px;font-size:16px" class="reveal">Disponible bientot sur iOS.</p>
+    <p style="color:rgba(255,255,255,0.4);margin-top:20px;font-size:15px" class="reveal">Enfin, si. Avec done.</p>
     <a href="#" class="cta-btn white reveal">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
         App Store
     </a>
 </section>
 
-<!-- ========== FOOTER ========== -->
+<!-- ===== FOOTER ===== -->
 <footer>
     <div class="flogo">done</div>
     <a href="privacy.html">Confidentialite</a>
     <a href="mailto:arsene.laurent@protonmail.com">Contact</a>
-    <p class="copy">&copy; 2026 Arsene Laurent. Fait avec 🤌 a Bruxelles.</p>
+    <p class="copy">2026 Arsene Laurent — Bruxelles</p>
 </footer>
 
-<!-- ========== BOTTOM NAV ========== -->
+<!-- ===== BOTTOM NAV ===== -->
 <nav class="bottom-nav" id="bnav">
     <a href="#s1">Decouvrir</a>
     <a href="#s2">Comment</a>
@@ -424,54 +409,35 @@
 </nav>
 
 <script>
-// Progress bar
 window.addEventListener('scroll',()=>{
     const h=document.documentElement.scrollHeight-innerHeight;
     document.getElementById('prog').style.width=(scrollY/h*100)+'%';
     document.getElementById('bnav').classList.toggle('visible',scrollY>innerHeight*0.4);
 });
 
-// Scroll reveal
 const obs=new IntersectionObserver(e=>{
     e.forEach(el=>{
-        if(el.isIntersecting){
-            el.target.style.opacity='1';
-            el.target.style.transform='translateY(0) scale(1)';
-        }
+        if(el.isIntersecting){el.target.style.opacity='1';el.target.style.transform='translateY(0) scale(1)'}
     });
-},{threshold:0.15});
+},{threshold:0.12});
 
 document.querySelectorAll('.reveal').forEach((el,i)=>{
-    el.style.opacity='0';
-    el.style.transform='translateY(40px)';
-    el.style.transition=`all 0.8s cubic-bezier(0.16,1,0.3,1) ${i*0.08}s`;
+    el.style.opacity='0';el.style.transform='translateY(40px)';
+    el.style.transition=`all 0.8s cubic-bezier(0.16,1,0.3,1) ${i*0.06}s`;
     obs.observe(el);
 });
 
-// Tilt cards reveal
 const cardObs=new IntersectionObserver(e=>{
-    e.forEach((el,i)=>{
-        if(el.isIntersecting){
-            setTimeout(()=>el.target.classList.add('visible'), i*150);
-        }
-    });
+    e.forEach((el)=>{if(el.isIntersecting)el.target.classList.add('visible')});
 },{threshold:0.2});
-document.querySelectorAll('.tilt-card').forEach(c=>cardObs.observe(c));
+document.querySelectorAll('.tilt-card').forEach((c,i)=>{c.style.animationDelay=`${i*0.15}s`;cardObs.observe(c)});
 
-// Badge float after pop-in
 document.querySelectorAll('.badge').forEach(b=>{
-    setTimeout(()=>{
-        b.style.animation='floatSlow 4s ease-in-out infinite';
-    },2500);
+    setTimeout(()=>{b.style.animation='floatSlow 5s ease-in-out infinite'},2500);
 });
 
-// Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
-    a.addEventListener('click',e=>{
-        e.preventDefault();
-        const t=document.querySelector(a.getAttribute('href'));
-        if(t)t.scrollIntoView({behavior:'smooth'});
-    });
+    a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth'})});
 });
 </script>
 
