@@ -3,115 +3,413 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>done - Politique de confidentialite</title>
+    <title>done — Les taches de groupe, simplifiees.</title>
+    <meta name="description" content="done est l'app qui rend les corvees fun. Creez un groupe, ajoutez des taches, et voyez qui fait quoi.">
+    <meta property="og:title" content="done — Les taches de groupe, simplifiees.">
+    <meta property="og:description" content="Creez un groupe, ajoutez des taches, et voyez qui fait quoi. Disponible sur iOS.">
+    <meta property="og:image" content="https://laurentarsene.github.io/done-privacy/og.png">
+    <meta property="og:url" content="https://laurentarsene.github.io/done-privacy/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✓</text></svg>">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fugaz+One&family=Inter:wght@400;500;600&display=swap');
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #F0EBE3;
-            color: #1A1A1A;
-            line-height: 1.7;
-            padding: 40px 20px;
+
+        :root {
+            --bg: #F0EBE3;
+            --card: #1A1A1A;
+            --accent: #E54D2E;
+            --text: #1A1A1A;
+            --text2: #6B6B6B;
+            --text3: #9B9B9B;
+            --surface: #E8E2D8;
         }
-        .container {
-            max-width: 640px;
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 24px;
+            position: relative;
+        }
+
+        .logo {
+            font-family: 'Fugaz One', cursive;
+            font-size: clamp(64px, 15vw, 120px);
+            color: var(--text);
+            letter-spacing: -2px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s ease forwards 0.2s;
+        }
+
+        .tagline {
+            font-size: clamp(18px, 3vw, 24px);
+            color: var(--text2);
+            margin-top: 16px;
+            max-width: 500px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s ease forwards 0.5s;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 48px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s ease forwards 0.8s;
+        }
+
+        .cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        .cta:active { transform: scale(0.97); }
+
+        .cta-primary {
+            background: var(--card);
+            color: white;
+        }
+
+        .cta-secondary {
+            background: var(--surface);
+            color: var(--text);
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 32px;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 1.2s;
+        }
+
+        .scroll-hint span {
+            display: block;
+            width: 24px;
+            height: 24px;
+            border-right: 2px solid var(--text3);
+            border-bottom: 2px solid var(--text3);
+            transform: rotate(45deg);
+            animation: bounce 2s ease infinite;
+        }
+
+        /* Features */
+        .features {
+            padding: 120px 24px;
+            max-width: 1000px;
             margin: 0 auto;
         }
-        h1 {
-            font-family: Georgia, serif;
-            font-size: 2rem;
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 64px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 20px;
+            padding: 36px 28px;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: transform 0.6s ease, opacity 0.6s ease, box-shadow 0.2s ease;
+        }
+
+        .feature-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 18px;
+            font-weight: 600;
             margin-bottom: 8px;
         }
-        .subtitle {
-            color: #6B6B6B;
-            margin-bottom: 40px;
-            font-size: 0.9rem;
+
+        .feature-card p {
+            color: var(--text2);
+            font-size: 15px;
+            line-height: 1.6;
         }
-        h2 {
-            font-family: Georgia, serif;
-            font-size: 1.2rem;
-            margin-top: 32px;
-            margin-bottom: 12px;
+
+        /* How it works */
+        .how {
+            padding: 80px 24px 120px;
+            text-align: center;
         }
-        p, li {
-            color: #333;
-            margin-bottom: 12px;
-            font-size: 0.95rem;
+
+        .steps {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            margin-top: 64px;
+            flex-wrap: wrap;
         }
-        ul {
-            padding-left: 20px;
-            margin-bottom: 12px;
+
+        .step {
+            max-width: 220px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
         }
-        .footer {
-            margin-top: 48px;
-            padding-top: 24px;
-            border-top: 1px solid #D4CFC7;
-            color: #9B9B9B;
-            font-size: 0.8rem;
+
+        .step.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
-        a { color: #E54D2E; }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--card);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fugaz One', cursive;
+            font-size: 20px;
+            margin: 0 auto 16px;
+        }
+
+        .step h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .step p {
+            color: var(--text2);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Section titles */
+        .section-title {
+            font-family: 'Fugaz One', cursive;
+            font-size: clamp(32px, 6vw, 48px);
+            text-align: center;
+        }
+
+        .section-sub {
+            color: var(--text2);
+            text-align: center;
+            font-size: 17px;
+            margin-top: 12px;
+        }
+
+        /* Final CTA */
+        .final-cta {
+            padding: 120px 24px;
+            text-align: center;
+            background: var(--card);
+            color: white;
+        }
+
+        .final-cta .section-title { color: white; }
+        .final-cta .section-sub { color: rgba(255,255,255,0.6); }
+
+        .final-cta .cta-primary {
+            background: white;
+            color: var(--card);
+            margin-top: 40px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 32px 24px;
+            text-align: center;
+            background: var(--card);
+            border-top: 1px solid #333;
+        }
+
+        footer a {
+            color: rgba(255,255,255,0.4);
+            text-decoration: none;
+            font-size: 13px;
+            margin: 0 16px;
+        }
+
+        footer a:hover { color: rgba(255,255,255,0.7); }
+
+        /* Animations */
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: rotate(45deg) translateY(0); }
+            50% { transform: rotate(45deg) translateY(8px); }
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+            .cta-group { flex-direction: column; width: 100%; }
+            .cta { justify-content: center; }
+            .steps { gap: 32px; }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Politique de confidentialite</h1>
-        <p class="subtitle">done — Application de gestion de taches collaborative</p>
 
-        <h2>1. Donnees collectees</h2>
-        <p>Nous collectons uniquement les donnees necessaires au fonctionnement de l'application :</p>
-        <ul>
-            <li><strong>Informations de compte</strong> : identifiant Apple (via Sign in with Apple), prenom, avatar (emoji ou photo)</li>
-            <li><strong>Donnees d'utilisation</strong> : taches creees, groupes rejoints, scores, streaks</li>
-            <li><strong>Photos</strong> : uniquement si vous choisissez une photo de profil (stockee de maniere securisee)</li>
-        </ul>
+<!-- Hero -->
+<section class="hero">
+    <div class="logo">done</div>
+    <p class="tagline">Les taches de groupe, simplifiees.<br>Coloc, famille, couple — tout le monde s'y met.</p>
+    <div class="cta-group">
+        <a href="#" class="cta cta-primary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            Bientot sur l'App Store
+        </a>
+    </div>
+    <div class="scroll-hint"><span></span></div>
+</section>
 
-        <h2>2. Utilisation des donnees</h2>
-        <p>Vos donnees sont utilisees exclusivement pour :</p>
-        <ul>
-            <li>Faire fonctionner l'application (synchronisation des taches entre membres du groupe)</li>
-            <li>Afficher votre profil aux autres membres de vos groupes</li>
-            <li>Calculer les scores et streaks</li>
-            <li>Envoyer des notifications locales de rappel (sur votre appareil uniquement)</li>
-        </ul>
+<!-- Features -->
+<section class="features">
+    <h2 class="section-title">Tout ce qu'il faut.</h2>
+    <p class="section-sub">Rien de plus.</p>
 
-        <h2>3. Partage des donnees</h2>
-        <p>Nous ne vendons, ne louons et ne partageons aucune donnee personnelle avec des tiers. Vos donnees sont visibles uniquement par les membres des groupes que vous avez rejoints.</p>
-
-        <h2>4. Stockage et securite</h2>
-        <p>Les donnees sont stockees de maniere securisee via <a href="https://supabase.com" target="_blank">Supabase</a> (infrastructure hebergee en Europe). Les communications sont chiffrees via HTTPS. L'acces aux donnees est protege par des politiques de securite au niveau de la base de donnees (Row Level Security).</p>
-
-        <h2>5. Conservation des donnees</h2>
-        <p>Vos donnees sont conservees tant que votre compte est actif. Vous pouvez supprimer votre compte a tout moment depuis les reglages de l'application. La suppression entraine l'effacement definitif de toutes vos donnees.</p>
-
-        <h2>6. Vos droits</h2>
-        <p>Conformement au RGPD, vous disposez des droits suivants :</p>
-        <ul>
-            <li><strong>Acces</strong> : consulter vos donnees depuis l'application</li>
-            <li><strong>Rectification</strong> : modifier votre profil a tout moment</li>
-            <li><strong>Suppression</strong> : supprimer votre compte et toutes vos donnees</li>
-            <li><strong>Portabilite</strong> : nous contacter pour obtenir une copie de vos donnees</li>
-        </ul>
-
-        <h2>7. Notifications</h2>
-        <p>L'application utilise des notifications locales pour les rappels de taches. Aucune notification push n'est envoyee depuis un serveur. Vous pouvez desactiver les notifications dans les reglages de votre appareil.</p>
-
-        <h2>8. Cookies et trackers</h2>
-        <p>L'application n'utilise aucun cookie, tracker, ni outil d'analyse tiers.</p>
-
-        <h2>9. Enfants</h2>
-        <p>L'application n'est pas destinee aux enfants de moins de 13 ans. Nous ne collectons pas sciemment de donnees aupres de mineurs.</p>
-
-        <h2>10. Contact</h2>
-        <p>Pour toute question concernant cette politique de confidentialite, contactez-nous a :</p>
-        <p><a href="mailto:arsene.laurent@protonmail.com">arsene.laurent@protonmail.com</a></p>
-
-        <h2>11. Modifications</h2>
-        <p>Cette politique peut etre mise a jour. La date de derniere modification est indiquee ci-dessous.</p>
-
-        <div class="footer">
-            <p>Derniere mise a jour : 16 avril 2026</p>
-            <p>done &copy; 2026 Arsene Laurent</p>
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">✅</div>
+            <h3>Todo list intelligente</h3>
+            <p>Creez des taches, assignez-les, ajoutez des deadlines et de la recurrence. Simple et efficace.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">👥</div>
+            <h3>Fait pour le groupe</h3>
+            <p>Taches a plusieurs, participants, places requises. Tout le monde sait qui fait quoi.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🔥</div>
+            <h3>Streaks & classement</h3>
+            <p>Gardez le rythme avec les streaks. Le podium motive tout le monde a faire sa part.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📅</div>
+            <h3>Calendrier heatmap</h3>
+            <p>Voyez l'activite de chacun en un coup d'oeil. Qui bosse, qui glande.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🔔</div>
+            <h3>Rappels automatiques</h3>
+            <p>Notifications le jour J. Plus d'excuses pour oublier les poubelles.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🎨</div>
+            <h3>Dark mode & widgets</h3>
+            <p>Mode sombre, widgets sur l'ecran d'accueil et le lock screen. Toujours a portee.</p>
         </div>
     </div>
+</section>
+
+<!-- How it works -->
+<section class="how">
+    <h2 class="section-title">3 etapes.</h2>
+    <p class="section-sub">C'est tout.</p>
+
+    <div class="steps">
+        <div class="step">
+            <div class="step-number">1</div>
+            <h4>Creez un groupe</h4>
+            <p>Coloc, famille, couple — invitez avec un simple code.</p>
+        </div>
+        <div class="step">
+            <div class="step-number">2</div>
+            <h4>Ajoutez des taches</h4>
+            <p>Courses, menage, evenements — tout y passe.</p>
+        </div>
+        <div class="step">
+            <div class="step-number">3</div>
+            <h4>Faites-les.</h4>
+            <p>Cochez, grimpez dans le classement, gardez votre streak.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Final CTA -->
+<section class="final-cta">
+    <h2 class="section-title">Pret a faire le menage ?</h2>
+    <p class="section-sub">Rejoignez des milliers de groupes qui s'organisent mieux.</p>
+    <a href="#" class="cta cta-primary">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        Bientot disponible
+    </a>
+</section>
+
+<!-- Footer -->
+<footer>
+    <a href="privacy.html">Confidentialite</a>
+    <a href="mailto:arsene.laurent@protonmail.com">Contact</a>
+</footer>
+
+<script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.feature-card, .step').forEach(el => observer.observe(el));
+
+    // Stagger feature cards
+    document.querySelectorAll('.feature-card').forEach((el, i) => {
+        el.style.transitionDelay = `${i * 0.1}s`;
+    });
+
+    document.querySelectorAll('.step').forEach((el, i) => {
+        el.style.transitionDelay = `${i * 0.15}s`;
+    });
+</script>
+
 </body>
 </html>
