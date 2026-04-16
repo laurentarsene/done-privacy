@@ -82,22 +82,36 @@
             align-items:flex-start;flex-wrap:nowrap;
         }
 
-        /* iPhone frame */
+        /* iPhone frame — realistic */
         .iphone{
             width:clamp(150px,22vw,210px);flex-shrink:0;
-            background:var(--dark);border-radius:clamp(20px,3vw,32px);
-            padding:clamp(6px,1vw,10px);
-            box-shadow:0 24px 80px rgba(0,0,0,0.15);
+            background:#111;border-radius:clamp(24px,3.5vw,38px);
+            padding:clamp(4px,0.6vw,6px);
+            box-shadow:0 24px 80px rgba(0,0,0,0.2),0 0 0 1px rgba(255,255,255,0.05) inset;
             opacity:0;transform:translateY(60px);transition:all 0.8s cubic-bezier(0.16,1,0.3,1);
+            position:relative;
         }
         .iphone.visible{opacity:1;transform:translateY(0)}
         .iphone:nth-child(2){transition-delay:0.12s}
         .iphone:nth-child(3){transition-delay:0.24s}
 
         .iphone-screen{
-            background:var(--bg);border-radius:clamp(16px,2.5vw,26px);
+            background:var(--bg);border-radius:clamp(20px,3vw,34px);
             overflow:hidden;aspect-ratio:9/19.5;
-            display:flex;flex-direction:column;
+            display:flex;flex-direction:column;position:relative;
+        }
+
+        /* Dynamic island */
+        .iphone-screen::before{
+            content:'';position:absolute;top:8px;left:50%;transform:translateX(-50%);
+            width:clamp(50px,8vw,72px);height:clamp(14px,2vw,20px);
+            background:#111;border-radius:20px;z-index:10;
+        }
+
+        /* Side button */
+        .iphone::after{
+            content:'';position:absolute;right:-2px;top:22%;
+            width:3px;height:24px;background:#222;border-radius:0 2px 2px 0;
         }
 
         .iphone-label{font-size:11px;font-weight:600;color:var(--gray);margin-top:14px;text-transform:uppercase;letter-spacing:1px}
@@ -230,7 +244,16 @@
         footer a:hover{color:var(--bg)}
         footer .c{color:#333;font-size:10px;margin-top:14px}
 
-        @media(max-width:768px){.tag{display:none}.phones-row{overflow-x:auto;justify-content:flex-start;padding:0 20px;scroll-snap-type:x mandatory}.iphone{scroll-snap-align:center}}
+        /* Orange gradient blobs */
+        .blob{
+            position:absolute;border-radius:50%;pointer-events:none;
+            filter:blur(60px);opacity:0.4;
+        }
+        .blob.orange{background:radial-gradient(circle,#F4A261 0%,#E76F51 40%,transparent 70%)}
+        .blob.peach{background:radial-gradient(circle,#FFDAB9 0%,#F4A261 50%,transparent 70%)}
+        .blob.soft{background:radial-gradient(circle,#FFD4A8 0%,#F0EBE3 70%)}
+
+        @media(max-width:768px){.tag{display:none}.phones-row{overflow-x:auto;justify-content:flex-start;padding:0 20px;scroll-snap-type:x mandatory}.iphone{scroll-snap-align:center}.blob{opacity:0.25}}
     </style>
 </head>
 <body>
@@ -240,6 +263,10 @@
 
 <!-- HERO -->
 <section class="hero">
+    <!-- Gradient blobs -->
+    <div class="blob orange" style="width:300px;height:300px;top:10%;right:-5%;animation:floatSlow 8s ease-in-out infinite"></div>
+    <div class="blob peach" style="width:220px;height:220px;bottom:15%;left:-3%;animation:floatSlow 10s ease-in-out infinite;animation-delay:2s"></div>
+
     <div class="tag t1">Courses faites</div>
     <div class="tag t2">12j de streak</div>
     <div class="tag t3">Lea a rejoint</div>
@@ -253,7 +280,8 @@
 </section>
 
 <!-- PHONES -->
-<section class="phones" id="screens">
+<section class="phones" id="screens" style="position:relative;overflow:hidden">
+    <div class="blob soft" style="width:400px;height:400px;top:-10%;right:-8%;animation:floatSlow 12s ease-in-out infinite"></div>
     <div class="phones-title reveal">Un groupe.<br>Des taches.<br><span class="hl">Tout roule</span>.</div>
     <p class="phones-sub reveal">Chacun voit ce qu'il y a a faire, prend ce qu'il veut, et gagne des points. Transparent, simple, et etrangement motivant.</p>
 
@@ -380,7 +408,8 @@
 </section>
 
 <!-- PITCH -->
-<section class="pitch" id="pitch">
+<section class="pitch" id="pitch" style="position:relative;overflow:hidden">
+    <div class="blob orange" style="width:250px;height:250px;bottom:5%;left:-4%;animation:floatSlow 9s ease-in-out infinite;animation-delay:1s"></div>
     <div class="pitch-title reveal">Quand tout le monde<br>voit <span class="hl-green">le score</span>,<br>tout le monde joue.</div>
     <div class="pitch-line reveal"></div>
     <p class="pitch-body reveal">Un podium mensuel, des streaks quotidiens, des points par tache. Pas besoin de rappeler a quelqu'un de faire la vaisselle — le classement s'en charge. C'est bienveillant, c'est fun, et ca marche.</p>
