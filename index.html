@@ -34,7 +34,7 @@
         .hero{
             min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
             text-align:center;padding:120px 24px 60px;position:relative;
-            background:linear-gradient(175deg,var(--bg2) 0%,var(--bg) 50%,var(--surface) 100%);
+            background:linear-gradient(160deg,var(--bg2) 0%,#FDDCB5 30%,var(--bg) 60%,var(--surface) 100%);
         }
         .hero-title{
             font-family:'Fugaz One',cursive;font-size:clamp(72px,20vw,220px);
@@ -244,16 +244,16 @@
         footer a:hover{color:var(--bg)}
         footer .c{color:#333;font-size:10px;margin-top:14px}
 
-        /* Orange gradient blobs */
-        .blob{
-            position:absolute;border-radius:50%;pointer-events:none;
-            filter:blur(60px);opacity:0.4;
+        /* Noise texture overlay */
+        .grain{position:relative}
+        .grain::after{
+            content:'';position:absolute;inset:0;
+            background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.15'/%3E%3C/svg%3E");
+            background-repeat:repeat;background-size:128px 128px;
+            opacity:0.4;pointer-events:none;mix-blend-mode:multiply;
         }
-        .blob.orange{background:radial-gradient(circle,#F4A261 0%,#E76F51 40%,transparent 70%)}
-        .blob.peach{background:radial-gradient(circle,#FFDAB9 0%,#F4A261 50%,transparent 70%)}
-        .blob.soft{background:radial-gradient(circle,#FFD4A8 0%,#F0EBE3 70%)}
 
-        @media(max-width:768px){.tag{display:none}.phones-row{overflow-x:auto;justify-content:flex-start;padding:0 20px;scroll-snap-type:x mandatory}.iphone{scroll-snap-align:center}.blob{opacity:0.25}}
+        @media(max-width:768px){.tag{display:none}.phones-row{overflow-x:auto;justify-content:flex-start;padding:0 20px;scroll-snap-type:x mandatory}.iphone{scroll-snap-align:center}}
     </style>
 </head>
 <body>
@@ -262,11 +262,7 @@
 <header><a href="#" class="header-pill">done</a></header>
 
 <!-- HERO -->
-<section class="hero">
-    <!-- Gradient blobs -->
-    <div class="blob orange" style="width:300px;height:300px;top:10%;right:-5%;animation:floatSlow 8s ease-in-out infinite"></div>
-    <div class="blob peach" style="width:220px;height:220px;bottom:15%;left:-3%;animation:floatSlow 10s ease-in-out infinite;animation-delay:2s"></div>
-
+<section class="hero grain">
     <div class="tag t1">Courses faites</div>
     <div class="tag t2">12j de streak</div>
     <div class="tag t3">Lea a rejoint</div>
@@ -280,8 +276,7 @@
 </section>
 
 <!-- PHONES -->
-<section class="phones" id="screens" style="position:relative;overflow:hidden">
-    <div class="blob soft" style="width:400px;height:400px;top:-10%;right:-8%;animation:floatSlow 12s ease-in-out infinite"></div>
+<section class="phones grain" id="screens" style="background:linear-gradient(180deg,var(--bg) 0%,#FDDCB5 50%,var(--bg) 100%)">
     <div class="phones-title reveal">Un groupe.<br>Des taches.<br><span class="hl">Tout roule</span>.</div>
     <p class="phones-sub reveal">Chacun voit ce qu'il y a a faire, prend ce qu'il veut, et gagne des points. Transparent, simple, et etrangement motivant.</p>
 
@@ -408,8 +403,7 @@
 </section>
 
 <!-- PITCH -->
-<section class="pitch" id="pitch" style="position:relative;overflow:hidden">
-    <div class="blob orange" style="width:250px;height:250px;bottom:5%;left:-4%;animation:floatSlow 9s ease-in-out infinite;animation-delay:1s"></div>
+<section class="pitch grain" id="pitch" style="background:linear-gradient(170deg,var(--surface) 0%,#F4A261 40%,#E8B89A 70%,var(--bg) 100%)"></div>
     <div class="pitch-title reveal">Quand tout le monde<br>voit <span class="hl-green">le score</span>,<br>tout le monde joue.</div>
     <div class="pitch-line reveal"></div>
     <p class="pitch-body reveal">Un podium mensuel, des streaks quotidiens, des points par tache. Pas besoin de rappeler a quelqu'un de faire la vaisselle — le classement s'en charge. C'est bienveillant, c'est fun, et ca marche.</p>
