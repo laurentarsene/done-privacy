@@ -110,7 +110,8 @@
         .mock-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
         .mock-logo{font-family:'Fugaz One',cursive;font-size:13px}
         .mock-avatars{display:flex;gap:-4px}
-        .mock-avatars span{width:18px;height:18px;border-radius:50%;display:block;font-size:9px;text-align:center;line-height:18px}
+        .mock-avatars span{width:18px;height:18px;border-radius:50%;display:block;font-size:9px;text-align:center;line-height:18px;overflow:hidden}
+        .mock-avatars img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 
         .mock-podium{display:flex;align-items:flex-end;justify-content:center;gap:4px;margin-bottom:10px;padding:8px 0}
         .mock-bar{border-radius:4px 4px 0 0;display:flex;flex-direction:column;align-items:center;gap:2px}
@@ -264,15 +265,15 @@
                     <div class="mock-header">
                         <div class="mock-logo">done</div>
                         <div class="mock-avatars">
-                            <span style="background:#FFD93D">A</span>
-                            <span style="background:#7EC8E3;margin-left:-6px">T</span>
-                            <span style="background:#F7A8B8;margin-left:-6px">L</span>
+                            <span><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face" alt="A"></span>
+                            <span style="margin-left:-6px"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face" alt="L"></span>
+                            <span style="margin-left:-6px"><img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=80&h=80&fit=crop&crop=face" alt="T"></span>
                         </div>
                     </div>
                     <div class="mock-podium">
-                        <div class="mock-bar"><span>T</span><div class="bar" style="height:24px;background:var(--surface)"></div><span>24</span></div>
-                        <div class="mock-bar"><span>L</span><div class="bar" style="height:36px;background:var(--dark)"></div><span>45</span></div>
-                        <div class="mock-bar"><span>A</span><div class="bar" style="height:28px;background:var(--surface)"></div><span>37</span></div>
+                        <div class="mock-bar"><img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=60&h=60&fit=crop&crop=face" style="width:20px;height:20px;border-radius:50%;object-fit:cover"><div class="bar" style="height:24px;background:var(--surface)"></div><span>24</span></div>
+                        <div class="mock-bar"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=60&h=60&fit=crop&crop=face" style="width:20px;height:20px;border-radius:50%;object-fit:cover"><div class="bar" style="height:36px;background:var(--dark)"></div><span>45</span></div>
+                        <div class="mock-bar"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&crop=face" style="width:20px;height:20px;border-radius:50%;object-fit:cover"><div class="bar" style="height:28px;background:var(--surface)"></div><span>37</span></div>
                     </div>
                     <div class="mock-section-label">Urgent — aujourd'hui</div>
                     <div class="mock-task" style="border-left:2px solid var(--accent)">
@@ -349,7 +350,7 @@
                         <span style="font-size:14px;color:var(--gray)">x</span>
                     </div>
                     <div class="mock-streak-wrap">
-                        <div style="width:40px;height:40px;border-radius:50%;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:8px">A</div>
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face" style="width:40px;height:40px;border-radius:50%;object-fit:cover;margin-bottom:8px">
                         <div class="mock-score-card">
                             <div class="pts">47</div>
                             <div class="lbl">Points ce mois</div>
