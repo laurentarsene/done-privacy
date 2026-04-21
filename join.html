@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rejoins sur done</title>
+    <meta name="description" content="Rejoins ton groupe sur done — l'app de taches collaborative pour coloc, famille et couple.">
+
+    <!-- OG / Twitter (preview riche dans Messages, WhatsApp, Discord, etc.) -->
+    <meta property="og:title" content="Rejoins sur done">
+    <meta property="og:description" content="Un code t'a ete envoye — clique pour ouvrir l'app et rejoindre.">
+    <meta property="og:image" content="https://laurentarsene.github.io/done-privacy/og.png">
+    <meta property="og:url" content="https://laurentarsene.github.io/done-privacy/join.html">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="icon" href="icon.svg" type="image/svg+xml">
+    <link href="https://fonts.googleapis.com/css2?family=Fugaz+One&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #F0EBE3;
+            --bg2: #FFF8EE;
+            --dark: #1A1A1A;
+            --accent: #E54D2E;
+            --surface: #E8E2D8;
+            --gray: #6B6B6B;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(160deg, var(--bg2) 0%, #FDDCB5 40%, var(--bg) 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px;
+            -webkit-font-smoothing: antialiased;
+        }
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 48px 36px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 24px 80px rgba(0,0,0,0.08);
+        }
+        .logo {
+            font-family: 'Fugaz One', cursive;
+            font-size: 44px;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+        .tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--gray);
+            margin-bottom: 32px;
+        }
+        h1 {
+            font-family: 'Fugaz One', cursive;
+            font-size: 32px;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+        .sub {
+            color: var(--gray);
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+        .code-box {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 28px;
+        }
+        .code-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--gray);
+            margin-bottom: 8px;
+        }
+        .code {
+            font-family: 'Fugaz One', cursive;
+            font-size: 36px;
+            color: var(--accent);
+            letter-spacing: 4px;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            border-radius: 40px;
+            background: var(--dark);
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+        .btn:hover { transform: translateY(-2px); }
+        .btn-outline {
+            background: transparent;
+            color: var(--dark);
+            border: 1.5px solid var(--dark);
+        }
+        .btn-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+        }
+        .hint {
+            font-size: 12px;
+            color: var(--gray);
+            margin-top: 20px;
+        }
+        .footer {
+            margin-top: 24px;
+            font-size: 11px;
+            color: var(--gray);
+        }
+        .footer a { color: var(--gray); }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="logo">done</div>
+        <div class="tag">INVITATION</div>
+        <h1>Rejoins ton groupe</h1>
+        <p class="sub">Quelqu'un t'a invite a rejoindre un groupe. Ouvre l'app avec ce code :</p>
+        <div class="code-box">
+            <div class="code-label">CODE</div>
+            <div class="code" id="code">——————</div>
+        </div>
+        <div class="btn-stack">
+            <a id="open-app" class="btn" href="#">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                Ouvrir done
+            </a>
+            <a id="app-store" class="btn btn-outline" href="https://apps.apple.com/app/done">
+                Telecharger sur l'App Store
+            </a>
+        </div>
+        <p class="hint">Pas encore l'app ? Telecharge-la, puis reviens ici.</p>
+        <div class="footer">
+            <a href="index.html">done</a> · <a href="privacy.html">Confidentialite</a>
+        </div>
+    </div>
+
+    <script>
+        // Extraire le code depuis ?code=XXXXXX
+        const params = new URLSearchParams(window.location.search);
+        const code = (params.get('code') || '').toUpperCase().trim();
+
+        if (code) {
+            document.getElementById('code').textContent = code;
+            // Deep link vers l'app (scheme custom)
+            const appURL = `done://join?code=${encodeURIComponent(code)}`;
+            document.getElementById('open-app').href = appURL;
+
+            // Tentative automatique d'ouverture de l'app (silencieux si pas installee)
+            // On attend un petit delai pour ne pas casser le SEO / preview crawlers
+            setTimeout(() => {
+                if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
+                    window.location.href = appURL;
+                }
+            }, 400);
+        } else {
+            document.getElementById('open-app').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
