@@ -42,7 +42,7 @@
         /* ===== Nav pilule flottante ===== */
         .nav {
             position: fixed;
-            top: 14px;
+            top: 30px;
             left: 50%;
             transform: translateX(-50%);
             width: min(880px, calc(100% - 2 * var(--gutter)));
@@ -249,7 +249,7 @@
             line-height: 1.55;
         }
         .quote {
-            max-width: 17ch;
+            max-width: 30ch;
             margin: 0 0 clamp(80px, 10vw, 130px);
             opacity: 0.13;
             transform: translateY(22px);
@@ -345,7 +345,7 @@
         /* ===== Mobile ===== */
         @media (max-width: 720px) {
             :root { --radius: 30px; --gutter: 10px; --nav-h: 52px; }
-            .nav { padding: 0 8px 0 18px; }
+            .nav { top: 14px; padding: 0 8px 0 18px; }
             .brand { font-size: 18px; }
             .nav-right { gap: 12px; }
             .btn-dl { padding: 10px 16px; font-size: 14px; }
