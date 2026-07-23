@@ -195,30 +195,7 @@
         .manifesto .word { color: rgba(20, 18, 16, 0.16); transition: color 0.35s ease; }
         .manifesto .word.lit { color: var(--ink); }
 
-        /* ===== Fonctionnalités ===== */
-        .features { padding: 0 var(--gutter) clamp(70px, 10vw, 130px); }
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 14px;
-            max-width: 1180px;
-            margin: 0 auto;
-        }
-        .feat {
-            background: var(--cream-card);
-            border-radius: 28px;
-            padding: 30px 26px 34px;
-            opacity: 0;
-            transform: translateY(28px);
-            transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-            transition-delay: calc(0.09s * var(--i));
-        }
-        .feat.in { opacity: 1; transform: none; }
-        .feat .emoji { font-size: 34px; display: block; }
-        .feat h3 { font-size: 21px; font-weight: 900; letter-spacing: -0.02em; margin: 14px 0 8px; }
-        .feat p { font-size: 15px; font-weight: 600; color: var(--ink-soft); line-height: 1.5; }
-
-        /* ===== Histoires ===== */
+        /* ===== Au programme ===== */
         .stories-wrap { padding: 0 var(--gutter) var(--gutter); }
         .stories {
             background: var(--ink);
@@ -253,7 +230,8 @@
         }
         .quote {
             max-width: 75%;
-            margin: 0 0 clamp(80px, 10vw, 130px);
+            /* Espacement en hauteur d'écran : chaque phrase a son propre moment de scroll. */
+            margin: 0 0 clamp(160px, 38vh, 340px);
             opacity: 0.13;
             transform: translateY(22px);
             will-change: opacity, transform;
@@ -354,19 +332,14 @@
             .btn-dl { padding: 10px 16px; font-size: 14px; }
             .hero { padding-top: calc(var(--nav-h) + 66px); }
             .bubble { right: -4%; top: -14%; }
-            .features-grid { grid-template-columns: 1fr 1fr; }
             .quote { max-width: 100%; }
             .foot-grid { grid-template-columns: 1fr; }
             .foot-brand { min-height: 190px; }
         }
-        @media (max-width: 430px) {
-            .features-grid { grid-template-columns: 1fr; }
-        }
-
         @media (prefers-reduced-motion: reduce) {
             html { scroll-behavior: auto; }
             .hero-title .w, .hero-sub, .btn-store, .bubble { animation: none; opacity: 1; transform: none; }
-            .feat, .foot-card, .quote { opacity: 1 !important; transform: none !important; transition: none; }
+            .foot-card, .quote { opacity: 1 !important; transform: none !important; transition: none; }
             .manifesto .word { color: var(--ink); transition: none; }
             .hero-cat img { transform: none !important; }
         }
@@ -398,31 +371,6 @@
 
     <section class="manifesto" id="manifeste">
         <p id="manifesto-text">Réglisse transforme le ménage en petit jeu d'équipe, et votre chez-vous en endroit rangé. Sans tableur, sans reproches, avec un chat.</p>
-    </section>
-
-    <section class="features" id="fonctionnalites">
-        <div class="features-grid">
-            <div class="feat" style="--i:0">
-                <span class="emoji">🗑️</span>
-                <h3>Le tas</h3>
-                <p>Toutes les corvées au même endroit. Chacun se sert, personne ne s'échappe.</p>
-            </div>
-            <div class="feat" style="--i:1">
-                <span class="emoji">🏆</span>
-                <h3>Le podium</h3>
-                <p>Des points, un classement, et des mauvais perdants. La saine émulation.</p>
-            </div>
-            <div class="feat" style="--i:2">
-                <span class="emoji">🛒</span>
-                <h3>La boutique</h3>
-                <p>Tes points s'échangent contre une grasse matinée. Ou pire.</p>
-            </div>
-            <div class="feat" style="--i:3">
-                <span class="emoji">🗺️</span>
-                <h3>Le plan</h3>
-                <p>Ta maison pièce par pièce, en couleurs. La salle de bain te juge.</p>
-            </div>
-        </div>
     </section>
 
     <section class="stories-wrap" id="programme">
@@ -472,7 +420,6 @@
                         <h4>App</h4>
                         <a href="https://apps.apple.com/app/id6762408910">Télécharger</a>
                         <a href="#programme">Au programme</a>
-                        <a href="#fonctionnalites">Fonctionnalités</a>
                     </div>
                     <div class="col">
                         <h4>Réglisse</h4>
@@ -530,7 +477,7 @@
             if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
         });
     }, { threshold: 0.2 });
-    document.querySelectorAll(".feat, .foot-card").forEach(function (el) { io.observe(el); });
+    document.querySelectorAll(".foot-card").forEach(function (el) { io.observe(el); });
 
     if (reduced) return;
 
@@ -562,14 +509,15 @@
             wordEls.forEach(function (w, i) { w.classList.toggle("lit", i < lit); });
         }
 
-        /* Citations : opacité liée à la distance au centre de l'écran */
+        /* Citations : opacité liée à la distance au centre de l'écran.
+           Bande resserrée : une seule phrase pleinement allumée à la fois. */
         quotes.forEach(function (q) {
             var qr = q.getBoundingClientRect();
             var center = qr.top + qr.height / 2;
-            var d = Math.abs(center - vh * 0.48) / (vh * 0.55);
-            var o = Math.max(0.13, Math.min(1, 1.15 - d * 1.25));
+            var d = Math.abs(center - vh * 0.46) / (vh * 0.38);
+            var o = Math.max(0.08, Math.min(1, 1.12 - d * 1.12));
             q.style.opacity = o;
-            q.style.transform = "translateY(" + Math.max(0, (1 - o) * 26) + "px)";
+            q.style.transform = "translateY(" + Math.max(0, (1 - o) * 34) + "px)";
         });
     }
     function onScroll() {
