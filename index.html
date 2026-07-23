@@ -42,7 +42,8 @@
         /* ===== Nav pilule flottante ===== */
         .nav {
             position: fixed;
-            top: 30px;
+            /* Même retrait en haut que sur les côtés : 16px sous le bord de la carte orange. */
+            top: calc(var(--gutter) + 16px);
             left: 50%;
             transform: translateX(-50%);
             /* Toujours un peu plus étroite que la carte orange du héro :
@@ -347,7 +348,7 @@
         /* ===== Mobile ===== */
         @media (max-width: 720px) {
             :root { --radius: 30px; --gutter: 10px; --nav-h: 52px; }
-            .nav { top: 14px; padding: 0 8px 0 18px; }
+            .nav { padding: 0 8px 0 18px; }
             .brand { font-size: 18px; }
             .nav-right { gap: 12px; }
             .btn-dl { padding: 10px 16px; font-size: 14px; }
