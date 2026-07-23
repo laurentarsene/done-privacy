@@ -45,7 +45,9 @@
             top: 30px;
             left: 50%;
             transform: translateX(-50%);
-            width: min(880px, calc(100% - 2 * var(--gutter)));
+            /* Toujours un peu plus étroite que la carte orange du héro :
+               la carte fait 100% moins les gouttières, la nav retire 32px de plus. */
+            width: min(880px, calc(100% - 2 * var(--gutter) - 32px));
             height: var(--nav-h);
             display: flex;
             align-items: center;
