@@ -236,13 +236,10 @@
     <script>
         const params = new URLSearchParams(window.location.search);
         const code = (params.get('code') || '').toUpperCase().trim();
-        // `from` = id de l'inviteur, transmis a l'app pour lui crediter le bonus d'invitation.
-        const from = (params.get('from') || '').trim();
 
         if (code) {
             document.getElementById('code').textContent = code;
-            let appURL = `done://join?code=${encodeURIComponent(code)}`;
-            if (from) appURL += `&from=${encodeURIComponent(from)}`;
+            const appURL = `done://join?code=${encodeURIComponent(code)}`;
             document.getElementById('open-app').href = appURL;
 
             setTimeout(() => {
