@@ -239,13 +239,33 @@
 
         if (code) {
             document.getElementById('code').textContent = code;
-            // Scheme unifie iOS + Android : les deux apps s'enregistrent sur "reglisse://".
+
+            const ua = navigator.userAgent;
+            const isAndroid = /Android/i.test(ua);
+            const isIOS = /iPhone|iPad|iPod/i.test(ua);
+
+            // Scheme unifie : les deux apps s'enregistrent sur "reglisse://".
             // ("done://" etait l'ancien nom, garde uniquement par iOS pour les vieux liens.)
-            const appURL = `reglisse://join?code=${encodeURIComponent(code)}`;
+            // iOS : scheme custom simple. Android : intent:// avec repli automatique vers le
+            // Play Store (URL deduite du package) si l'app n'est pas installee.
+            const iosURL = `reglisse://join?code=${encodeURIComponent(code)}`;
+            const playURL = 'https://play.google.com/store/apps/details?id=dev.asidequest.reglisse';
+            const androidURL = 'intent://join?code=' + encodeURIComponent(code)
+                + '#Intent;scheme=reglisse;package=dev.asidequest.reglisse;'
+                + 'S.browser_fallback_url=' + encodeURIComponent(playURL) + ';end';
+
+            const appURL = isAndroid ? androidURL : iosURL;
             document.getElementById('open-app').href = appURL;
 
-            // Auto-ouverture sur mobile (iOS ET Android). Sur desktop on laisse le code visible.
-            if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+            // Bouton de repli : le bon store selon la plateforme.
+            if (isAndroid) {
+                const storeBtn = document.getElementById('app-store');
+                storeBtn.href = playURL;
+                storeBtn.textContent = 'Telecharger sur Google Play';
+            }
+
+            // Auto-ouverture sur mobile. Sur desktop, on laisse le code visible.
+            if (isAndroid || isIOS) {
                 setTimeout(() => { window.location.href = appURL; }, 400);
             }
         } else {
