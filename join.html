@@ -239,14 +239,15 @@
 
         if (code) {
             document.getElementById('code').textContent = code;
-            const appURL = `done://join?code=${encodeURIComponent(code)}`;
+            // Scheme unifie iOS + Android : les deux apps s'enregistrent sur "reglisse://".
+            // ("done://" etait l'ancien nom, garde uniquement par iOS pour les vieux liens.)
+            const appURL = `reglisse://join?code=${encodeURIComponent(code)}`;
             document.getElementById('open-app').href = appURL;
 
-            setTimeout(() => {
-                if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
-                    window.location.href = appURL;
-                }
-            }, 400);
+            // Auto-ouverture sur mobile (iOS ET Android). Sur desktop on laisse le code visible.
+            if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+                setTimeout(() => { window.location.href = appURL; }, 400);
+            }
         } else {
             document.getElementById('open-app').style.display = 'none';
         }
