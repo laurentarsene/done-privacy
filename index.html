@@ -34,10 +34,11 @@
          Un chargement distant transmet l'adresse IP de chaque visiteur à Google sans
          son consentement, ce qui n'a rien à faire sur ce site. Tout est hébergé ici.
 
-         Fraunces est la police de l'app elle-même : les fichiers viennent de
-         booh/Design/Fonts/ (Fraunces144ptSoft-Regular et Fraunces9pt-SemiBold),
-         réduits au latin et convertis en woff2. Le site et l'app ont donc
-         exactement la même typographie de titre.
+         Une seule famille sur cette page, Inter Tight, decoupee en deux jeux par
+         plage Unicode : une page en francais ne telecharge que le jeu « latin »,
+         soit 44 Ko par graisse. Le jeu « ext » n'est recupere que si un caractere
+         d'Europe centrale apparait, par exemple dans le nom d'un groupe.
+         Les pages legales, elles, ont leur propre feuille et leur propre serif.
 
          Inter Tight est découpée en deux jeux par plage Unicode : une page en
          français ne télécharge que le jeu « latin », soit 44 Ko par graisse. Le jeu
@@ -95,16 +96,6 @@
             descent-override: 24.12%;
             line-gap-override: 0%;
         }
-        @font-face {
-            font-family: "Fraunces";
-            src: url("assets/fonts/fraunces-400.woff2") format("woff2");
-            font-weight: 400; font-style: normal; font-display: swap;
-        }
-        @font-face {
-            font-family: "Fraunces";
-            src: url("assets/fonts/fraunces-600.woff2") format("woff2");
-            font-weight: 600; font-style: normal; font-display: swap;
-        }
 
         :root {
             /* Corail du héro et des accents sur fond sombre. Éclairci de 1 % de
@@ -125,7 +116,6 @@
             --gutter: 14px;
             --nav-h: 58px;
             --sans: "Inter Tight", "Inter Tight Repli", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            --serif: "Fraunces", "New York", "Iowan Old Style", Georgia, "Times New Roman", serif;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; color-scheme: light; }
@@ -361,14 +351,15 @@
         .stories-head .eyebrow { color: var(--coral); }
         .section-head { text-align: center; margin-bottom: clamp(40px, 5vw, 64px); }
         .section-head h2 {
-            font-family: "Fraunces", Georgia, "Times New Roman", serif;
-            font-size: clamp(2.1rem, 5.4vw, 3.6rem);
-            font-weight: 600;
-            letter-spacing: -0.03em;
-            line-height: 1.06;
+            /* Meme idiome que .hero-title et .stories h2 : Inter Tight 900, tres
+               serree. La serif introduite ici jurait avec le reste de la page. */
+            font-size: clamp(2.3rem, 6.2vw, 4.4rem);
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            line-height: 1.02;
             color: var(--ink);
-            margin: 16px auto 0;
-            max-width: 18ch;
+            margin: 18px auto 0;
+            max-width: 15ch;
         }
         .section-head h2 .dot-orange { color: var(--coral); }
         .section-head p {
@@ -425,8 +416,7 @@
             padding-top: clamp(40px, 5vw, 60px);
         }
         .aussi h3 {
-            font-family: var(--serif);
-            font-weight: 600;
+            font-weight: 800;
             font-size: clamp(1.3rem, 2.4vw, 1.75rem);
             letter-spacing: -0.01em;
             margin-bottom: 26px;
@@ -464,8 +454,7 @@
         }
         .plan.plus { background: var(--ink); color: var(--cream); }
         .plan-name {
-            font-family: var(--serif);
-            font-weight: 600;
+            font-weight: 800;
             font-size: clamp(1.7rem, 3vw, 2.3rem);
             letter-spacing: -0.02em;
             line-height: 1.1;
@@ -508,8 +497,9 @@
         }
         .tarif { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; }
         .tarif .n {
-            font-family: var(--serif);
-            font-weight: 600;
+            /* Chiffres tabulaires : les trois prix s'alignent a la virgule. */
+            font-weight: 800;
+            font-variant-numeric: tabular-nums;
             font-size: clamp(1.5rem, 2.6vw, 2rem);
             letter-spacing: -0.01em;
         }
