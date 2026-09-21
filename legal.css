@@ -1,0 +1,659 @@
+/* =============================================================================
+   Réglisse · pages légales
+   Direction 1, « le contrat imprimé ».
+   Feuille unique et autonome pour cgu.html, privacy.html et mentions-legales.html.
+
+   Parti pris : un document, pas une page de site. Fond quasi blanc, encre neutre,
+   une seule famille de caractères (une serif de labeur), colonne de 70 caractères,
+   hiérarchie tenue par la graisse et par le blanc. Aucune couleur d'accent, aucun
+   arrondi, aucune ombre, aucun fond teinté, aucun appel réseau.
+
+   Vocabulaire unifié des variables : --papier, --encre, --encre-doux, --filet,
+   --filet-fort. Les anciens jeux --cream/--ink/--coral (cgu) et
+   --fond/--encre/--corail (privacy, mentions-legales) disparaissent.
+
+   -----------------------------------------------------------------------------
+   CONTRASTES (WCAG 2.1, formule officielle, valeurs calculées et non estimées)
+
+   MODE CLAIR, tout le texte se pose sur --papier #FAFAFA
+     #1A1A1A encre        sur #FAFAFA  →  16,67:1   (AAA)  texte courant, titres
+     #5E5E5E encre-doux   sur #FAFAFA  →   6,21:1   (AA)   mentions, labels, pied
+     #8F8F8F filet-fort   sur #FAFAFA  →   3,10:1   (AA non textuel, 1.4.11)
+                                                    filets verticaux, soulignés
+     #D2D2D2 filet        sur #FAFAFA  →   1,45:1   séparateurs, purement décoratif
+     #1A1A1A encre        sur #D8D8D8  →  12,21:1   (AAA)  texte sélectionné
+
+   MODE SOMBRE, tout le texte se pose sur --papier #181818
+     #E8E8E8 encre        sur #181818  →  14,49:1   (AAA)  texte courant, titres
+     #9B9B9B encre-doux   sur #181818  →   6,39:1   (AA)   mentions, labels, pied
+     #707070 filet-fort   sur #181818  →   3,59:1   (AA non textuel, 1.4.11)
+     #3A3A3A filet        sur #181818  →   1,56:1   séparateurs, purement décoratif
+     #E8E8E8 encre        sur #3D3D3D  →   8,87:1   (AAA)  texte sélectionné
+
+   Aucun texte ne descend sous 4,5:1, y compris les mentions les plus petites
+   (.art à 0,78rem, .ou à 0,75rem), qui restent à 6,21:1 en clair et 6,39:1 en
+   sombre. Il n'y a plus un seul encadré à fond teinté : chaque texte se pose donc
+   sur le papier, et ces deux couples suffisent à couvrir la page entière.
+   ========================================================================== */
+
+:root {
+  color-scheme: light dark;
+
+  --papier:      #FAFAFA;
+  --encre:       #1A1A1A;
+  --encre-doux:  #5E5E5E;
+  --filet:       #D2D2D2;
+  --filet-fort:  #8F8F8F;
+  --selection:   #D8D8D8;
+
+  /* Une seule famille, une serif de texte conçue pour l'écran. Charter est
+     présente sur macOS et iOS, Sitka et Cambria sur Windows, Noto Serif sur
+     Android et Linux. Aucune police distante, aucun @font-face : rien à
+     télécharger, aucun serveur tiers contacté.
+     New York, Georgia et Fraunces sont volontairement écartées : chiffres
+     elzéviriens et couleur chaude, c'est exactement la signature dont ces pages
+     doivent se défaire. */
+  --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, "Noto Serif",
+           "Liberation Serif", "Times New Roman", Times, serif;
+
+  /* Colonne de texte : 36rem à 17px de corps, soit environ 70 signes par ligne. */
+  --mesure: 36rem;
+  /* Retrait des blocs mis en exergue. */
+  --retrait: 1.15rem;
+  /* Sommaire : largeur de la colonne des numéros, et retrait des libellés. */
+  --toc-num: 1.5rem;
+  --toc-indent: 1.95rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --papier:      #181818;
+    --encre:       #E8E8E8;
+    --encre-doux:  #9B9B9B;
+    --filet:       #3A3A3A;
+    --filet-fort:  #707070;
+    --selection:   #3D3D3D;
+  }
+}
+
+/* ---------------------------------------------------------------- socle --- */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  /* Marge au-dessus de la cible d'une ancre, #supprimer-compte comprise. */
+  scroll-padding-top: 1.5rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  background: var(--papier);
+  color: var(--encre);
+  font-family: var(--serif);
+  font-size: 1.0625rem;        /* 17px, mais indexé sur la préférence du lecteur */
+  line-height: 1.62;
+  /* Chiffres alignés : les chiffres elzéviriens qui plongeaient sous la ligne de
+     base dans « 9. Vos droits » sont l'un des tics à faire disparaître. */
+  font-variant-numeric: lining-nums;
+  padding: 2.5rem 1.5rem 5rem;
+  overflow-wrap: break-word;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--selection); color: var(--encre); }
+
+/* Les trois pages n'ont pas le même conteneur : cgu.html enveloppe dans .wrap,
+   privacy.html et mentions-legales.html dans .container. */
+.wrap,
+.container { max-width: var(--mesure); margin: 0 auto; }
+
+:focus-visible {
+  outline: 2px solid var(--encre);
+  outline-offset: 2px;
+}
+
+/* GREFFE 6. Toute cible d'ancre respire sous le bord haut : #supprimer-compte,
+   exigee par Google Play, et les vingt-trois articles du sommaire, sans dependre
+   d'une liste de selecteurs tenue a la main. */
+[id] { scroll-margin-top: 1.5rem; }
+
+/* ------------------------------------------------------------- en-tête --- */
+
+/* La pastille corail arrondie devient un simple renvoi, discret, au-dessus du
+   titre, comme la ligne de rappel d'un en-tête de document. */
+.retour {
+  display: inline-block;
+  color: var(--encre-doux);
+  font-size: 0.875rem;
+  text-decoration: none;
+  margin-bottom: 1.9rem;
+}
+.retour:hover { color: var(--encre); text-decoration: underline; }
+
+h1 {
+  font-size: clamp(1.5rem, 4.6vw, 1.95rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  margin-bottom: 0.45rem;
+}
+
+/* Sous-titre et date de mise à jour. Trois noms de classe pour le même office,
+   hérités des trois fichiers : .sous-titre et .maj dans privacy.html, .maj dans
+   cgu.html, .subtitle dans mentions-legales.html. */
+.sous-titre,
+.subtitle,
+.maj {
+  color: var(--encre-doux);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  /* Une ligne de manchette ne se justifie pas. */
+  text-align: left;
+  hyphens: manual;
+}
+.sous-titre { margin-bottom: 0.15rem; }
+
+/* Le pavé de titre se referme sur un filet, comme la manchette d'un imprimé.
+   .maj ferme cgu.html et privacy.html, .subtitle ferme mentions-legales.html. */
+.maj,
+.subtitle {
+  padding-bottom: 1.4rem;
+  margin-bottom: 2.2rem;
+  border-bottom: 1px solid var(--filet-fort);
+}
+
+/* Chapeau de privacy.html : l'encadré arrondi devient un préambule, simplement
+   composé un peu plus large que le texte courant. */
+.chapeau {
+  font-size: 1.09rem;
+  line-height: 1.6;
+  margin-bottom: 2.2rem;
+}
+.chapeau p { margin-bottom: 0; }
+
+/* ------------------------------------------------------------ sommaire --- */
+
+/* Table des matières : une colonne, numéros suspendus et alignés, interlignage
+   serré. Les deux colonnes de cgu.html et la grille de privacy.html donnaient un
+   index de magazine ; un contrat aligne ses articles les uns sous les autres. */
+nav.sommaire {
+  border-top: 1px solid var(--filet);
+  border-bottom: 1px solid var(--filet);
+  padding: 1.3rem 0 1.4rem;
+  margin: 0 0 2.4rem;
+  background: none;
+  border-radius: 0;
+}
+
+/* Dans cgu.html le sommaire suit immédiatement la manchette : son filet du haut
+   ferait doublon avec celui qui referme le titre. Dans privacy.html le chapeau
+   s'intercale, et le filet reprend son office. */
+.maj + nav.sommaire,
+.subtitle + nav.sommaire {
+  border-top: 0;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+nav.sommaire h2 {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--encre-doux);
+  margin: 0 0 0.9rem;
+  padding: 0;
+  border: 0;
+}
+
+nav.sommaire ol {
+  list-style: none;
+  columns: auto;                /* annule les deux colonnes de cgu.html */
+  display: block;               /* annule la grille de privacy.html */
+  counter-reset: som;
+  margin: 0;
+  padding: 0;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+nav.sommaire li {
+  counter-increment: som;
+  margin: 0 0 0.3rem;
+  padding-left: var(--toc-indent);
+  text-indent: calc(-1 * var(--toc-indent));
+  /* Un sommaire ne se justifie pas : les renvois qui passent à la ligne
+     s'étireraient. */
+  text-align: left;
+  hyphens: manual;
+}
+
+/* cgu.html porte ses numéros dans <span class="n">, écrits en clair dans le HTML.
+   Ils sont ferrés à droite dans leur colonne : les points s'alignent, « 9. » tombe
+   sous le « 3. » de « 23. ». C'est le détail qui fait une table des matières. */
+nav.sommaire .n {
+  display: inline-block;
+  width: var(--toc-num);
+  margin-right: calc(var(--toc-indent) - var(--toc-num));
+  color: var(--encre-doux);
+  font-weight: 400;
+  font-variant-numeric: lining-nums tabular-nums;
+  text-align: right;
+  text-indent: 0;
+}
+
+/* privacy.html ne numérote pas son sommaire dans le HTML, alors que ses titres le
+   sont : le compteur CSS rétablit la correspondance, sur la même colonne que les
+   numéros de cgu.html. Le :not(:has()) empêche le doublon là où le numéro existe
+   déjà ; l'@supports fait que, sur un navigateur sans :has, privacy.html perd
+   seulement sa numérotation de sommaire au lieu que cgu.html affiche « 1. 1. ». */
+@supports selector(:has(*)) {
+  nav.sommaire li:not(:has(.n))::before {
+    content: counter(som) ".";
+    display: inline-block;
+    width: var(--toc-num);
+    margin-right: calc(var(--toc-indent) - var(--toc-num));
+    color: var(--encre-doux);
+    font-variant-numeric: lining-nums tabular-nums;
+    text-align: right;
+    text-indent: 0;
+  }
+}
+
+/* Dans le sommaire, tout est lien : rien n'y a besoin d'être souligné pour être
+   reconnu, et vingt-trois soulignements empilés feraient du bruit. */
+nav.sommaire a {
+  color: var(--encre);
+  text-decoration: none;
+}
+nav.sommaire a:hover { text-decoration: underline; }
+
+/* ------------------------------------------------------------- titres --- */
+
+/* Un filet fin ouvre chaque article, la graisse fait le reste. Plus de corail,
+   plus de chiffres décoratifs. */
+h2 {
+  font-family: inherit;
+  font-size: 1.18rem;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: 0;
+  color: var(--encre);
+  margin: 2.5rem 0 0.55rem;
+  padding: 1.05rem 0 0;
+  border-top: 1px solid var(--filet);
+  border-bottom: 0;
+  scroll-margin-top: 1.5rem;
+}
+
+/* « Article 12. » : numérotation en romain maigre devant le titre en gras.
+   Elle se lit comme une cote, elle ne se regarde pas. */
+h2 .n {
+  font-weight: 400;
+  color: var(--encre);
+  font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: 0.005em;
+}
+
+/* Un seul filet là où deux se suivraient : sous la manchette (mentions-legales)
+   et sous le sommaire (cgu, privacy), le premier article s'ouvre sans redite. */
+.maj + h2,
+.subtitle + h2,
+nav.sommaire + h2 {
+  border-top: 0;
+  padding-top: 0;
+  margin-top: 2rem;
+}
+
+h3 {
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--encre);
+  margin: 1.7rem 0 0.4rem;
+  scroll-margin-top: 1.5rem;
+}
+
+/* --------------------------------------------------------------- texte --- */
+
+p { margin-bottom: 0.9rem; }
+
+/* Texte justifié, en pavés pleins : c'est la composition d'un imprimé, et à
+   70 signes elle tient sans rivières. Le fer à gauche reprend la main sur mobile,
+   où la colonne devient trop étroite pour justifier proprement.
+
+   Césures automatiques écartées, après comparaison à l'écran. En français, à
+   cette largeur, elles ne resserrent presque rien : les mots sont longs et le
+   dictionnaire de coupure reste prudent. En revanche elles coupaient des chaînes
+   qui ne doivent pas l'être, « dev.aside-quest.reglisse » pour l'identifiant
+   Google Play cité aux articles 3 et 23, « Ar-sène » pour le nom de l'éditeur.
+   Un contrat ne peut pas laisser un trait d'union s'inviter dans un identifiant
+   qu'un lecteur va recopier. Le gain était nul, le risque réel. */
+/* GREFFE 1. Le fer a gauche l'emporte sur le pave justifie. Sans cesures, la
+   justification etirait 45 espaces sur 1156 au-dela de 1,8 fois l'espace normal,
+   jusqu'a 3,7 fois, soit une ligne franchement lache tous les deux ou trois
+   paragraphes. Et activer les cesures aurait coupe « dev.asidequest.reglisse »
+   et « Arsène », ce qu'un contrat ne peut pas se permettre. Un contrat imprime
+   au fer a gauche reste un contrat. */
+p, li, dd {
+  text-align: left;
+  hyphens: manual;
+  -webkit-hyphens: manual;
+  text-wrap: pretty;
+}
+
+ul,
+ol,
+ol.numerote {
+  margin: 0 0 1rem;
+  padding-left: 1.35rem;
+}
+li { margin-bottom: 0.35rem; }
+li::marker { color: var(--encre-doux); }
+ol li::marker { font-variant-numeric: lining-nums tabular-nums; }
+
+b, strong {
+  font-weight: 700;
+  color: var(--encre);
+}
+
+/* Liens : soulignés, dans l'encre du texte. Le filet du soulignement est plus
+   clair que la lettre, le survol le ramène à pleine encre. Aucune couleur
+   d'accent, la seule information portée est « ceci est un lien ». */
+a {
+  color: var(--encre);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  /* GREFFE 5. Le soulignement passe a currentColor : a 3,10:1, un lien se
+     manquait au fil d'un long paragraphe. Le document reste sans couleur
+     d'accent, le lien se voit quand meme. */
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+a:hover { text-decoration-color: var(--encre); }
+
+/* ----------------------------------------------- blocs mis en exergue --- */
+
+/* .note (cgu.html) et .important (privacy.html) : les cartes arrondies à fond
+   teinté et barre corail deviennent un retrait marqué d'un simple filet
+   vertical. Angles droits, pas de fond, pas d'ombre. */
+.note,
+.important {
+  background: none;
+  border: 0;
+  border-left: 2px solid var(--filet-fort);
+  border-radius: 0;
+  padding: 0.1rem 0 0.1rem var(--retrait);
+  margin: 1.5rem 0;
+}
+.note p:last-child,
+.important p:last-child { margin-bottom: 0; }
+
+/* Le titre de l'encadré : un intertitre en gras, au corps du texte. */
+.important .titre {
+  display: block;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--encre);
+  margin-bottom: 0.3rem;
+}
+
+/* ------------------------------------------------ fiches prestataires --- */
+
+/* Les six fiches de privacy.html formaient autant de cartes. Elles deviennent les
+   lignes d'un tableau : un filet sous chacune, le nom en gras, le lieu en petite
+   capitale grise. Le filet du haut n'apparaît que sur la première, celle qui suit
+   un paragraphe, ce qui referme le groupe sans ajouter de balise. */
+/* GREFFE 2, empruntee a la direction « note technique ». Le sous-traitant et son
+   ressort geographique tiennent la colonne de gauche, la description occupe la
+   droite sur les deux rangees : la liste se lit alors comme un tableau de
+   correspondance, ce qui est exactement sa nature. La serif et la casse restent
+   celles d'ici, seule la grille est empruntee. */
+.fiche {
+  display: grid;
+  grid-template-columns: 10.5rem 1fr;
+  grid-template-rows: auto 1fr;
+  column-gap: 1.4rem;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--filet);
+  border-radius: 0;
+  padding: 0.85rem 0;
+  margin: 0;
+}
+.fiche p { grid-column: 2; grid-row: 1 / -1; margin-top: 0; }
+
+@media (max-width: 34rem) {
+  /* Sous cette largeur les deux colonnes s'etranglent : on repasse en bloc. */
+  .fiche { display: block; }
+  .fiche p { margin-top: 0.45rem; }
+}
+p + .fiche { border-top: 1px solid var(--filet); }
+
+.fiche .qui {
+  display: block;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--encre);
+  margin-bottom: 0.05rem;
+}
+
+/* La pastille cerclée devient une mention en petites capitales, sans bordure. */
+.fiche .ou {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--encre-doux);
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  margin: 0 0 0.45rem;
+}
+.fiche p:last-child { margin-bottom: 0; }
+
+/* ------------------------------------------------------- bases légales --- */
+
+/* dl.bases : liste de définitions classique. Terme en gras, définition en retrait,
+   référence d'article en gris, sans pastille ni couleur. */
+dl.bases { margin: 0 0 1.2rem; }
+
+/* GREFFE 3, meme emprunt : la reference d'article est poussee en colonne de
+   droite, en chiffres tabulaires, pour que les « art. 6.1.b » s'alignent les uns
+   sous les autres au lieu de flotter en fin de libelle. */
+dl.bases dt {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--encre);
+  font-weight: 700;
+  margin-top: 1.1rem;
+}
+dl.bases dd {
+  margin: 0.15rem 0 0;
+  padding-left: 1.25rem;
+}
+dl.bases .art {
+  display: inline;
+  flex: 0 0 auto;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.82rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: var(--encre-doux);
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* --------------------------------------------- identification éditeur --- */
+
+/* dl.identite (mentions-legales.html) : la carte arrondie devient le bloc
+   d'identification réglementaire, rangé en deux colonnes et réglé sur des filets.
+   C'est le seul endroit du document où une grille se justifie. */
+dl.identite {
+  background: none;
+  border: 0;
+  border-top: 1px solid var(--filet);
+  border-radius: 0;
+  padding: 0;
+  margin: 0 0 1.2rem;
+}
+dl.identite .ligne {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem 1.1rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--filet);
+}
+dl.identite .ligne:last-child { border-bottom: 1px solid var(--filet); }
+/* GREFFE 4, empruntee a la direction « editoriale » : a 11rem, « Numéro
+   d'entreprise et de TVA » se cassait en deux lignes, dans le seul bloc que la
+   loi impose. 12,5rem le tient sur une ligne. */
+dl.identite dt {
+  flex: 0 0 12.5rem;
+  color: var(--encre-doux);
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.55;
+  padding-top: 0.08rem;
+}
+dl.identite dd {
+  flex: 1 1 14rem;
+  color: var(--encre);
+  font-size: 1rem;
+  text-align: left;
+  hyphens: manual;
+}
+
+/* ----------------------------------------------------------- mentions --- */
+
+/* .todo n'est plus utilisée dans le corps de cgu.html, mais la règle existait.
+   Elle est conservée, sobre : plus d'ambre, plus de pointillé. */
+.todo {
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--filet-fort);
+  border-radius: 0;
+  padding: 0;
+  font-family: inherit;
+  font-size: 1em;
+  color: var(--encre-doux);
+  white-space: nowrap;
+}
+
+/* -------------------------------------------------------------- pied --- */
+
+/* cgu.html utilise <footer> et .liens ; privacy.html et mentions-legales.html
+   utilisent .footer et .liens-bas. Même pied pour les trois. */
+footer,
+.footer {
+  margin-top: 3.5rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--filet-fort);
+  color: var(--encre-doux);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+footer p,
+.footer p {
+  margin-bottom: 0.2rem;
+  text-align: left;
+  hyphens: manual;
+}
+
+/* Les liens croisés du pied, exigés d'une page à l'autre et par Google Play pour
+   « Supprimer mon compte », passent des pastilles à une ligne de renvois. Ils
+   restent soulignés : ils voisinent du texte qui n'est pas cliquable. */
+footer .liens,
+.liens-bas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.4rem;
+  margin-bottom: 0.9rem;
+}
+footer .liens a,
+.liens-bas a {
+  background: none;
+  border-radius: 0;
+  padding: 0;
+  font-weight: 400;
+  font-size: 0.85rem;
+  color: var(--encre-doux);
+  text-decoration: underline;
+  text-decoration-color: var(--filet-fort);
+}
+footer .liens a:hover,
+.liens-bas a:hover {
+  color: var(--encre);
+  text-decoration-color: var(--encre);
+}
+
+/* --------------------------------------------------------- responsive --- */
+
+@media (max-width: 600px) {
+  body { padding: 1.75rem 1.15rem 3.5rem; font-size: 1.03125rem; }
+
+  /* Sous 70 signes, la justification creuse des trous : retour au fer à gauche. */
+  p, li, dd { text-align: left; hyphens: manual; }
+
+  :root { --toc-num: 1.4rem; --toc-indent: 1.8rem; --retrait: 0.95rem; }
+
+  h2 { margin-top: 2.1rem; padding-top: 0.9rem; }
+
+  dl.identite dt { flex: 0 0 100%; }
+  dl.identite dd { flex: 1 1 100%; }
+  dl.identite .ligne { gap: 0.05rem; }
+
+  footer .liens,
+  .liens-bas { gap: 0.3rem 1.1rem; }
+}
+
+/* -------------------------------------------------------- impression --- */
+
+/* Le document est fait pour être imprimé et classé : c'est le même dessin,
+   débarrassé de la navigation. */
+@media print {
+  /* Marges latérales plus larges que les marges de tête : sur A4, la colonne
+     retombe autour de 80 signes, la mesure d'un contrat imprimé. */
+  @page { margin: 2cm 2.8cm; }
+
+  body {
+    background: #FFFFFF;
+    color: #000000;
+    font-size: 10.5pt;
+    line-height: 1.45;
+    padding: 0;
+  }
+  .wrap,
+  .container { max-width: none; }
+
+  .retour { display: none; }
+
+  a {
+    color: #000000;
+    text-decoration: none;
+  }
+
+  h1, h2, h3 { break-after: avoid; page-break-after: avoid; }
+  h2 { margin-top: 1.6rem; padding-top: 0.7rem; }
+
+  .note,
+  .important,
+  .fiche,
+  dl.identite .ligne,
+  dl.bases dt { break-inside: avoid; page-break-inside: avoid; }
+
+  nav.sommaire { break-after: page; page-break-after: always; }
+}
