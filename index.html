@@ -3,34 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#F6F1E7">
     <title>Réglisse · Les corvées, enfin partagées.</title>
-    <meta name="description" content="L'app qui transforme le ménage en petit jeu d'équipe. En coloc, en couple ou en famille : on répartit, on gagne des points, zéro embrouille.">
+    <meta name="description" content="L'app qui transforme les corvées en petit jeu d'équipe. En coloc, en couple ou en famille : on répartit, on gagne des points, zéro embrouille. Gratuite jusqu'à 6 personnes.">
+    <link rel="canonical" href="https://laurentarsene.github.io/done-privacy/">
+    <meta property="og:site_name" content="Réglisse">
+    <meta property="og:locale" content="fr_FR">
     <meta property="og:title" content="Réglisse · Les corvées, enfin partagées.">
     <meta property="og:description" content="Le ménage en petit jeu d'équipe. On répartit, on gagne des points, zéro embrouille. Et il y a un chat.">
     <meta property="og:image" content="https://laurentarsene.github.io/done-privacy/og.png?v=3">
+    <meta property="og:image:alt" content="Réglisse, le chat noir de l'app, un plumeau à la patte.">
     <meta property="og:url" content="https://laurentarsene.github.io/done-privacy/">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;900&display=swap" rel="stylesheet">
+    <meta name="twitter:title" content="Réglisse · Les corvées, enfin partagées.">
+    <meta name="twitter:description" content="Le ménage en petit jeu d'équipe. On répartit, on gagne des points, zéro embrouille. Et il y a un chat.">
+    <meta name="twitter:image" content="https://laurentarsene.github.io/done-privacy/og.png?v=3">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+    <!-- Les apparitions au scroll ne masquent quelque chose que si cette classe est
+         posée. Le script est ici, tout en haut, donc exécuté avant le premier rendu :
+         aucun clignotement. Et s'il ne s'exécute pas, faute de JavaScript ou parce
+         qu'il échoue, rien n'est jamais caché et la page reste entièrement lisible. -->
+    <script>document.documentElement.classList.add("js");</script>
+
+    <!-- POLICES : aucun appel à Google Fonts.
+         Un chargement distant transmet l'adresse IP de chaque visiteur à Google sans
+         son consentement, ce qui n'a rien à faire sur ce site. Tout est hébergé ici.
+
+         Fraunces est la police de l'app elle-même : les fichiers viennent de
+         booh/Design/Fonts/ (Fraunces144ptSoft-Regular et Fraunces9pt-SemiBold),
+         réduits au latin et convertis en woff2. Le site et l'app ont donc
+         exactement la même typographie de titre.
+
+         Inter Tight est découpée en deux jeux par plage Unicode : une page en
+         français ne télécharge que le jeu « latin », soit 44 Ko par graisse. Le jeu
+         « ext » n'est récupéré que si un caractère d'Europe centrale apparaît, par
+         exemple dans le nom d'un groupe.
+
+         Les deux familles sont sous licence SIL Open Font License, l'auto-hébergement
+         est autorisé. -->
     <style>
+        @font-face {
+            font-family: "Inter Tight";
+            src: url("assets/fonts/inter-tight-600.woff2") format("woff2");
+            font-weight: 600; font-style: normal; font-display: swap;
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        @font-face {
+            font-family: "Inter Tight";
+            src: url("assets/fonts/inter-tight-600-ext.woff2") format("woff2");
+            font-weight: 600; font-style: normal; font-display: swap;
+            unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
+        @font-face {
+            font-family: "Inter Tight";
+            src: url("assets/fonts/inter-tight-700.woff2") format("woff2");
+            font-weight: 700; font-style: normal; font-display: swap;
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        @font-face {
+            font-family: "Inter Tight";
+            src: url("assets/fonts/inter-tight-700-ext.woff2") format("woff2");
+            font-weight: 700; font-style: normal; font-display: swap;
+            unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
+        @font-face {
+            font-family: "Inter Tight";
+            src: url("assets/fonts/inter-tight-900.woff2") format("woff2");
+            font-weight: 900; font-style: normal; font-display: swap;
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        @font-face {
+            font-family: "Inter Tight";
+            src: url("assets/fonts/inter-tight-900-ext.woff2") format("woff2");
+            font-weight: 900; font-style: normal; font-display: swap;
+            unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
+        /* Repli métrique : les polices système recalées sur les vraies métriques
+           d'Inter Tight, mesurées dans le fichier woff2 (unitsPerEm 2048, ascender
+           1984, descender 494) et sur la largeur moyenne des bas-de-casse comparée
+           à celle d'Helvetica. Le titre du héros ne saute donc pas au swap. */
+        @font-face {
+            font-family: "Inter Tight Repli";
+            src: local("Helvetica Neue"), local("HelveticaNeue"), local("Segoe UI"), local("Roboto"), local("Arial");
+            size-adjust: 99.3%;
+            ascent-override: 96.88%;
+            descent-override: 24.12%;
+            line-gap-override: 0%;
+        }
+        @font-face {
+            font-family: "Fraunces";
+            src: url("assets/fonts/fraunces-400.woff2") format("woff2");
+            font-weight: 400; font-style: normal; font-display: swap;
+        }
+        @font-face {
+            font-family: "Fraunces";
+            src: url("assets/fonts/fraunces-600.woff2") format("woff2");
+            font-weight: 600; font-style: normal; font-display: swap;
+        }
+
         :root {
-            --coral: #CE5433;
-            --coral-deep: #B94724;
+            /* Corail du héro et des accents sur fond sombre. Éclairci de 1 % de
+               luminosité : sur l'ancien #CE5433, aucun texte de taille courante ne
+               pouvait atteindre 4,5:1, l'encre plafonnait à 4,40:1. */
+            --coral: #CF5938;
+            /* Corail des textes posés sur le crème, assombri : l'ancien #B94724
+               donnait 4,32:1 sur la carte crème, sous le seuil AA. */
+            --coral-deep: #B24423;
             --cream: #F6F1E7;
             --cream-card: #EFE8DA;
             --ink: #141210;
-            --ink-soft: rgba(20, 18, 16, 0.62);
+            /* 0,66 et non 0,62 : sous la nav translucide posée sur le corail du héro,
+               les liens de navigation tombaient à 4,42:1. */
+            --ink-soft: rgba(20, 18, 16, 0.66);
             --white-warm: #FFFDF8;
             --radius: 44px;
             --gutter: 14px;
             --nav-h: 58px;
+            --sans: "Inter Tight", "Inter Tight Repli", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --serif: "Fraunces", "New York", "Iowan Old Style", Georgia, "Times New Roman", serif;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; color-scheme: light; }
         body {
-            font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: var(--sans);
             background: var(--cream);
             color: var(--ink);
             -webkit-font-smoothing: antialiased;
@@ -38,6 +138,7 @@
         }
         a { color: inherit; text-decoration: none; }
         section, footer { scroll-margin-top: calc(var(--nav-h) + 24px); }
+        :focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; border-radius: 4px; }
 
         /* ===== Nav pilule flottante ===== */
         .nav {
@@ -115,7 +216,8 @@
         .hero-sub {
             font-size: clamp(1rem, 2vw, 1.2rem);
             font-weight: 600;
-            color: rgba(20, 18, 16, 0.55);
+            /* Encre pleine : à 55 % d'opacité, la phrase tombait à 2,43:1 sur le corail. */
+            color: var(--ink);
             max-width: 38ch;
             margin: 26px auto 0;
             line-height: 1.5;
@@ -146,6 +248,17 @@
         }
         .btn-store:hover { transform: scale(1.04); }
         .store-icon { flex-shrink: 0; }
+        .hero-note {
+            margin-top: 18px;
+            font-size: 14.5px;
+            font-weight: 600;
+            /* Même raison que le sous-titre : 2,43:1 sur le corail, il faut l'encre pleine. */
+            color: var(--ink);
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.85s forwards;
+        }
+        /* Le lien passe en encre pleine : c'est la partie cliquable, elle doit se voir. */
+        .hero-note a { color: var(--ink); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 
         .hero-cat {
@@ -190,7 +303,7 @@
         @keyframes bubbleIn { from { opacity: 0; transform: translateY(14px) scale(0.92); } to { opacity: 1; transform: none; } }
 
         /* ===== Manifeste : les mots s'allument au scroll ===== */
-        .manifesto { padding: clamp(110px, 16vw, 210px) 24px; }
+        .manifesto { padding: clamp(110px, 16vw, 210px) 24px clamp(90px, 12vw, 160px); }
         .manifesto p {
             font-size: clamp(2rem, 6vw, 4.4rem);
             font-weight: 900;
@@ -200,8 +313,31 @@
             margin: 0 auto;
             text-align: center;
         }
-        .manifesto .word { color: rgba(20, 18, 16, 0.16); transition: color 0.35s ease; }
+        .manifesto .word { transition: color 0.35s ease; }
+        .js .manifesto .word { color: rgba(20, 18, 16, 0.16); }
         .manifesto .word.lit { color: var(--ink); }
+
+        /* ===== Révélations au scroll (tarifs, pied de page) =====
+           Tout ce qui est caché au départ l'est derrière .js, la classe que le script
+           d'en-tête pose sur <html>. Sans JavaScript, ou si ce script échoue, aucune
+           de ces règles ne s'applique : la page s'affiche en entier, d'emblée. */
+        .reveal {
+            transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .js .reveal { opacity: 0; transform: translateY(24px); }
+        .reveal.in { opacity: 1; transform: none; }
+
+
+        .fallback .fb-cat { font-size: 30px; }
+        .fallback .fb-txt { font-size: 13px; font-weight: 700; color: rgba(20, 18, 16, 0.42); }
+        .shot figcaption {
+            margin-top: 16px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--ink-soft);
+            line-height: 1.4;
+        }
 
         /* ===== Au programme ===== */
         .stories-wrap { padding: 0 var(--gutter) var(--gutter); }
@@ -211,14 +347,40 @@
             border-radius: var(--radius);
             padding: clamp(90px, 12vw, 150px) clamp(24px, 6vw, 90px) clamp(100px, 13vw, 170px);
         }
-        .stories-head { text-align: center; margin-bottom: clamp(70px, 9vw, 120px); }
+        /* En-tête de section, sur fond clair. Partagé par la section Tarifs et,
+           pour le surtitre seul, par la section Au programme sur fond sombre. */
         .eyebrow {
             font-size: 13px;
             font-weight: 700;
             letter-spacing: 0.28em;
             text-transform: uppercase;
-            color: var(--coral);
+            /* Sur fond clair, le corail du héro ne donne que 3,49:1 : on prend le corail profond. */
+            color: var(--coral-deep);
         }
+        /* Le même surtitre, mais posé sur la carte encre : là, c'est le corail clair qui porte. */
+        .stories-head .eyebrow { color: var(--coral); }
+        .section-head { text-align: center; margin-bottom: clamp(40px, 5vw, 64px); }
+        .section-head h2 {
+            font-family: "Fraunces", Georgia, "Times New Roman", serif;
+            font-size: clamp(2.1rem, 5.4vw, 3.6rem);
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            line-height: 1.06;
+            color: var(--ink);
+            margin: 16px auto 0;
+            max-width: 18ch;
+        }
+        .section-head h2 .dot-orange { color: var(--coral); }
+        .section-head p {
+            font-size: clamp(0.95rem, 1.7vw, 1.1rem);
+            font-weight: 600;
+            /* 0,66 et non 0,60 : sur la carte crème, 0,60 ne donnait que 4,21:1. */
+            color: rgba(31, 27, 24, 0.66);
+            max-width: 46ch;
+            margin: 18px auto 0;
+            line-height: 1.55;
+        }
+        .stories-head { text-align: center; margin-bottom: clamp(70px, 9vw, 120px); }
         .stories h2 {
             font-size: clamp(2.6rem, 7.5vw, 5.6rem);
             font-weight: 900;
@@ -239,11 +401,10 @@
         .quote {
             max-width: 75%;
             /* Espacement en hauteur d'écran : chaque phrase a son propre moment de scroll. */
-            margin: 0 0 clamp(160px, 38vh, 340px);
-            opacity: 0.13;
-            transform: translateY(22px);
+            margin: 0 0 clamp(140px, 30vh, 290px);
             will-change: opacity, transform;
         }
+        .js .quote { opacity: 0.13; transform: translateY(22px); }
         .quote:last-of-type { margin-bottom: 0; }
         .quote.right { margin-left: auto; text-align: right; }
         .quote blockquote {
@@ -258,6 +419,120 @@
             font-weight: 700;
             color: var(--coral);
         }
+        .aussi {
+            margin-top: clamp(100px, 13vw, 170px);
+            border-top: 1px solid rgba(246, 241, 231, 0.14);
+            padding-top: clamp(40px, 5vw, 60px);
+        }
+        .aussi h3 {
+            font-family: var(--serif);
+            font-weight: 600;
+            font-size: clamp(1.3rem, 2.4vw, 1.75rem);
+            letter-spacing: -0.01em;
+            margin-bottom: 26px;
+        }
+        .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+        .chip {
+            border: 1px solid rgba(246, 241, 231, 0.2);
+            border-radius: 999px;
+            padding: 11px 18px;
+            font-size: 15px;
+            font-weight: 600;
+            color: rgba(246, 241, 231, 0.82);
+        }
+
+        /* ===== Combien ça coûte ===== */
+        .prix-wrap { padding: clamp(80px, 11vw, 140px) var(--gutter) 0; }
+        .prix {
+            background: var(--cream-card);
+            border-radius: var(--radius);
+            padding: clamp(60px, 9vw, 110px) clamp(22px, 5vw, 80px) clamp(54px, 8vw, 90px);
+        }
+        .prix-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            max-width: 920px;
+            margin: 0 auto;
+        }
+        .plan {
+            background: var(--white-warm);
+            border-radius: 32px;
+            padding: clamp(26px, 3.4vw, 40px);
+            display: flex;
+            flex-direction: column;
+        }
+        .plan.plus { background: var(--ink); color: var(--cream); }
+        .plan-name {
+            font-family: var(--serif);
+            font-weight: 600;
+            font-size: clamp(1.7rem, 3vw, 2.3rem);
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+        .plan-tag {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            /* Sur le blanc chaud de la carte Gratuit : 4,18:1 avec le corail clair, insuffisant. */
+            color: var(--coral-deep);
+            margin-top: 10px;
+        }
+        /* Sur la carte encre de Réglisse+, c'est l'inverse : le corail clair passe, pas le profond. */
+        .plan.plus .plan-tag { color: var(--coral); }
+        .plan ul { list-style: none; margin-top: 26px; display: grid; gap: 13px; }
+        .plan li {
+            position: relative;
+            padding-left: 26px;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.45;
+        }
+        .plan li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.52em;
+            width: 9px;
+            height: 9px;
+            border-radius: 3px;
+            background: var(--coral);
+        }
+        .tarifs {
+            margin-top: 30px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(246, 241, 231, 0.16);
+            display: grid;
+            gap: 14px;
+        }
+        .tarif { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; }
+        .tarif .n {
+            font-family: var(--serif);
+            font-weight: 600;
+            font-size: clamp(1.5rem, 2.6vw, 2rem);
+            letter-spacing: -0.01em;
+        }
+        .tarif .u { font-size: 15px; font-weight: 600; color: rgba(246, 241, 231, 0.6); text-align: right; }
+        .prix-ensemble {
+            max-width: 920px;
+            margin: 26px auto 0;
+            text-align: center;
+            font-size: clamp(1.05rem, 2vw, 1.3rem);
+            font-weight: 700;
+            line-height: 1.45;
+        }
+        .prix-ensemble span { color: var(--coral-deep); }
+        .prix-note {
+            max-width: 720px;
+            margin: 34px auto 0;
+            font-size: 13.5px;
+            font-weight: 500;
+            line-height: 1.65;
+            color: var(--ink-soft);
+            text-align: center;
+        }
+        .prix-note p + p { margin-top: 10px; }
 
         /* ===== Footer ===== */
         footer { padding: clamp(50px, 7vw, 90px) var(--gutter) var(--gutter); }
@@ -271,10 +546,9 @@
         .foot-card {
             border-radius: 32px;
             padding: 36px;
-            opacity: 0;
-            transform: translateY(24px);
             transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
         }
+        .js .foot-card { opacity: 0; transform: translateY(24px); }
         .foot-card.in { opacity: 1; transform: none; }
         .foot-brand {
             background: var(--coral);
@@ -291,13 +565,14 @@
             line-height: 1.15;
         }
         .foot-links { background: var(--cream-card); transition-delay: 0.1s; }
-        .cols { display: flex; gap: clamp(40px, 6vw, 90px); flex-wrap: wrap; }
+        .cols { display: flex; gap: clamp(32px, 5vw, 80px); flex-wrap: wrap; }
         .col h4 {
             font-size: 12px;
             font-weight: 700;
             letter-spacing: 0.22em;
             text-transform: uppercase;
-            color: rgba(20, 18, 16, 0.4);
+            /* 12px en capitales interlettrées : à 0,40 d'opacité, 2,54:1 seulement. */
+            color: rgba(20, 18, 16, 0.62);
             margin-bottom: 16px;
         }
         .col a {
@@ -331,8 +606,22 @@
         }
         .btn-store-mini:hover { transform: scale(1.05); }
         .store-minis { display: flex; gap: 10px; flex-wrap: wrap; }
+        .foot-legal {
+            max-width: 1180px;
+            margin: 22px auto 0;
+            padding: 0 36px;
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1.65;
+            color: var(--ink-soft);
+        }
+        .foot-legal a { text-decoration: underline; text-underline-offset: 2px; }
+        .foot-legal p + p { margin-top: 6px; }
 
         /* ===== Mobile ===== */
+        @media (max-width: 860px) {
+            .nav-link.secondaire { display: none; }
+        }
         @media (max-width: 720px) {
             :root { --radius: 30px; --gutter: 10px; --nav-h: 52px; }
             .nav { padding: 0 8px 0 18px; }
@@ -342,16 +631,18 @@
             .hero { padding-top: calc(var(--nav-h) + 66px); }
             .bubble { right: -4%; top: -14%; }
             .quote { max-width: 100%; }
+            .prix-grid { grid-template-columns: 1fr; }
             .foot-grid { grid-template-columns: 1fr; }
             .foot-brand { min-height: 190px; }
+            .foot-legal { padding: 0 18px; }
         }
         @media (prefers-reduced-motion: reduce) {
             html { scroll-behavior: auto; }
-            .hero-title .w, .hero-sub, .store-btns, .bubble { animation: none; opacity: 1; transform: none; }
-            .foot-card, .quote { opacity: 1 !important; transform: none !important; transition: none; }
-            .manifesto .word { color: var(--ink); transition: none; }
+            .hero-title .w, .hero-sub, .store-btns, .hero-note, .bubble { animation: none; opacity: 1; transform: none; }
+            .foot-card, .quote, .reveal { opacity: 1 !important; transform: none !important; transition: none; }
+            .manifesto .word { color: var(--ink) !important; transition: none; }
             .hero-cat img { transform: none !important; }
-        }
+            }
     </style>
 </head>
 <body>
@@ -386,7 +677,8 @@
 <nav class="nav" id="nav">
     <a class="brand" href="#top">Réglisse</a>
     <div class="nav-right">
-        <a class="nav-link" href="#programme">Au programme</a>
+        <a class="nav-link secondaire" href="#programme">Au programme</a>
+        <a class="nav-link" href="#prix">Tarifs</a>
         <a class="btn-dl" href="#top">Télécharger</a>
     </div>
 </nav>
@@ -401,8 +693,9 @@
                 <a class="btn-store" href="https://apps.apple.com/app/id6762408910"><svg class="store-icon" width="15" height="18" aria-hidden="true"><use href="#icon-apple"/></svg> App Store</a>
                 <a class="btn-store" href="https://play.google.com/store/apps/details?id=dev.asidequest.reglisse"><svg class="store-icon" width="15" height="16" aria-hidden="true"><use href="#icon-play"/></svg> Google Play</a>
             </div>
+            <p class="hero-note">Gratuite jusqu'à 6 personnes. <a href="#prix">Le détail des tarifs</a>.</p>
             <div class="hero-cat">
-                <div class="bubble">« Sors les poubelles, ou je balance ton score à tout le groupe. 😼 »</div>
+                <div class="bubble">« Le lave-vaisselle est plein. Il patiente. Trop. 😼 »</div>
                 <img src="chat-hero.png" alt="Réglisse, le chat noir de l'app, plumeau en patte" id="cat" width="900" height="900">
             </div>
         </div>
@@ -411,6 +704,7 @@
     <section class="manifesto" id="manifeste">
         <p id="manifesto-text">Réglisse transforme le ménage en petit jeu d'équipe, et votre chez-vous en endroit rangé. Sans tableur, sans reproches, avec un chat.</p>
     </section>
+
 
     <section class="stories-wrap" id="programme">
         <div class="stories">
@@ -426,13 +720,23 @@
             </figure>
 
             <figure class="quote right">
+                <blockquote>Le plan de chez toi, pièce par pièce. Les corvées se posent dessus, à leur place.</blockquote>
+                <figcaption>🏠 Le plan du logement</figcaption>
+            </figure>
+
+            <figure class="quote">
                 <blockquote>Une photo avant, une photo après. Le ménage a enfin ses preuves.</blockquote>
                 <figcaption>📸 La preuve par l'image</figcaption>
             </figure>
 
-            <figure class="quote">
+            <figure class="quote right">
                 <blockquote>Des séries de jours parfaits, et la pression douce de ne pas les casser.</blockquote>
                 <figcaption>🔥 Les séries</figcaption>
+            </figure>
+
+            <figure class="quote">
+                <blockquote>À la fin du mois, il y a un podium. Et quelqu'un qui fait semblant de s'en moquer.</blockquote>
+                <figcaption>🏆 Le champion du mois</figcaption>
             </figure>
 
             <figure class="quote right">
@@ -441,45 +745,124 @@
             </figure>
 
             <figure class="quote">
-                <blockquote>Et Réglisse observe tout. Il ne juge pas. Si, un peu.</blockquote>
-                <figcaption>🐈‍⬛ Le chat</figcaption>
+                <blockquote>Une notification tous les deux jours qui n'annonce absolument rien. C'est le principe.</blockquote>
+                <figcaption>🔔 Les notifications inutiles</figcaption>
             </figure>
+
+            <figure class="quote right">
+                <blockquote>Et Réglisse observe tout. Il ne juge pas. Si, un peu.</blockquote>
+                <figcaption>🐈 Le chat</figcaption>
+            </figure>
+
+            <div class="aussi">
+                <h3>Et aussi</h3>
+                <div class="chips">
+                    <span class="chip">Des groupes fermés, sur invitation</span>
+                    <span class="chip">Des tâches sur plusieurs jours</span>
+                    <span class="chip">Des points au poids de la corvée</span>
+                    <span class="chip">Un calendrier et sa carte de chaleur</span>
+                    <span class="chip">Un champion élu chaque mois</span>
+                    <span class="chip">5 widgets sur l'écran d'accueil iPhone</span>
+                    <span class="chip">Connexion avec Apple sur iPhone</span>
+                    <span class="chip">Sur iPhone, à partir d'iOS 17</span>
+                    <span class="chip">L'export de tes données, quand tu veux</span>
+                </div>
+            </div>
         </div>
     </section>
 
-    <footer>
-        <div class="foot-grid">
-            <div class="foot-card foot-brand">
-                <div class="name">Réglisse</div>
-                <div class="tagline">Les corvées,<br>enfin partagées.</div>
+    <section class="prix-wrap" id="prix">
+        <div class="prix">
+            <div class="section-head reveal">
+                <div class="eyebrow">Combien ça coûte</div>
+                <h2>Les corvées restent gratuites<span class="dot-orange">.</span></h2>
+                <p>C'est la place qui s'achète.</p>
             </div>
-            <div class="foot-card foot-links">
-                <div class="cols">
-                    <div class="col">
-                        <h4>App</h4>
-                        <a href="https://apps.apple.com/app/id6762408910">App Store</a>
-                        <a href="https://play.google.com/store/apps/details?id=dev.asidequest.reglisse">Google Play</a>
-                        <a href="#programme">Au programme</a>
-                    </div>
-                    <div class="col">
-                        <h4>Réglisse</h4>
-                        <a href="mailto:contact@asidequest.dev">Contact</a>
-                        <a href="privacy.html">Confidentialité</a>
-                        <a href="cgu.html">Conditions</a>
+
+            <div class="prix-grid">
+                <div class="plan reveal">
+                    <div class="plan-name">Gratuit</div>
+                    <div class="plan-tag">Pour toujours</div>
+                    <ul>
+                        <li>Jusqu'à 6 personnes dans un groupe.</li>
+                        <li>5 récompenses actives dans la boutique.</li>
+                        <li>1 étage sur le plan du logement.</li>
+                        <li>Les statistiques du mois en cours.</li>
+                        <li>Toutes les corvées, tous les points, toutes les photos, sans compteur.</li>
+                    </ul>
+                </div>
+                <div class="plan plus reveal">
+                    <div class="plan-name">Réglisse+</div>
+                    <div class="plan-tag">Quand le groupe grandit</div>
+                    <ul>
+                        <li>Jusqu'à 20 personnes dans un groupe.</li>
+                        <li>Des récompenses sans compteur.</li>
+                        <li>Un plan à 3 étages.</li>
+                        <li>Tout l'historique des statistiques.</li>
+                    </ul>
+                    <div class="tarifs">
+                        <div class="tarif"><span class="n">1,99 €</span><span class="u">par mois</span></div>
+                        <div class="tarif"><span class="n">11,99 €</span><span class="u">par an</span></div>
+                        <div class="tarif"><span class="n">29,99 €</span><span class="u">à vie, une seule fois</span></div>
                     </div>
                 </div>
-                <div class="foot-bottom">
-                    <div class="copyright">© 2026 Réglisse · fait avec 🖤</div>
-                    <div class="store-minis">
-                        <a class="btn-store-mini" href="https://apps.apple.com/app/id6762408910"><svg class="store-icon" width="13" height="16" aria-hidden="true"><use href="#icon-apple"/></svg> App Store</a>
-                        <a class="btn-store-mini" href="https://play.google.com/store/apps/details?id=dev.asidequest.reglisse"><svg class="store-icon" width="13" height="14" aria-hidden="true"><use href="#icon-play"/></svg> Google Play</a>
-                    </div>
+            </div>
+
+            <p class="prix-ensemble reveal">Un seul membre abonné suffit. <span>Tout le groupe passe en Réglisse+ avec lui.</span></p>
+
+            <div class="prix-note reveal">
+                <p>Réglisse+ existe en formule mensuelle, annuelle ou en achat définitif. Les montants indiqués ici sont en euros, taxes comprises. Le prix exact, dans votre devise, s'affiche dans l'application et sur la fiche App Store ou Google Play.</p>
+                <p>Les formules mensuelle et annuelle se renouvellent automatiquement. Elles s'arrêtent depuis les réglages de votre compte App Store ou Google Play, au moins 24 heures avant la fin de la période en cours. L'achat définitif ne se renouvelle pas. Quand un essai gratuit est proposé, il porte sur la formule mensuelle et sur elle seule. Il dure 7 jours, et c'est le store qui décide si votre compte y a droit : l'application vous l'annonce avant l'achat, ou ne l'annonce pas.</p>
+                <p>Quand un abonnement s'arrête, personne n'est exclu du groupe et rien n'est supprimé. Les récompenses et les étages déjà créés restent en place, l'historique des statistiques est simplement masqué, et seules les créations au-delà des plafonds gratuits redeviennent impossibles.</p>
+                <p>Supprimer votre compte Réglisse n'annule pas l'abonnement. Il se résilie depuis les réglages de votre compte App Store ou Google Play.</p>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <div class="foot-grid">
+        <div class="foot-card foot-brand">
+            <div class="name">Réglisse</div>
+            <div class="tagline">Les corvées,<br>enfin partagées.</div>
+        </div>
+        <div class="foot-card foot-links">
+            <div class="cols">
+                <div class="col">
+                    <h4>App</h4>
+                    <a href="https://apps.apple.com/app/id6762408910">App Store</a>
+                    <a href="https://play.google.com/store/apps/details?id=dev.asidequest.reglisse">Google Play</a>
+                    <a href="#programme">Au programme</a>
+                    <a href="#prix">Tarifs</a>
+                </div>
+                <div class="col">
+                    <h4>Réglisse</h4>
+                    <a href="mailto:contact@asidequest.dev">Contact</a>
+                    <a href="join.html">Rejoindre un groupe</a>
+                </div>
+                <div class="col">
+                    <h4>Légal</h4>
+                    <a href="mentions-legales.html">Mentions légales</a>
+                    <a href="cgu.html">Conditions d'utilisation</a>
+                    <a href="privacy.html">Politique de confidentialité</a>
+                    <a href="privacy.html#supprimer-compte">Supprimer mon compte</a>
+                </div>
+            </div>
+            <div class="foot-bottom">
+                <div class="copyright">© 2026 Réglisse · fait avec 🖤</div>
+                <div class="store-minis">
+                    <a class="btn-store-mini" href="https://apps.apple.com/app/id6762408910"><svg class="store-icon" width="13" height="16" aria-hidden="true"><use href="#icon-apple"/></svg> App Store</a>
+                    <a class="btn-store-mini" href="https://play.google.com/store/apps/details?id=dev.asidequest.reglisse"><svg class="store-icon" width="13" height="14" aria-hidden="true"><use href="#icon-play"/></svg> Google Play</a>
                 </div>
             </div>
         </div>
-    </footer>
-
-</main>
+    </div>
+    <div class="foot-legal">
+        <p>Réglisse est édité par Arsène Laurent, entreprise personne physique inscrite sous la dénomination « Larmina », nom commercial asidequest, rue Ma Campagne 15, 1410 Waterloo, Belgique, numéro d'entreprise BE 0805.920.045. Contact : <a href="mailto:contact@asidequest.dev">contact@asidequest.dev</a>. Toutes les informations sur la page <a href="mentions-legales.html">Mentions légales</a>.</p>
+        <p>Site hébergé par GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis. Ce site ne dépose aucun cookie et n'utilise aucun traceur.</p>
+    </div>
+</footer>
 
 <script>
 (function () {
@@ -514,19 +897,28 @@
     });
     var wordEls = mp.querySelectorAll(".word");
 
-    /* Reveals simples (fonctionnalités, footer) */
+
+    /* Reveals simples (tarifs, pied de page) */
     var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (e) {
             if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
         });
     }, { threshold: 0.2 });
-    document.querySelectorAll(".foot-card").forEach(function (el) { io.observe(el); });
+    document.querySelectorAll(".foot-card, .reveal").forEach(function (el) { io.observe(el); });
+
+    /* Le fond opaque de la barre de navigation n'est pas une animation, c'est une
+       question de lisibilite : sans lui, les liens tombent a 4,30:1 sur la carte
+       sombre de la section Au programme. Il doit donc etre branche AVANT la sortie
+       en mouvement reduit, sinon la barre garde eternellement son fond translucide. */
+    var nav = document.getElementById("nav");
+    function fondBarre() { nav.classList.toggle("scrolled", window.scrollY > 8); }
+    window.addEventListener("scroll", fondBarre, { passive: true });
+    fondBarre();
 
     if (reduced) return;
 
     var cat = document.getElementById("cat");
     var quotes = document.querySelectorAll(".quote");
-    var nav = document.getElementById("nav");
     var heroWrap = document.querySelector(".hero-wrap");
     var ticking = false;
 
@@ -534,8 +926,6 @@
         ticking = false;
         var vh = window.innerHeight;
         var y = window.scrollY;
-
-        nav.classList.toggle("scrolled", y > 8);
 
         /* Parallaxe du chat : il glisse doucement pendant qu'on descend le héro */
         var heroBottom = heroWrap.offsetTop + heroWrap.offsetHeight;

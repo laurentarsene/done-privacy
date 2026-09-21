@@ -1,86 +1,404 @@
 <!DOCTYPE html>
+<!--
+  ATTENTION : CE DOCUMENT EXISTE EN DEUX EXEMPLAIRES.
+  1. La version publiée, seule à faire foi pour les utilisateurs, celle que
+     l'application ouvre depuis l'écran de connexion, les réglages et le paywall :
+     dépôt done-privacy, fichier cgu.html, en ligne sur
+     https://laurentarsene.github.io/done-privacy/cgu.html
+  2. La copie de référence dans le dépôt de l'app iOS : legal/cgu.html
+  Les deux fichiers sont identiques sur le fond. Ils ne diffèrent que par le bouton
+  de retour vers l'accueil, présent uniquement dans la version publiée, et par
+  l'adresse du favicon.
+  TOUTE MODIFICATION DE L'UN DOIT ÊTRE REPORTÉE DANS L'AUTRE, DANS LE MÊME COMMIT.
+
+-->
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Conditions Générales d'Utilisation — Réglisse</title>
+<title>Réglisse · Conditions générales d'utilisation</title>
+<meta name="description" content="Conditions générales d'utilisation de l'application Réglisse : compte, contenus, abonnement Réglisse+, résiliation, droit applicable.">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
 <style>
-  body { max-width: 720px; margin: 0 auto; padding: 40px 22px 80px;
-    font-family: -apple-system, system-ui, "Segoe UI", Roboto, sans-serif;
-    line-height: 1.65; color: #1b1e22; background: #faf9f6; }
-  h1 { font-size: 28px; margin-bottom: 4px; }
-  .maj { color: #6b7280; font-size: 13px; margin-bottom: 32px; }
-  h2 { font-size: 18px; margin-top: 34px; border-bottom: 1px solid #e5e2db; padding-bottom: 6px; }
-  a { color: #b4552f; }
-  .todo { background: #fdf2e2; border: 1px solid #eecb96; border-radius: 8px; padding: 10px 14px; font-size: 14px; }
-  @media (prefers-color-scheme: dark) {
-    body { background: #14171a; color: #eceae4; }
-    h2 { border-color: #2c3137; } .maj { color: #9aa1aa; }
-    .todo { background: #2e2717; border-color: #6b5a2f; }
+  :root {
+    --cream: #F6F1E7;
+    --card: #FFFDF8;
+    --card-warm: #EFE8DA;
+    --ink: #141210;
+    --ink-soft: rgba(20, 18, 16, 0.66);
+    --ink-faint: rgba(20, 18, 16, 0.45);
+    /* Corail assombri : en clair il sert de texte sur le crème (numéros d'articles,
+       survol des liens) et de fond de pastille sous le crème. L'ancien #CE5433
+       plafonnait à 3,78:1, sous le seuil AA de 4,5:1. */
+    --coral: #B94A2C;
+    --coral-deep: #B94724;
+    --line: rgba(20, 18, 16, 0.10);
+    --amber: #FBECD2;
+    --amber-line: #D9A85C;
+    --serif: ui-serif, "New York", Georgia, "Iowan Old Style", serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --cream: #14120F;
+      --card: #1C1A16;
+      --card-warm: #23201B;
+      --ink: #F2EDE3;
+      --ink-soft: rgba(242, 237, 227, 0.68);
+      --ink-faint: rgba(242, 237, 227, 0.46);
+      --coral: #EE8560;
+      --coral-deep: #F09873;
+      --line: rgba(242, 237, 227, 0.14);
+      --amber: #3A2C15;
+      --amber-line: #8A6A31;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.75;
+    padding: 28px 20px 72px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+
+  .retour {
+    display: inline-block;
+    background: var(--card-warm);
+    color: var(--ink);
+    font-weight: 700;
+    font-size: 15px;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 999px;
+    margin-bottom: 30px;
+  }
+  /* Le texte de la pastille suit le crème du thème : clair sur le corail du mode clair,
+     sombre sur le corail pâle du mode sombre, où le blanc ne donnait que 2,53:1. */
+  .retour:hover { background: var(--coral); color: var(--cream); }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 7vw, 2.7rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .maj { color: var(--ink-soft); font-size: 0.92rem; line-height: 1.6; }
+
+  nav.sommaire {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 26px;
+    padding: 24px 26px;
+    margin: 34px 0 10px;
+  }
+  nav.sommaire h2 {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 12px;
+    color: var(--ink-soft);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    border: 0;
+    padding: 0;
+  }
+  nav.sommaire ol {
+    list-style: none;
+    columns: 2;
+    column-gap: 26px;
+    font-size: 0.92rem;
+    line-height: 1.85;
+  }
+  nav.sommaire li { break-inside: avoid; }
+  nav.sommaire a { color: var(--ink); text-decoration: none; }
+  nav.sommaire a:hover { color: var(--coral); text-decoration: underline; }
+  nav.sommaire .n { color: var(--coral); font-weight: 600; }
+  @media (max-width: 560px) { nav.sommaire ol { columns: 1; } }
+
+  h2 {
+    font-family: var(--serif);
+    font-size: 1.32rem;
+    line-height: 1.3;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 52px 0 14px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+    scroll-margin-top: 20px;
+  }
+  h2 .n { color: var(--coral); }
+
+  p { margin-bottom: 15px; }
+  ul { margin: 0 0 15px 0; padding-left: 20px; }
+  li { margin-bottom: 7px; }
+  b, strong { font-weight: 650; }
+  a { color: var(--coral-deep); text-underline-offset: 3px; }
+  a:hover { color: var(--coral); }
+
+  .note {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--coral);
+    border-radius: 20px;
+    padding: 16px 22px;
+    margin: 22px 0;
+  }
+  .note p:last-child { margin-bottom: 0; }
+
+  .todo {
+    background: var(--amber);
+    border: 1px dashed var(--amber-line);
+    border-radius: 7px;
+    padding: 0 6px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 0.86em;
+    color: var(--coral-deep);
+    white-space: nowrap;
+  }
+
+  footer {
+    margin-top: 60px;
+    padding-top: 26px;
+    border-top: 1px solid var(--line);
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+  }
+  footer .liens { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+  footer .liens a {
+    background: var(--card-warm);
+    color: var(--ink);
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.88rem;
+  }
+  footer .liens a:hover { background: var(--coral); color: var(--cream); }
 </style>
 </head>
 <body>
-<a href="index.html" style="display:inline-block;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:15px;color:#141210;text-decoration:none;background:#EFE8DA;padding:10px 18px;border-radius:999px;margin:18px 0 6px;">&#8592; Réglisse</a>
+<div class="wrap">
 
+<a class="retour" href="index.html">&#8592; Réglisse</a>
 
-<h1>Conditions Générales d'Utilisation</h1>
-<p class="maj">Application « Réglisse » — Dernière mise à jour : 21 juillet 2026</p>
+<h1>Conditions générales d'utilisation</h1>
+<p class="maj">Application « Réglisse ». Version 2.0 du 21 septembre 2026, qui remplace la version 1.0 du 21 juillet 2026.</p>
 
-<h2>Article 1 — Éditeur et objet</h2>
-<p>L'application mobile « Réglisse » (ci-après « l'Application ») est éditée par asidequest, joignable à l'adresse <a href="mailto:contact@asidequest.dev">contact@asidequest.dev</a> (ci-après « l'Éditeur »).</p>
-<p>Les présentes Conditions Générales d'Utilisation (ci-après « CGU ») définissent les modalités de mise à disposition de l'Application et les conditions d'utilisation par l'utilisateur (ci-après « l'Utilisateur »).</p>
+<nav class="sommaire">
+  <h2>Sommaire</h2>
+  <ol>
+    <li><a href="#a1"><span class="n">1.</span> Éditeur et identification</a></li>
+    <li><a href="#a2"><span class="n">2.</span> Acceptation des CGU</a></li>
+    <li><a href="#a3"><span class="n">3.</span> Description du service</a></li>
+    <li><a href="#a4"><span class="n">4.</span> Accès, compte et âge minimum</a></li>
+    <li><a href="#a5"><span class="n">5.</span> Règles d'utilisation</a></li>
+    <li><a href="#a6"><span class="n">6.</span> Contenu publié par l'Utilisateur</a></li>
+    <li><a href="#a7"><span class="n">7.</span> Signalement d'un contenu illicite</a></li>
+    <li><a href="#a8"><span class="n">8.</span> Propriété intellectuelle</a></li>
+    <li><a href="#a9"><span class="n">9.</span> Données personnelles</a></li>
+    <li><a href="#a10"><span class="n">10.</span> Disponibilité et évolutions</a></li>
+    <li><a href="#a11"><span class="n">11.</span> Responsabilité</a></li>
+    <li><a href="#a12"><span class="n">12.</span> Réglisse+, l'abonnement facultatif</a></li>
+    <li><a href="#a13"><span class="n">13.</span> Rétractation et remboursements</a></li>
+    <li><a href="#a14"><span class="n">14.</span> Durée, suspension et résiliation</a></li>
+    <li><a href="#a15"><span class="n">15.</span> Contrat de licence</a></li>
+    <li><a href="#a16"><span class="n">16.</span> Modification des CGU</a></li>
+    <li><a href="#a17"><span class="n">17.</span> Droit applicable et litiges</a></li>
+    <li><a href="#a18"><span class="n">18.</span> Force majeure</a></li>
+    <li><a href="#a19"><span class="n">19.</span> Nullité partielle</a></li>
+    <li><a href="#a20"><span class="n">20.</span> Compte personnel et cession</a></li>
+    <li><a href="#a21"><span class="n">21.</span> Langue du contrat</a></li>
+    <li><a href="#a22"><span class="n">22.</span> Contact</a></li>
+    <li><a href="#a23"><span class="n">23.</span> Fonctionnement, compatibilité et interopérabilité</a></li>
+  </ol>
+</nav>
 
-<h2>Article 2 — Acceptation des CGU</h2>
+<h2 id="a1"><span class="n">Article 1.</span> Éditeur et identification</h2>
+<p>L'application mobile « Réglisse » (ci-après « l'Application ») est éditée par Arsène Laurent, entreprise personne physique inscrite sous la dénomination « Larmina », dont l'adresse d'établissement est rue Ma Campagne 15, 1410 Waterloo, Belgique, inscrite à la Banque-Carrefour des Entreprises sous le numéro BE 0805.920.045, également numéro de TVA (ci-après « l'Éditeur »). « asidequest » est le nom commercial sous lequel l'Éditeur exerce. Adresse électronique de contact : <a href="mailto:contact@asidequest.dev">contact@asidequest.dev</a>.</p>
+<p>L'Application est distribuée par l'App Store d'Apple et par Google Play. Les abonnements et achats « Réglisse+ » sont vendus, facturés et encaissés par ces plateformes, qui agissent comme vendeur pour ces transactions. L'Éditeur demeure le fournisseur du service décrit aux présentes.</p>
+<p>Les présentes conditions générales d'utilisation (ci-après « CGU ») définissent les modalités de mise à disposition de l'Application et les conditions de son utilisation par l'utilisateur (ci-après « l'Utilisateur »).</p>
+
+<h2 id="a2"><span class="n">Article 2.</span> Acceptation des CGU</h2>
 <p>L'utilisation de l'Application suppose l'acceptation pleine et entière des présentes CGU. En se connectant à l'Application, l'Utilisateur reconnaît en avoir pris connaissance et les accepter. À défaut d'acceptation, l'Utilisateur doit renoncer à utiliser l'Application.</p>
+<p>Les présentes CGU valent également conditions de l'offre payante « Réglisse+ » décrite à l'article 12. L'Utilisateur qui souscrit cette offre les accepte à nouveau, ainsi que les conditions de la plateforme qui encaisse le paiement.</p>
 
-<h2>Article 3 — Description du service</h2>
-<p>L'Application permet à un groupe de personnes (foyer, colocation, couple, famille, amis) d'organiser et de suivre des tâches domestiques partagées : création et attribution de tâches, suivi de leur réalisation, système de points, calendrier, plan du logement optionnel, et éventuellement ajout de photos « preuve » pour illustrer une tâche réalisée.</p>
+<h2 id="a3"><span class="n">Article 3.</span> Description du service</h2>
+<p>L'Application permet à un groupe fermé de personnes (foyer, colocation, couple, famille, amis), constitué par invitation, d'organiser et de suivre des tâches domestiques partagées. Elle propose notamment :</p>
+<ul>
+  <li>la création de tâches ponctuelles, récurrentes ou réparties sur plusieurs jours, assignées à une seule personne ou à plusieurs membres travaillant en équipe ;</li>
+  <li>le suivi de leur réalisation, un système de points, un classement mensuel remis à zéro au début de chaque mois et la désignation automatique du membre arrivé en tête du mois écoulé ;</li>
+  <li>un calendrier, des statistiques et un suivi des séries de jours réalisés ;</li>
+  <li>un plan du logement optionnel, qui permet de rattacher des tâches à des pièces et à des étages ;</li>
+  <li>l'ajout de photos « preuve » avant et après la réalisation d'une tâche. Ces photos sont facultatives, sauf lorsque l'auteur d'une tâche exige une photo pour qu'elle puisse être validée ;</li>
+  <li>une boutique interne dans laquelle les membres définissent eux-mêmes des récompenses (intitulé, coût en points, quantité disponible, date limite éventuelle), que les autres membres obtiennent en dépensant les points acquis dans l'Application. Les achats figurent dans un historique visible par les membres du groupe ;</li>
+  <li>des notifications push, déclenchées par l'activité des autres membres du groupe. L'Utilisateur peut les désactiver à tout moment, catégorie par catégorie dans les réglages de l'Application, ou globalement dans les réglages de son appareil ;</li>
+  <li>des widgets à placer sur l'écran d'accueil et sur l'écran verrouillé.</li>
+</ul>
+<p>Les points n'ont aucune valeur monétaire. Ils s'acquièrent uniquement par l'usage de l'Application, ne peuvent être ni achetés, ni vendus, ni convertis en argent, et n'ouvrent droit à aucune créance à l'égard de l'Éditeur.</p>
+<p>Les récompenses de la boutique sont définies librement par les membres d'un groupe et constituent des arrangements privés au sein du foyer. L'Éditeur n'en est pas l'auteur, n'en contrôle pas le contenu, ne garantit pas leur exécution et n'est pas partie à l'accord qu'elles traduisent entre membres.</p>
+<p>L'Application s'utilise gratuitement. La création des tâches, leur réalisation, les points, le classement, le calendrier, le plan et les photos restent accessibles sans payer. Une option payante et facultative, « Réglisse+ », lève certaines limites de capacité dans les conditions décrites à l'article 12.</p>
+<p>L'Application est disponible sur iPhone. Une version Android s'appuie sur le même service et sur les mêmes données de groupe, ce qui permet aux membres d'un même groupe de se retrouver quelle que soit leur plateforme. La version Android est publiée sur Google Play, sous l'identifiant dev.asidequest.reglisse.</p>
 
-<h2>Article 4 — Accès, compte et âge minimum</h2>
-<p>L'accès nécessite la création d'un compte via « Sign in with Apple ». L'Utilisateur est responsable de la confidentialité de ses identifiants et des actions effectuées depuis son compte.</p>
-<p><b>Âge minimum :</b> l'Application est réservée aux personnes âgées de <b>15 ans ou plus</b>. Un mineur de moins de 15 ans ne peut utiliser l'Application qu'avec l'accord et sous la responsabilité d'un titulaire de l'autorité parentale, qui reste responsable de son utilisation.</p>
+<h2 id="a4"><span class="n">Article 4.</span> Accès, compte et âge minimum</h2>
+<p>L'accès à l'Application nécessite la création d'un compte. La connexion s'effectue via « Sign in with Apple » sur iPhone et, sur Android, via les moyens de connexion proposés dans l'Application, à savoir un compte Google ou une adresse e-mail. L'Éditeur peut faire évoluer les moyens de connexion proposés sur chaque plateforme. L'Utilisateur est responsable de la confidentialité de ses identifiants et des actions effectuées depuis son compte.</p>
+<p><b>Âge minimum.</b> L'Application est réservée aux personnes âgées de <b>15 ans ou plus</b>. Une confirmation d'âge est demandée à la première connexion. Un mineur de moins de 15 ans ne peut utiliser l'Application qu'avec l'accord et sous la responsabilité d'un titulaire de l'autorité parentale, qui reste responsable de son utilisation. La souscription de Réglisse+ obéit en outre aux règles de capacité prévues à l'article 12.12.</p>
 
-<h2>Article 5 — Règles d'utilisation</h2>
+<h2 id="a5"><span class="n">Article 5.</span> Règles d'utilisation</h2>
 <p>L'Utilisateur s'engage à utiliser l'Application de manière loyale et à ne pas :</p>
 <ul>
   <li>publier de contenu illicite, injurieux, diffamatoire, violent ou contraire à l'ordre public ;</li>
   <li>porter atteinte aux droits de tiers, notamment au droit à l'image et à la vie privée ;</li>
-  <li>tenter de perturber, contourner ou compromettre la sécurité du service.</li>
+  <li>usurper l'identité d'un tiers ou créer un compte au nom d'une autre personne sans son accord ;</li>
+  <li>tenter de perturber, contourner ou compromettre la sécurité du service, ni contourner les limites d'usage de la version gratuite.</li>
 </ul>
 
-<h2>Article 6 — Contenu publié par l'Utilisateur (photos, textes)</h2>
-<p>L'Utilisateur peut ajouter du contenu, notamment des titres de tâches, des notes et des photos « preuve ». Il en demeure responsable et garantit :</p>
+<h2 id="a6"><span class="n">Article 6.</span> Contenu publié par l'Utilisateur (photos, textes)</h2>
+<p>L'Utilisateur peut ajouter du contenu, notamment des titres de tâches, des notes, des récompenses et des photos « preuve ». Il en demeure responsable et garantit :</p>
 <ul>
   <li>disposer de tous les droits nécessaires sur ce contenu ;</li>
   <li>ne pas photographier de tiers (y compris des mineurs) sans leur accord, ou celui de leur représentant légal ;</li>
   <li>ne pas y faire figurer de données sensibles ou d'informations qu'il ne souhaite pas partager avec les autres membres de son groupe.</li>
 </ul>
-<p>Les photos et contenus sont accessibles aux autres membres du groupe concerné. L'Utilisateur concède à l'Éditeur une licence limitée, non exclusive et gratuite, aux seules fins de fournir et faire fonctionner le service (stockage, affichage aux membres du groupe). L'Éditeur peut retirer tout contenu manifestement illicite qui lui serait signalé.</p>
+<p>Les photos et contenus sont accessibles aux autres membres du groupe concerné. L'Utilisateur concède à l'Éditeur une licence limitée, non exclusive et gratuite, aux seules fins de fournir et de faire fonctionner le service (stockage, affichage aux membres du groupe). Cette licence prend fin avec la suppression du contenu ou du compte.</p>
+<p>Les photos « preuve » sont conservées dans un espace de stockage privé, accessible uniquement par liens temporaires, et sont supprimées automatiquement au terme d'un délai de 90 jours. Les détails figurent dans la politique de confidentialité.</p>
+<p>L'Éditeur peut retirer tout contenu manifestement illicite qui lui serait signalé, dans les conditions de l'article 7.</p>
 
-<h2>Article 7 — Propriété intellectuelle</h2>
-<p>L'Application, sa charte graphique, ses textes, son code et ses éléments (hors contenu des Utilisateurs) sont protégés et demeurent la propriété de l'Éditeur. Toute reproduction non autorisée est interdite.</p>
+<h2 id="a7"><span class="n">Article 7.</span> Signalement d'un contenu illicite</h2>
+<p>Toute personne peut signaler un contenu qu'elle estime illicite en écrivant à <a href="mailto:contact@asidequest.dev">contact@asidequest.dev</a>. Pour être traité, un signalement indique le contenu visé et l'endroit où il se trouve dans l'Application, les raisons pour lesquelles il est estimé illicite, et un moyen de recontacter son auteur.</p>
+<p>L'Éditeur accuse réception du signalement, l'examine sans délai injustifié et de manière non arbitraire, puis informe son auteur de la suite donnée. Selon le cas, le contenu peut être retiré, l'accès au compte concerné suspendu, ou le signalement écarté. L'Utilisateur dont le contenu a été retiré en est informé et peut contester la décision à la même adresse.</p>
+<p>Les contenus de l'Application ne sont visibles que par les membres du groupe fermé auquel ils appartiennent. L'Éditeur n'en fait ni recommandation, ni diffusion publique, ni classement automatisé.</p>
 
-<h2>Article 8 — Données personnelles</h2>
-<p>Le traitement des données personnelles est décrit dans la <a href="https://laurentarsene.github.io/done-privacy/privacy.html">Politique de confidentialité</a>, qui fait partie intégrante des présentes CGU. L'Utilisateur y trouve notamment ses droits (accès, rectification, effacement, portabilité) et les moyens de les exercer.</p>
+<h2 id="a8"><span class="n">Article 8.</span> Propriété intellectuelle</h2>
+<p>L'Application, sa charte graphique, ses textes, son code et ses éléments (hors contenu des Utilisateurs) sont protégés et demeurent la propriété de l'Éditeur. Toute reproduction non autorisée est interdite. Le nom « Réglisse » et le nom commercial « asidequest » ne peuvent être utilisés sans l'accord écrit de l'Éditeur.</p>
 
-<h2>Article 9 — Disponibilité et évolutions</h2>
-<p>L'Éditeur s'efforce d'assurer la disponibilité de l'Application mais ne peut la garantir sans interruption. Il peut faire évoluer, suspendre ou interrompre tout ou partie du service, notamment pour maintenance.</p>
+<h2 id="a9"><span class="n">Article 9.</span> Données personnelles</h2>
+<p>Le traitement des données personnelles est décrit dans la <a href="https://laurentarsene.github.io/done-privacy/privacy.html">politique de confidentialité</a>, qui fait partie intégrante des présentes CGU. L'Utilisateur y trouve notamment la description des données traitées, leur durée de conservation, les prestataires auxquels l'Éditeur a recours, ses droits (accès, rectification, effacement, portabilité, opposition) et les moyens de les exercer.</p>
 
-<h2>Article 10 — Responsabilité</h2>
-<p>L'Application est fournie « en l'état ». L'Éditeur ne saurait être tenu responsable des contenus publiés par les Utilisateurs, ni des conséquences d'une utilisation non conforme aux présentes CGU. L'Application est un outil d'organisation domestique sans valeur contractuelle entre membres d'un groupe.</p>
+<h2 id="a10"><span class="n">Article 10.</span> Disponibilité et évolutions</h2>
+<p>L'Éditeur s'efforce d'assurer la disponibilité de l'Application mais ne peut la garantir sans interruption. Il peut faire évoluer, suspendre ou interrompre tout ou partie du service, notamment pour maintenance. Une évolution qui réduirait de façon significative une fonctionnalité incluse dans Réglisse+ est portée à la connaissance des abonnés dans les conditions de l'article 16.</p>
 
-<h2>Article 11 — Durée et résiliation</h2>
-<p>L'Utilisateur peut à tout moment cesser d'utiliser l'Application et supprimer son compte depuis les réglages (« Supprimer mon compte »), ce qui entraîne l'effacement de ses données dans les conditions décrites par la Politique de confidentialité. L'Éditeur peut suspendre un compte en cas de manquement grave aux présentes CGU.</p>
+<h2 id="a11"><span class="n">Article 11.</span> Responsabilité</h2>
+<p>L'Éditeur fournit l'Application conformément à la description qui en est faite aux présentes et assure les mises à jour nécessaires à son maintien en conformité. Dans la mesure permise par le droit applicable, il n'est pas responsable des contenus publiés par les Utilisateurs, ni des conséquences d'une utilisation non conforme aux présentes CGU. L'Application est un outil d'organisation domestique, sans valeur contractuelle entre les membres d'un groupe : la répartition des tâches, les points et les récompenses relèvent des seuls arrangements privés de leurs membres.</p>
+<p><b>Garantie légale de conformité.</b> Réglisse+ est un contenu numérique fourni contre paiement. Il bénéficie à ce titre de la garantie légale de conformité applicable aux contenus et services numériques en droit belge, issue de la directive (UE) 2019/770. En cas de défaut de conformité, l'Utilisateur consommateur peut obtenir sans frais la mise en conformité du service et, si celle-ci est impossible ou n'intervient pas dans un délai raisonnable, une réduction du prix ou la résolution du contrat. Cette garantie est due par l'Éditeur, sans préjudice des recours ouverts auprès de la plateforme qui a encaissé le paiement, dans les conditions des articles 12.4 et 13.4.</p>
+<p>Aucune stipulation des présentes CGU n'écarte ni ne restreint cette garantie, les autres droits impératifs reconnus au consommateur, ou la responsabilité de l'Éditeur en cas de dol, de faute lourde, ou d'atteinte à la vie ou à l'intégrité physique d'une personne. Les limitations prévues aux présentes ne valent que dans la mesure où le droit applicable permet de les convenir.</p>
 
-<h2>Article 12 — Modification des CGU</h2>
-<p>L'Éditeur peut modifier les présentes CGU. Les Utilisateurs sont informés des modifications substantielles ; la poursuite de l'utilisation vaut acceptation de la version en vigueur.</p>
+<h2 id="a12"><span class="n">Article 12.</span> Réglisse+, l'abonnement facultatif</h2>
+<p><b>12.1 Objet.</b> L'usage courant de l'Application est gratuit. « Réglisse+ » est une offre payante et facultative qui lève certaines limites de capacité. Elle ne conditionne pas l'utilisation normale de l'Application et n'ajoute aucune fonctionnalité essentielle.</p>
 
-<h2>Article 13 — Droit applicable et litiges</h2>
-<p>Les présentes CGU sont soumises au droit belge. En cas de litige, une solution amiable sera recherchée en priorité ; à défaut d'accord, les cours et tribunaux belges sont compétents.</p>
+<p><b>12.2 Formules.</b> Réglisse+ est proposé sous trois formes : un abonnement mensuel, un abonnement annuel, et un achat unique donnant un accès définitif, dit « à vie », qui n'est pas un abonnement. Les formules réellement disponibles sont celles affichées dans l'Application au moment de l'achat.</p>
 
-<h2>Article 14 — Contact</h2>
-<p>Pour toute question relative aux présentes CGU : <a href="mailto:contact@asidequest.dev">contact@asidequest.dev</a>.</p>
+<p><b>12.3 Prix.</b> Le prix applicable est celui affiché dans l'Application avant la validation de l'achat, dans la devise du compte App Store ou Google Play de l'Utilisateur et toutes taxes comprises. À la date de la présente version, les tarifs de référence en euros sont de 1,99 EUR par mois, 11,99 EUR par an et 29,99 EUR pour l'achat à vie. Ces montants sont donnés à titre indicatif : le prix effectif dépend du pays et de la plateforme, et lui seul fait foi. L'Éditeur peut faire évoluer ses tarifs pour l'avenir. Une évolution reste sans effet sur une période déjà payée et ne s'applique, le cas échéant, qu'à compter du renouvellement suivant, dans les conditions prévues par la plateforme, qui peuvent exiger l'accord exprès de l'Utilisateur.</p>
 
+<p><b>12.4 Vendeur et paiement.</b> L'achat est conclu, encaissé et géré par Apple (App Store) ou par Google (Google Play) selon la plateforme utilisée, aux conditions générales de celle-ci, qui délivre également le justificatif de paiement. L'Éditeur ne reçoit ni les coordonnées bancaires, ni les moyens de paiement de l'Utilisateur. Il demeure responsable de la fourniture et du bon fonctionnement du service ainsi acquis.</p>
+
+<p><b>12.5 Reconduction tacite.</b> Les abonnements mensuel et annuel se renouvellent automatiquement pour une période identique et au tarif alors en vigueur, sauf résiliation au plus tard vingt-quatre heures avant la fin de la période en cours. Le renouvellement est facturé par la plateforme dans les vingt-quatre heures qui précèdent le début de la nouvelle période. L'achat « à vie » ne se renouvelle pas et ne donne lieu à aucun prélèvement ultérieur.</p>
+
+<p><b>12.6 Résiliation.</b> L'Utilisateur peut résilier son abonnement à tout moment et sans frais, depuis les réglages de son compte App Store ou Google Play, et seulement depuis ceux-ci. Ni l'Éditeur, ni l'Application ne peuvent procéder à cette résiliation. Elle prend effet au terme de la période déjà payée, qui reste due, et les avantages restent actifs jusqu'à cette date.</p>
+
+<div class="note">
+  <p><b>Ni la désinstallation de l'Application, ni la suppression du compte Réglisse, ni le départ d'un groupe ne valent résiliation d'un abonnement.</b> Tant que l'abonnement n'est pas résilié depuis les réglages du compte App Store ou Google Play, il continue de se renouveler et d'être facturé.</p>
+</div>
+
+<p><b>12.7 Période d'essai.</b> Lorsqu'une période d'essai gratuite est proposée, sa durée et le tarif appliqué à son issue sont indiqués dans l'Application avant l'achat. À défaut de résiliation au plus tard vingt-quatre heures avant le terme de l'essai, l'abonnement devient payant automatiquement et le premier paiement est prélevé. Une période d'essai n'est accordée qu'une fois par compte de plateforme : l'Application ne l'annonce qu'aux comptes que la plateforme déclare éligibles. Essai proposé à la date de la présente version : 7 jours sur la formule mensuelle uniquement. Les formules annuelle et à vie n'en comportent pas.</p>
+
+<p><b>12.8 Ce que Réglisse+ débloque.</b> À la date de la présente version : jusqu'à 20 membres par groupe au lieu de 6 ; un nombre illimité de récompenses actives dans la boutique du groupe, au lieu de 5 ; jusqu'à 3 étages sur le plan du logement au lieu de 1 ; l'accès à l'historique complet des statistiques mensuelles, au lieu du seul mois en cours. Ces limites peuvent évoluer ; celles en vigueur sont toujours affichées dans l'Application.</p>
+
+<p><b>12.9 Portée dans le groupe.</b> L'abonnement est souscrit à titre personnel, mais ses avantages bénéficient à l'ensemble des membres du groupe auquel le compte abonné appartient, dès lors qu'un membre au moins est abonné et sans coût supplémentaire pour les autres. L'Utilisateur qui souscrit reste seul redevable du prix et n'acquiert aucun droit sur le compte des autres membres. Si le compte abonné quitte le groupe, le groupe perd le bénéfice de l'abonnement.</p>
+
+<p><b>12.10 Fin des droits.</b> À l'expiration ou à la résiliation de l'abonnement, aucune donnée n'est effacée. Aucun membre n'est exclu du groupe, les récompenses et les étages déjà créés demeurent, et les statistiques passées ne sont ni supprimées ni recalculées. Seules les créations au-delà des limites de la version gratuite redeviennent impossibles, et la consultation de l'historique des mois écoulés est suspendue jusqu'à une éventuelle nouvelle souscription.</p>
+
+<p><b>12.11 Restauration des achats.</b> L'Utilisateur qui change d'appareil ou réinstalle l'Application peut récupérer un achat déjà effectué au moyen de la fonction « Restaurer mes achats », accessible depuis l'écran d'abonnement, dès lors qu'il utilise le même compte de plateforme.</p>
+
+<p><b>12.12 Capacité à contracter.</b> La souscription de Réglisse+ suppose la capacité juridique de contracter. Un Utilisateur mineur ne peut ni souscrire un abonnement, ni effectuer l'achat à vie, sans l'accord préalable du titulaire de l'autorité parentale, qui demeure responsable du paiement. Les titulaires de l'autorité parentale disposent de leurs propres moyens d'encadrement des achats : la fonction « Demander à acheter » du partage familial sur l'App Store, et l'approbation des achats sur Google Play. Si un achat a été conclu par un mineur sans cet accord, le titulaire de l'autorité parentale peut le signaler à <a href="mailto:contact@asidequest.dev">contact@asidequest.dev</a> : l'Éditeur met alors fin à l'accès Réglisse+ du compte concerné, l'annulation de l'abonnement et l'éventuel remboursement relevant d'Apple ou de Google, seules à encaisser le paiement.</p>
+
+<p><b>12.13 Évolution de l'offre.</b> L'Éditeur peut faire évoluer le contenu de Réglisse+ et ses formules. Une modification défavorable est annoncée dans les conditions de l'article 16, l'Utilisateur demeurant libre de résilier avant sa prise d'effet.</p>
+
+<h2 id="a13"><span class="n">Article 13.</span> Droit de rétractation et remboursements</h2>
+<p><b>13.1 Principe.</b> Le consommateur dispose en principe d'un délai de quatorze jours pour se rétracter d'un contrat conclu à distance, conformément à l'article VI.47 du Code de droit économique belge.</p>
+<p><b>13.2 Auprès de qui ce droit s'exerce.</b> Le contrat de vente de Réglisse+ est conclu avec Apple (App Store) ou avec Google (Google Play), et non avec l'Éditeur, qui n'encaisse pas le paiement (article 12.4). Le droit de rétractation s'exerce donc auprès de la plateforme qui a vendu, selon la procédure qu'elle met à disposition, et dans ses conditions lorsqu'elles sont plus favorables que le minimum légal. L'Éditeur, qui n'est pas partie à ce contrat de vente, ne peut ni recevoir ni traiter une demande de rétractation.</p>
+<p><b>13.3 Extinction du droit de rétractation.</b> Réglisse+ est un contenu numérique fourni sans support matériel. Pour ce type de contenu, l'article VI.53, 13° du même Code ne fait perdre le droit de rétractation que si <b>trois conditions cumulatives</b> sont réunies :</p>
+<ul>
+  <li>l'Utilisateur a donné son accord préalable exprès à ce que l'exécution commence avant la fin du délai de quatorze jours ;</li>
+  <li>il a reconnu expressément qu'il perdait de ce fait son droit de rétractation ;</li>
+  <li>il a reçu confirmation de cet accord sur un support durable.</li>
+</ul>
+<p>Ces trois formalités, lorsqu'elles ont lieu, interviennent dans le processus d'achat de la plateforme qui conclut la vente. Si l'une d'elles fait défaut, le droit de rétractation subsiste et s'exerce dans les conditions de l'article 13.2. L'accès aux fonctions de Réglisse+ est ouvert dès la confirmation de l'achat, ce dont les présentes conditions, accessibles depuis l'écran d'achat, informent l'Utilisateur avant la validation.</p>
+<p><b>13.4 Remboursements.</b> Le contrat d'achat étant conclu avec Apple ou avec Google (article 12.4), toute demande de remboursement s'exerce auprès de la plateforme qui a encaissé le paiement et selon ses propres conditions, le cas échéant plus favorables. L'Éditeur n'a pas la faculté de rembourser directement un achat effectué sur l'App Store ou sur Google Play, ni la maîtrise des décisions prises en la matière. Il reste à disposition, à l'adresse indiquée à l'article 22, pour toute difficulté liée au fonctionnement du service.</p>
+
+<h2 id="a14"><span class="n">Article 14.</span> Durée, suspension et résiliation</h2>
+<p>Les présentes CGU s'appliquent pendant toute la durée d'utilisation de l'Application. L'Utilisateur peut à tout moment cesser de l'utiliser et supprimer son compte depuis les réglages (« Supprimer mon compte »), ce qui entraîne l'effacement de ses données dans les conditions décrites par la politique de confidentialité.</p>
+<p>La suppression du compte Réglisse n'annule pas un abonnement Réglisse+ souscrit sur l'App Store ou sur Google Play. L'Utilisateur doit le résilier séparément, dans les conditions de l'article 12.6, faute de quoi il continuera à être facturé.</p>
+<p>L'Éditeur peut suspendre ou résilier un compte en cas de manquement grave aux présentes CGU, après information de l'Utilisateur et, sauf urgence ou obligation légale, avec un préavis raisonnable et un exposé des motifs. L'Utilisateur peut contester la décision à <a href="mailto:contact@asidequest.dev">contact@asidequest.dev</a>. Une suspension ne supprime pas les données du compte : elle en interrompt l'accès, et l'Utilisateur conserve ses droits d'accès et d'effacement décrits dans la politique de confidentialité.</p>
+<p>Lorsqu'un Utilisateur supprime son compte ou quitte un groupe, les groupes et les tâches qu'il avait créés subsistent pour les autres membres, détachés de son nom. Un groupe peut être archivé par ses membres, puis restauré.</p>
+
+<h2 id="a15"><span class="n">Article 15.</span> Contrat de licence (App Store et Google Play)</h2>
+<p><b>15.1 Parties au contrat.</b> Les présentes CGU constituent un contrat conclu entre l'Utilisateur et l'Éditeur seul. Apple Inc. et Google LLC n'y sont pas parties. L'Éditeur est seul responsable de l'Application et de son contenu.</p>
+<p><b>15.2 Étendue de la licence.</b> L'Éditeur concède à l'Utilisateur une licence personnelle, non exclusive, non transférable et révocable d'utilisation de l'Application, sur tout appareil que l'Utilisateur possède ou contrôle, dans les limites des règles d'usage prévues par les conditions des services Apple ou de Google Play selon la plateforme de téléchargement. Cette licence ne confère aucun droit de reproduction, de modification, de décompilation, de location ni de distribution de l'Application en dehors de ces limites.</p>
+<p><b>15.3 Maintenance et assistance.</b> L'Éditeur est seul tenu d'assurer la maintenance de l'Application et l'assistance aux Utilisateurs, à l'adresse <a href="mailto:contact@asidequest.dev">contact@asidequest.dev</a>. Apple et Google n'ont aucune obligation de maintenance ni d'assistance au titre de l'Application.</p>
+<p><b>15.4 Garantie.</b> L'Éditeur est seul responsable des garanties applicables à l'Application, expresses ou implicites, dans la mesure où elles ne sont pas valablement exclues. En cas de défaut de conformité de l'Application à une garantie applicable, l'Utilisateur peut le signaler à Apple, qui pourra lui rembourser le prix d'achat éventuel de l'Application. Dans la limite permise par le droit applicable, Apple n'assume aucune autre obligation de garantie, et toute autre réclamation, perte, responsabilité, dommage, coût ou dépense imputable à un défaut de conformité à une garantie relève de l'Éditeur seul. Les garanties légales dues au consommateur par l'Éditeur en vertu du droit belge et du droit de l'Union européenne demeurent acquises et ne sont pas affectées par le présent article.</p>
+<p><b>15.5 Réclamations relatives à l'Application.</b> L'Éditeur, et non Apple ou Google, répond des réclamations de l'Utilisateur ou d'un tiers relatives à l'Application, à sa détention ou à son utilisation, notamment : les réclamations fondées sur la responsabilité du fait des produits ; toute allégation de non-conformité de l'Application à une exigence légale ou réglementaire ; les réclamations fondées sur la protection des consommateurs, la protection des données à caractère personnel ou toute législation similaire. Les présentes ne limitent pas la responsabilité de l'Éditeur au-delà de ce que permet le droit applicable.</p>
+<p><b>15.6 Propriété intellectuelle.</b> En cas de réclamation d'un tiers selon laquelle l'Application, ou la détention et l'utilisation de l'Application par l'Utilisateur, porterait atteinte à ses droits de propriété intellectuelle, l'Éditeur, et non Apple ou Google, assume seul l'examen, la défense, le règlement et la prise en charge de cette réclamation.</p>
+<p><b>15.7 Conformité aux règles d'exportation.</b> L'Utilisateur déclare et garantit qu'il ne se trouve pas dans un pays faisant l'objet d'un embargo du gouvernement des États-Unis ou désigné par celui-ci comme soutenant le terrorisme, et qu'il ne figure sur aucune liste de parties interdites ou soumises à restriction établie par le gouvernement des États-Unis.</p>
+<p><b>15.8 Coordonnées de l'Éditeur.</b> Toute question, réclamation ou demande relative à l'Application peut être adressée à l'Éditeur, Arsène Laurent, rue Ma Campagne 15, 1410 Waterloo, Belgique, par courriel à <a href="mailto:contact@asidequest.dev">contact@asidequest.dev</a>.</p>
+<p><b>15.9 Conditions des tiers.</b> L'Utilisateur s'engage à respecter les conditions applicables des tiers lorsqu'il utilise l'Application, notamment celles de son opérateur de télécommunications et celles des services Apple ou Google auxquels l'Application a recours.</p>
+<p><b>15.10 Tiers bénéficiaires.</b> Apple et ses filiales sont tiers bénéficiaires des présentes CGU. L'acceptation des présentes par l'Utilisateur emporte, pour Apple, le droit d'en faire valoir les stipulations à l'encontre de l'Utilisateur en qualité de tiers bénéficiaire.</p>
+
+<h2 id="a16"><span class="n">Article 16.</span> Modification des CGU</h2>
+<p>L'Éditeur peut modifier les présentes CGU. Chaque version porte un numéro et une date, indiqués en tête du document. Les modifications substantielles, notamment celles qui touchent au prix, à la durée ou au contenu de Réglisse+, sont annoncées dans l'Application ou par notification, dans un délai raisonnable avant leur entrée en vigueur, qui ne peut être inférieur à quinze jours.</p>
+<p>La poursuite de l'utilisation après l'entrée en vigueur vaut acceptation de la version en vigueur. L'Utilisateur qui refuse une modification peut cesser d'utiliser l'Application, supprimer son compte et, s'il est abonné, résilier son abonnement dans les conditions de l'article 12.6.</p>
+
+<h2 id="a17"><span class="n">Article 17.</span> Droit applicable, litiges et médiation</h2>
+<p>Les présentes CGU sont soumises au droit belge. Si vous êtes un consommateur résidant dans un autre État membre de l'Union européenne, ce choix ne peut pas vous priver de la protection que vous accordent les dispositions impératives du droit de votre pays de résidence habituelle.</p>
+<p>En cas de litige, une solution amiable sera recherchée en priorité. Vous pouvez écrire à <a href="mailto:contact@asidequest.dev">contact@asidequest.dev</a>. À défaut d'accord, et si vous êtes un consommateur résidant dans l'Union européenne, vous pouvez saisir soit les juridictions belges, soit celles de votre domicile. L'Éditeur, de son côté, ne peut vous assigner que devant les juridictions de l'État membre où vous êtes domicilié. Dans les autres cas, notamment si vous n'agissez pas en qualité de consommateur ou si vous résidez hors de l'Union européenne, les cours et tribunaux belges sont seuls compétents.</p>
+<p>Vous pouvez également recourir gratuitement au Service de médiation pour le consommateur (Belgique), boulevard du Roi Albert II 8 boîte 1, 1000 Bruxelles, <a href="https://mediationconsommateur.be">mediationconsommateur.be</a>. Ce recours est facultatif et ne vous prive d'aucun droit d'agir en justice.</p>
+<p>Les achats proposés dans l'Application étant conclus et facturés par l'App Store d'Apple ou par Google Play, les litiges relatifs au paiement, au renouvellement, à la résiliation et au remboursement relèvent des conditions de ces plateformes et se règlent avec elles.</p>
+
+<h2 id="a18"><span class="n">Article 18.</span> Force majeure</h2>
+<p>L'Éditeur n'est pas responsable d'un manquement causé par un événement échappant à son contrôle raisonnable, notamment une panne des réseaux, la défaillance d'un prestataire d'hébergement, de paiement ou de notification, un incendie, une catastrophe naturelle ou une décision d'une autorité publique. Cette clause ne réduit pas les droits impératifs reconnus au consommateur.</p>
+
+<h2 id="a19"><span class="n">Article 19.</span> Nullité partielle</h2>
+<p>Si une clause des présentes CGU est jugée nulle, réputée non écrite ou inapplicable, les autres clauses restent pleinement en vigueur. La clause écartée est remplacée par une disposition valable dont l'effet se rapproche le plus de l'intention d'origine.</p>
+
+<h2 id="a20"><span class="n">Article 20.</span> Compte personnel et cession</h2>
+<p>Le compte est personnel. L'Utilisateur ne peut ni le céder, ni le prêter, ni le transférer à un tiers. L'Éditeur peut céder les présentes CGU dans le cadre d'une réorganisation ou d'une cession d'activité, à condition que les droits de l'Utilisateur ne s'en trouvent pas réduits. L'Utilisateur en est informé et reste libre de supprimer son compte.</p>
+
+<h2 id="a21"><span class="n">Article 21.</span> Langue du contrat</h2>
+<p>Les présentes CGU sont rédigées en français. Toute traduction est fournie à titre d'information, et seule la version française fait foi.</p>
+
+<h2 id="a22"><span class="n">Article 22.</span> Contact</h2>
+<p>Pour toute question relative aux présentes CGU, à l'Application ou à un abonnement : <a href="mailto:contact@asidequest.dev">contact@asidequest.dev</a>.</p>
+<p>Adresse postale : Arsène Laurent, rue Ma Campagne 15, 1410 Waterloo, Belgique.</p>
+
+<h2 id="a23"><span class="n">Article 23.</span> Fonctionnement, compatibilité et interopérabilité</h2>
+<p>En application des obligations d'information précontractuelle du Code de droit économique, l'Utilisateur est informé, avant de contracter, de ce qui suit.</p>
+<ul>
+  <li><b>Appareils et systèmes.</b> Sur iPhone, l'Application requiert iOS 17.0 ou une version ultérieure. Elle est conçue et publiée pour iPhone uniquement. Sur Android, elle est distribuée par Google Play sous l'identifiant dev.asidequest.reglisse ; la version d'Android requise est celle indiquée sur sa fiche Google Play.</li>
+  <li><b>Affichage.</b> L'Application fonctionne uniquement en orientation portrait.</li>
+  <li><b>Connexion.</b> Une connexion internet est nécessaire pour se connecter, pour synchroniser les tâches, les points et les photos entre les membres d'un groupe, et pour recevoir les notifications. Les données sont conservées sur un serveur distant et non sur le seul appareil.</li>
+  <li><b>Compte.</b> L'usage de l'Application suppose un compte, créé sur iPhone au moyen de « Sign in with Apple », donc avec un compte Apple, et, sur Android, au moyen des moyens de connexion proposés dans l'Application. Le téléchargement de l'Application et l'achat de Réglisse+ supposent en outre un compte App Store ou Google Play, selon la plateforme.</li>
+  <li><b>Partage au sein du groupe.</b> L'Application est un outil collectif : les tâches, les points, le classement, le plan du logement, les récompenses et les photos « preuve » sont partagés avec les autres membres du groupe et visibles par eux. Aucun réglage ne permet d'y masquer son activité aux autres membres.</li>
+  <li><b>Interopérabilité.</b> Les versions iPhone et Android reposent sur le même service et sur les mêmes données : les membres d'un même groupe peuvent utiliser indifféremment l'une ou l'autre, et retrouvent le même groupe, les mêmes tâches et les mêmes points. L'Application ne se synchronise avec aucun autre service de tâches ou d'agenda.</li>
+</ul>
+<p>Ces éléments valent à la date de la présente version. Les exigences techniques en vigueur figurent sur la fiche de l'Application dans l'App Store et sur Google Play.</p>
+
+<footer>
+  <div class="liens">
+    <a href="https://laurentarsene.github.io/done-privacy/">Accueil</a>
+    <a href="https://laurentarsene.github.io/done-privacy/mentions-legales.html">Mentions légales</a>
+    <a href="https://laurentarsene.github.io/done-privacy/cgu.html">Conditions générales d'utilisation</a>
+    <a href="https://laurentarsene.github.io/done-privacy/privacy.html">Politique de confidentialité</a>
+    <a href="https://laurentarsene.github.io/done-privacy/privacy.html#supprimer-compte">Supprimer mon compte</a>
+  </div>
+  <p>Réglisse &copy; 2026 asidequest. Conditions générales d'utilisation, version 2.0 du 21 septembre 2026.</p>
+</footer>
+
+</div>
 </body>
 </html>

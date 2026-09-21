@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réglisse · Mentions légales</title>
+    <meta name="description" content="Mentions légales de Réglisse : éditeur, contact, hébergement du site et des données, propriété intellectuelle, médiation de la consommation.">
+    <style>
+        :root {
+            color-scheme: light dark;
+            --fond: #F5EFE7;
+            --surface: #FBF7F1;
+            --encre: #1A1814;
+            --texte: #33302A;
+            --doux: #6E6960;
+            --corail: #A8391F;
+            /* Corail de survol assombri : l'ancien #E54D2E ne donnait que 3,38:1
+               sur le fond crème, sous le seuil AA de 4,5:1. Il reste plus clair
+               que --corail, le survol continue donc d'éclaircir le lien. */
+            --corail-vif: #C83719;
+            --bord: rgba(26, 24, 20, 0.10);
+            --bord-fort: rgba(26, 24, 20, 0.16);
+            --pilule: #EFE8DA;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --fond: #171411;
+                --surface: #211D18;
+                --encre: #F2EBE2;
+                --texte: #E2DACE;
+                --doux: #A79D90;
+                --corail: #F47E62;
+                --corail-vif: #F47E62;
+                --bord: rgba(242, 235, 226, 0.13);
+                --bord-fort: rgba(242, 235, 226, 0.22);
+                --pilule: #2C2721;
+            }
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--fond);
+            color: var(--texte);
+            line-height: 1.7;
+            padding: 32px 20px 80px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 720px; margin: 0 auto; }
+
+        .retour {
+            display: inline-block;
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--encre);
+            text-decoration: none;
+            background: var(--pilule);
+            padding: 10px 18px;
+            border-radius: 999px;
+            margin-bottom: 36px;
+        }
+        /* Le survol de la pastille garde le corail sombre : le corail vif, hérité
+           de la règle a:hover, ne donne que 4,29:1 sur le fond de la pastille. */
+        .retour:hover { color: var(--corail); }
+
+        h1 {
+            font-family: 'New York', Georgia, 'Times New Roman', serif;
+            font-size: clamp(2rem, 6vw, 2.6rem);
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+            color: var(--encre);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--doux);
+            font-size: 0.95rem;
+            margin-bottom: 36px;
+        }
+
+        h2 {
+            font-family: 'New York', Georgia, 'Times New Roman', serif;
+            font-size: 1.45rem;
+            line-height: 1.3;
+            color: var(--encre);
+            margin-top: 52px;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--bord);
+            scroll-margin-top: 24px;
+        }
+
+        p, li { font-size: 0.97rem; }
+        p { margin-bottom: 14px; }
+
+        ul { padding-left: 22px; margin-bottom: 18px; }
+        li { margin-bottom: 10px; }
+        li::marker { color: var(--doux); }
+
+        strong { color: var(--encre); }
+
+        a { color: var(--corail); text-underline-offset: 2px; }
+        a:hover { color: var(--corail-vif); }
+
+        /* Bloc d'identification de l'éditeur */
+        .identite {
+            background: var(--surface);
+            border: 1px solid var(--bord);
+            border-radius: 18px;
+            padding: 8px 22px;
+            margin-bottom: 18px;
+        }
+        .identite .ligne {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 16px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--bord);
+        }
+        .identite .ligne:last-child { border-bottom: none; }
+        .identite dt {
+            flex: 0 0 180px;
+            color: var(--doux);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .identite dd {
+            flex: 1 1 220px;
+            color: var(--texte);
+            font-size: 0.97rem;
+        }
+
+        .liens-bas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 20px;
+            margin-bottom: 16px;
+        }
+        .liens-bas a { font-size: 0.9rem; }
+
+        .footer {
+            margin-top: 64px;
+            padding-top: 24px;
+            border-top: 1px solid var(--bord);
+            color: var(--doux);
+            font-size: 0.85rem;
+        }
+        .footer p { margin-bottom: 4px; }
+
+        @media (max-width: 480px) {
+            body { padding: 24px 16px 64px; }
+            .identite { padding: 6px 18px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a class="retour" href="index.html">&#8592; Réglisse</a>
+
+        <h1>Mentions légales</h1>
+        <p class="subtitle">Réglisse · Application de gestion de tâches partagées</p>
+
+        <h2>1. Éditeur</h2>
+        <p>Le présent site et l'application mobile « Réglisse » sont édités par :</p>
+        <dl class="identite">
+            <div class="ligne"><dt>Éditeur</dt><dd>Arsène Laurent, entreprise personne physique inscrite sous la dénomination « Larmina »</dd></div>
+            <div class="ligne"><dt>Nom commercial</dt><dd>asidequest</dd></div>
+            <div class="ligne"><dt>Statut</dt><dd>Personne physique établie en Belgique</dd></div>
+            <div class="ligne"><dt>Adresse</dt><dd>rue Ma Campagne 15, 1410 Waterloo, Belgique</dd></div>
+            <div class="ligne"><dt>Numéro d'entreprise et de TVA</dt><dd>BE 0805.920.045 (Banque-Carrefour des Entreprises)</dd></div>
+            <div class="ligne"><dt>Courriel</dt><dd><a href="mailto:contact@asidequest.dev">contact@asidequest.dev</a></dd></div>
+            <div class="ligne"><dt>Site</dt><dd><a href="https://laurentarsene.github.io/done-privacy/">laurentarsene.github.io/done-privacy</a></dd></div>
+        </dl>
+        <p>L'Éditeur est assujetti à la taxe sur la valeur ajoutée. Son numéro d'entreprise, attribué par la Banque-Carrefour des Entreprises, vaut également numéro d'identification à la TVA, précédé des lettres BE. Numéro d'entreprise et de TVA : BE 0805.920.045.</p>
+        <p>« asidequest » est un nom commercial utilisé par l'éditeur. « Réglisse » est le nom de l'application éditée sous ce nom commercial. Dans les présentes mentions, « l'Éditeur » désigne la personne identifiée ci-dessus.</p>
+
+        <h2>2. Directeur de la publication</h2>
+        <p>Le directeur de la publication du site et de l'application est Arsène Laurent.</p>
+
+        <h2>3. Contact</h2>
+        <p>Toute question, réclamation ou demande relative à l'application ou au présent site s'adresse à <a href="mailto:contact@asidequest.dev">contact@asidequest.dev</a>. C'est la seule adresse de contact, et les demandes y sont traitées par courriel.</p>
+
+        <h2>4. Distribution de l'application</h2>
+        <p>« Réglisse » est distribuée sur l'App Store d'Apple, sous l'identifiant 6762408910. Elle est également publiée sur Google Play, sous l'identifiant dev.asidequest.reglisse.</p>
+        <p>Les achats proposés dans l'application, à savoir l'offre payante facultative « Réglisse+ », sont conclus, facturés et encaissés par la plateforme de téléchargement utilisée, Apple ou Google. L'Éditeur ne reçoit aucune coordonnée bancaire. « Réglisse+ » prend trois formes : un abonnement mensuel, un abonnement annuel et un achat unique donnant un accès à vie, qui n'est pas un abonnement et ne donne lieu à aucun prélèvement ultérieur. Les conditions de ces achats figurent dans les <a href="cgu.html">conditions générales d'utilisation</a>.</p>
+
+        <h2>5. Hébergement du site</h2>
+        <p>Le présent site, et lui seul, est hébergé par GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis, au moyen du service GitHub Pages (<a href="https://github.com" target="_blank" rel="noopener">github.com</a>). L'hébergeur enregistre l'adresse IP des visiteurs dans ses journaux techniques. Les données de l'application sont hébergées ailleurs, comme indiqué à l'article 6.</p>
+        <p>Aucune page du site n'appelle de serveur tiers. Les polices de caractères sont servies depuis le site lui-même, et l'adresse IP du visiteur n'est donc communiquée à personne d'autre qu'à l'hébergeur des pages.</p>
+
+        <h2>6. Hébergement des données de l'application</h2>
+        <p>Les données de l'application ne sont pas hébergées au même endroit que le site. Les profils, les groupes, les tâches, les points et les jetons de notification sont hébergés par Supabase (<a href="https://supabase.com" target="_blank" rel="noopener">supabase.com</a>), sur une infrastructure située dans l'Union européenne. Les photos « preuve » sont conservées dans un espace de stockage privé, accessible uniquement par des liens signés à durée limitée.</p>
+        <p>D'autres prestataires interviennent pour des fonctions précises : Apple pour les notifications push sur iOS, Google pour les notifications push sur Android, RevenueCat pour la gestion des abonnements. La liste complète, les finalités et les durées de conservation figurent dans la <a href="privacy.html">politique de confidentialité</a>.</p>
+
+        <h2>7. Propriété intellectuelle</h2>
+        <p>L'application « Réglisse », son code, son nom, son identité graphique, ses illustrations, sa mascotte et ses textes sont protégés par le droit de la propriété intellectuelle et demeurent la propriété de l'Éditeur. Toute reproduction, représentation, adaptation ou diffusion, totale ou partielle, sans autorisation écrite préalable, est interdite.</p>
+        <p>Les contenus ajoutés par les utilisateurs, notamment les titres de tâches, les notes et les photos, restent la propriété de leurs auteurs. Leur régime est décrit dans les <a href="cgu.html">conditions générales d'utilisation</a>.</p>
+        <p>Les marques, logos et noms de produits des tiers cités sur cette page appartiennent à leurs titulaires respectifs.</p>
+
+        <h2>8. Données personnelles</h2>
+        <p>Le traitement des données personnelles est décrit dans la <a href="privacy.html">politique de confidentialité</a>. Le responsable du traitement est l'Éditeur identifié à l'article 1. Aucun délégué à la protection des données n'a été désigné.</p>
+        <p>Toute personne peut introduire une réclamation auprès de l'Autorité de protection des données, rue de la Presse 35, 1000 Bruxelles (<a href="https://www.autoriteprotectiondonnees.be" target="_blank" rel="noopener">autoriteprotectiondonnees.be</a>).</p>
+
+        <h2>9. Conditions d'utilisation</h2>
+        <p>L'utilisation de l'application est régie par les <a href="cgu.html">conditions générales d'utilisation</a>. Elles précisent notamment l'âge minimum requis, les règles applicables aux contenus publiés, les conditions de l'offre payante facultative « Réglisse+ », qu'il s'agisse de l'abonnement ou de l'achat à vie, le droit applicable et les juridictions compétentes.</p>
+
+        <h2>10. Règlement des litiges et médiation</h2>
+        <p>Une réclamation se règle d'abord à l'amiable. Écrivez à <a href="mailto:contact@asidequest.dev">contact@asidequest.dev</a> en décrivant la difficulté rencontrée, et une solution sera recherchée directement avec vous.</p>
+        <p>À défaut d'accord, un utilisateur qui agit en qualité de consommateur peut saisir gratuitement le Service de médiation pour le consommateur, boulevard du Roi Albert II 8 boîte 1, 1000 Bruxelles (<a href="https://mediationconsommateur.be" target="_blank" rel="noopener">mediationconsommateur.be</a>). Ce recours est facultatif et ne prive d'aucun droit d'agir en justice.</p>
+        <p>La plateforme européenne de règlement en ligne des litiges n'est plus utilisable. Elle a cessé de fonctionner le 20 juillet 2025 et le règlement qui la fondait a été abrogé. Aucun lien n'est donc indiqué vers elle.</p>
+        <p>Lorsque l'achat a été encaissé par Apple ou par Google, les demandes de remboursement relèvent de la plateforme concernée et de ses propres conditions.</p>
+
+        <h2>11. Mise à jour</h2>
+        <p>Ces mentions légales peuvent être modifiées, notamment en cas de changement d'identité, d'adresse ou de prestataire. La date de la dernière version figure ci-dessous.</p>
+
+        <div class="footer">
+            <div class="liens-bas">
+                <a href="index.html">Accueil</a>
+                <a href="mentions-legales.html">Mentions légales</a>
+                <a href="cgu.html">Conditions générales d'utilisation</a>
+                <a href="privacy.html">Politique de confidentialité</a>
+                <a href="privacy.html#supprimer-compte">Supprimer mon compte</a>
+            </div>
+            <p>Dernière mise à jour : 21 septembre 2026</p>
+            <p>Réglisse &copy; 2026 asidequest</p>
+        </div>
+    </div>
+</body>
+</html>

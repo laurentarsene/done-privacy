@@ -4,120 +4,485 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Réglisse · Politique de confidentialité</title>
+    <meta name="description" content="Politique de confidentialité de l'application Réglisse : données collectées, bases légales, destinataires, durées de conservation et vos droits.">
     <style>
+        :root {
+            color-scheme: light dark;
+            --fond: #F5EFE7;
+            --surface: #FBF7F1;
+            --encre: #1A1814;
+            --texte: #33302A;
+            --doux: #6E6960;
+            --corail: #A8391F;
+            /* Corail de survol assombri : l'ancien #E54D2E ne donnait que 3,38:1
+               sur le fond crème, sous le seuil AA de 4,5:1. Il reste plus clair
+               que --corail, le survol continue donc d'éclaircir le lien. */
+            --corail-vif: #C83719;
+            --bord: rgba(26, 24, 20, 0.10);
+            --bord-fort: rgba(26, 24, 20, 0.16);
+            --surlignage: #FBEFE7;
+            --pilule: #EFE8DA;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --fond: #171411;
+                --surface: #211D18;
+                --encre: #F2EBE2;
+                --texte: #E2DACE;
+                --doux: #A79D90;
+                --corail: #F47E62;
+                --corail-vif: #F47E62;
+                --bord: rgba(242, 235, 226, 0.13);
+                --bord-fort: rgba(242, 235, 226, 0.22);
+                --surlignage: #2C2721;
+                --pilule: #2C2721;
+            }
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #F0EBE3;
-            color: #1A1A1A;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--fond);
+            color: var(--texte);
             line-height: 1.7;
-            padding: 40px 20px;
+            padding: 32px 20px 80px;
+            -webkit-font-smoothing: antialiased;
         }
-        .container {
-            max-width: 640px;
-            margin: 0 auto;
+
+        .container { max-width: 720px; margin: 0 auto; }
+
+        .retour {
+            display: inline-block;
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--encre);
+            text-decoration: none;
+            background: var(--pilule);
+            padding: 10px 18px;
+            border-radius: 999px;
+            margin-bottom: 36px;
         }
+        /* Le survol de la pastille garde le corail sombre : le corail vif, hérité
+           de la règle a:hover, ne donne que 4,29:1 sur le fond de la pastille. */
+        .retour:hover { color: var(--corail); }
+
         h1 {
-            font-family: Georgia, serif;
-            font-size: 2rem;
+            font-family: 'New York', Georgia, 'Times New Roman', serif;
+            font-size: clamp(2rem, 6vw, 2.6rem);
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+            color: var(--encre);
+            margin-bottom: 10px;
+        }
+
+        .sous-titre {
+            color: var(--doux);
+            font-size: 0.95rem;
             margin-bottom: 8px;
         }
-        .subtitle {
-            color: #6B6B6B;
+
+        .maj {
+            color: var(--doux);
+            font-size: 0.85rem;
+            margin-bottom: 36px;
+        }
+
+        .chapeau {
+            background: var(--surface);
+            border: 1px solid var(--bord);
+            border-radius: 20px;
+            padding: 22px 24px;
             margin-bottom: 40px;
-            font-size: 0.9rem;
         }
+        .chapeau p { margin-bottom: 0; }
+
+        nav.sommaire {
+            border-top: 1px solid var(--bord);
+            border-bottom: 1px solid var(--bord);
+            padding: 22px 0 14px;
+            margin-bottom: 44px;
+        }
+        nav.sommaire h2 {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 0.78rem;
+            letter-spacing: 0.10em;
+            text-transform: uppercase;
+            color: var(--doux);
+            margin: 0 0 14px;
+            padding: 0;
+            border: 0;
+        }
+        nav.sommaire ol {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 2px 28px;
+            counter-reset: som;
+        }
+        nav.sommaire li {
+            counter-increment: som;
+            margin-bottom: 8px;
+            font-size: 0.92rem;
+        }
+        nav.sommaire li::before {
+            content: counter(som) ".";
+            color: var(--doux);
+            margin-right: 8px;
+            font-variant-numeric: tabular-nums;
+        }
+        nav.sommaire a { text-decoration: none; }
+        nav.sommaire a:hover { text-decoration: underline; }
+
         h2 {
-            font-family: Georgia, serif;
-            font-size: 1.2rem;
-            margin-top: 32px;
-            margin-bottom: 12px;
+            font-family: 'New York', Georgia, 'Times New Roman', serif;
+            font-size: 1.45rem;
+            line-height: 1.3;
+            color: var(--encre);
+            margin-top: 52px;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--bord);
+            scroll-margin-top: 24px;
         }
-        p, li {
-            color: #333;
-            margin-bottom: 12px;
-            font-size: 0.95rem;
+
+        h3 {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 1rem;
+            color: var(--encre);
+            margin-top: 26px;
+            margin-bottom: 8px;
         }
-        ul {
-            padding-left: 20px;
-            margin-bottom: 12px;
+
+        p, li { font-size: 0.97rem; }
+        p { margin-bottom: 14px; }
+
+        ul, ol.numerote { padding-left: 22px; margin-bottom: 18px; }
+        li { margin-bottom: 10px; }
+        li::marker { color: var(--doux); }
+
+        strong { color: var(--encre); }
+
+        a { color: var(--corail); text-underline-offset: 2px; }
+        a:hover { color: var(--corail-vif); }
+
+        .fiche {
+            background: var(--surface);
+            border: 1px solid var(--bord);
+            border-radius: 18px;
+            padding: 18px 22px;
+            margin-bottom: 18px;
         }
+        .fiche p:last-child { margin-bottom: 0; }
+        .fiche .qui {
+            font-family: 'New York', Georgia, serif;
+            font-size: 1.08rem;
+            color: var(--encre);
+            display: block;
+            margin-bottom: 2px;
+        }
+        .fiche .ou {
+            display: inline-block;
+            font-size: 0.75rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--doux);
+            border: 1px solid var(--bord-fort);
+            border-radius: 999px;
+            padding: 2px 10px;
+            margin-bottom: 10px;
+        }
+
+        .important {
+            background: var(--surlignage);
+            border: 1px solid var(--bord-fort);
+            border-left: 4px solid var(--corail-vif);
+            border-radius: 16px;
+            padding: 18px 22px;
+            margin: 24px 0;
+        }
+        .important p:last-child { margin-bottom: 0; }
+        .important .titre {
+            display: block;
+            font-family: 'New York', Georgia, serif;
+            font-size: 1.08rem;
+            color: var(--encre);
+            margin-bottom: 6px;
+        }
+
+        dl.bases { margin-bottom: 18px; }
+        dl.bases dt {
+            color: var(--encre);
+            font-weight: 600;
+            margin-top: 18px;
+        }
+        dl.bases dd {
+            margin: 4px 0 0;
+            padding-left: 0;
+        }
+        dl.bases .art {
+            display: inline-block;
+            font-size: 0.78rem;
+            letter-spacing: 0.04em;
+            color: var(--corail);
+            border: 1px solid var(--bord-fort);
+            border-radius: 999px;
+            padding: 1px 9px;
+            margin-left: 4px;
+            white-space: nowrap;
+        }
+
         .footer {
-            margin-top: 48px;
+            margin-top: 64px;
             padding-top: 24px;
-            border-top: 1px solid #D4CFC7;
-            color: #9B9B9B;
-            font-size: 0.8rem;
+            border-top: 1px solid var(--bord);
+            color: var(--doux);
+            font-size: 0.85rem;
         }
-        a { color: #E54D2E; }
+        .footer p { margin-bottom: 4px; }
+
+        .liens-bas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 20px;
+            margin-bottom: 16px;
+        }
+        .liens-bas a { font-size: 0.9rem; }
+
+        @media (max-width: 480px) {
+            body { padding: 24px 16px 64px; }
+            .fiche, .important, .chapeau { padding: 16px 18px; }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-<a href="index.html" style="display:inline-block;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-weight:700;font-size:15px;color:#141210;text-decoration:none;background:#EFE8DA;padding:10px 18px;border-radius:999px;margin:18px 0 6px;">&#8592; Réglisse</a>
+        <a class="retour" href="index.html">&#8592; Réglisse</a>
 
-        <h1>Politique de confidentialite</h1>
-        <p class="subtitle">Réglisse · Application de gestion de tâches collaborative</p>
+        <h1>Politique de confidentialité</h1>
+        <p class="sous-titre">Application « Réglisse », gestion de tâches partagées entre proches.</p>
+        <p class="maj">Dernière mise à jour : 21 septembre 2026</p>
 
-        <h2>1. Donnees collectees</h2>
-        <p>Nous collectons uniquement les donnees necessaires au fonctionnement de l'application :</p>
+        <div class="chapeau">
+            <p>Ce document explique quelles données Réglisse collecte, pourquoi, qui y a accès, combien de temps elles sont gardées et comment reprendre la main dessus. Il est écrit pour être lu. Si un point reste obscur, écrivez à <a href="mailto:contact@asidequest.dev">contact@asidequest.dev</a>.</p>
+        </div>
+
+        <nav class="sommaire">
+            <h2>Sommaire</h2>
+            <ol>
+                <li><a href="#responsable">Qui est responsable de vos données</a></li>
+                <li><a href="#collecte">Les données que nous collectons</a></li>
+                <li><a href="#finalites">À quoi elles servent, et sur quelle base légale</a></li>
+                <li><a href="#destinataires">Qui reçoit vos données</a></li>
+                <li><a href="#transferts">Les transferts hors de l'Union européenne</a></li>
+                <li><a href="#conservation">Combien de temps nous les conservons</a></li>
+                <li><a href="#notifications">Les notifications</a></li>
+                <li><a href="#abonnement">L'abonnement Réglisse+</a></li>
+                <li><a href="#droits">Vos droits</a></li>
+                <li><a href="#supprimer-compte">Supprimer votre compte</a></li>
+                <li><a href="#site">Quand vous visitez ce site</a></li>
+                <li><a href="#securite">Sécurité et violations de données</a></li>
+                <li><a href="#age">Âge minimum</a></li>
+                <li><a href="#modifications">Modifications et contact</a></li>
+            </ol>
+        </nav>
+
+        <h2 id="responsable">1. Qui est responsable de vos données</h2>
+        <p>L'application « Réglisse » et ce site sont édités par Arsène Laurent, entreprise personne physique inscrite sous la dénomination « Larmina », dont « asidequest » est le nom commercial, en Belgique. C'est le responsable du traitement au sens du Règlement général sur la protection des données (RGPD).</p>
         <ul>
-            <li><strong>Informations de compte</strong> : identifiant Apple (via Sign in with Apple), prenom, avatar (emoji ou photo)</li>
-            <li><strong>Donnees d'utilisation</strong> : taches creees, groupes rejoints, scores, streaks</li>
-            <li><strong>Photos</strong> : si vous choisissez une photo de profil, ou si vous envoyez une photo preuve pour valider une tache. Toutes les photos sont stockees de maniere securisee et visibles uniquement par les membres des groupes concernes.</li>
+            <li><strong>Responsable du traitement</strong> : Arsène Laurent, entreprise personne physique inscrite sous la dénomination « Larmina », exerçant sous le nom commercial asidequest.</li>
+            <li><strong>Adresse</strong> : rue Ma Campagne 15, 1410 Waterloo, Belgique.</li>
+            <li><strong>Numéro d'entreprise et de TVA</strong> : BE 0805.920.045.</li>
+            <li><strong>Contact</strong> : <a href="mailto:contact@asidequest.dev">contact@asidequest.dev</a>.</li>
+        </ul>
+        <p>Aucun délégué à la protection des données n'a été désigné. Cette désignation n'est pas obligatoire au vu de la nature et de l'échelle des traitements décrits ici.</p>
+        <p>Cette politique couvre l'application iOS, l'application Android et les pages publiées sur ce site.</p>
+
+        <h2 id="collecte">2. Les données que nous collectons</h2>
+        <p>Nous collectons uniquement ce qui est nécessaire au fonctionnement de l'application. Sauf mention contraire, vos données sont cloisonnées par groupe : seuls les membres d'un groupe accèdent au contenu de ce groupe.</p>
+        <ul>
+            <li><strong>Compte</strong> : un identifiant technique de compte, l'identifiant fourni par Sign in with Apple sur iOS ou par le service de connexion utilisé sur Android, et une adresse e-mail lorsque la plateforme nous en communique une. Avec Sign in with Apple, cette adresse est souvent une adresse relais fournie par Apple, ou bien absente.</li>
+            <li><strong>Profil</strong> : votre prénom ou pseudonyme d'affichage, et votre avatar, un emoji ou une photo.</li>
+            <li><strong>Contenu que vous créez</strong> : titres, notes, emoji, poids en points, échéances et récurrences des tâches, nom, emoji et code d'invitation de vos groupes, plan de votre logement si vous utilisez cette fonction (nom des pièces, étages, agencement, murs et portes), récompenses de la boutique du groupe (nom, description, valeur en points, date de péremption).</li>
+            <li><strong>Activité dans vos groupes</strong> : assignations de tâches, complétions avec leur date, leur heure et l'identité de la personne qui a validé, points gagnés et dépensés, achats de récompenses, récapitulatifs mensuels conservant le champion du mois et les scores du mois, appartenance à vos groupes et date d'adhésion. Vos séries sont recalculées à partir de cet historique, elles ne font pas l'objet d'un stockage séparé.</li>
+            <li><strong>Photos preuve</strong> : les photos avant et après que vous envoyez pour illustrer une tâche réalisée. Elles peuvent montrer l'intérieur de votre logement. Elles sont rangées dans un espace de stockage privé, sans adresse publique, et sont supprimées automatiquement au bout de 90 jours. Voir le point 6.</li>
+            <li><strong>Photo de profil</strong> : uniquement si vous en choisissez une. Elle est visible par les membres de vos groupes.</li>
+            <li><strong>Jeton de notification</strong> : si vous autorisez les notifications, le jeton attribué à votre appareil par Apple (APNs) ou par Google (FCM), la plateforme utilisée, iOS ou Android, et vos préférences de notification catégorie par catégorie.</li>
+            <li><strong>Données d'abonnement</strong> : si vous souscrivez à Réglisse+, la date de fin de vos droits et l'origine de l'achat, App Store, Google Play ou attribution manuelle par notre support. Aucune coordonnée bancaire ne nous parvient : le paiement est encaissé par Apple ou par Google.</li>
+            <li><strong>Journaux techniques</strong> : les tentatives de saisie d'un code d'invitation sont enregistrées pendant 24 heures, dans le seul but de limiter les abus. Notre hébergeur conserve par ailleurs des journaux d'accès techniques (adresse IP, horodatage, requête) pour la sécurité et le diagnostic du service.</li>
         </ul>
 
-        <h2>2. Utilisation des donnees</h2>
-        <p>Vos donnees sont utilisees exclusivement pour :</p>
+        <h3>Sur votre appareil</h3>
+        <p>Pour alimenter les widgets de l'écran d'accueil et de l'écran verrouillé, l'application recopie dans un espace partagé avec ses widgets votre prénom, votre emoji, le nom de votre groupe, les titres de vos tâches en cours, votre série et votre activité des 35 derniers jours. Ces informations ne quittent pas votre appareil et sont effacées à la déconnexion comme à la suppression du compte.</p>
+
+        <h3>Ce que nous ne collectons pas</h3>
+        <p>Aucune coordonnée bancaire, aucune date de naissance, aucune adresse de votre logement, aucune donnée de géolocalisation, aucun identifiant publicitaire. L'application ne vous demande jamais l'autorisation de suivi publicitaire d'Apple, parce qu'elle ne fait aucun suivi publicitaire.</p>
+
+        <h2 id="finalites">3. À quoi elles servent, et sur quelle base légale</h2>
+        <p>Chaque traitement repose sur une base légale au sens de l'article 6 du RGPD.</p>
+        <dl class="bases">
+            <dt>Créer et authentifier votre compte <span class="art">art. 6.1.b</span></dt>
+            <dd>Exécution du contrat. Sans compte, l'application ne peut pas vous fournir le service décrit dans les conditions générales d'utilisation.</dd>
+
+            <dt>Faire fonctionner le service <span class="art">art. 6.1.b</span></dt>
+            <dd>Exécution du contrat. Synchroniser les tâches entre les membres du groupe, afficher votre profil aux autres membres, calculer les points, les séries, le calendrier et le podium, gérer les groupes, les invitations, le plan du logement et la boutique de récompenses.</dd>
+
+            <dt>Photos preuve <span class="art">art. 6.1.b</span></dt>
+            <dd>Exécution du contrat. Elles servent uniquement à illustrer une tâche réalisée auprès des membres de votre groupe. Les envoyer reste facultatif.</dd>
+
+            <dt>Abonnement Réglisse+ <span class="art">art. 6.1.b</span></dt>
+            <dd>Exécution du contrat. Ouvrir, maintenir et fermer les droits payants attachés à votre compte et à votre groupe.</dd>
+
+            <dt>Notifications push <span class="art">art. 6.1.f</span></dt>
+            <dd>Intérêt légitime : vous tenir au courant de l'activité de votre groupe, par exemple une tâche qui vous est assignée ou une tâche terminée par quelqu'un d'autre. Aucune notification promotionnelle n'est envoyée. L'envoi suppose en outre l'autorisation que vous donnez au niveau du système de votre appareil, et que vous pouvez retirer à tout moment.</dd>
+
+            <dt>Sécurité du service <span class="art">art. 6.1.f</span></dt>
+            <dd>Intérêt légitime : protéger les comptes et les groupes contre les abus, notamment en limitant les tentatives répétées de saisie d'un code d'invitation, et diagnostiquer les pannes.</dd>
+
+            <dt>Comptage des inscriptions <span class="art">art. 6.1.f</span></dt>
+            <dd>Intérêt légitime : suivre la fréquentation de l'application. Seul un nombre total d'inscriptions est produit, sans aucune donnée permettant de vous identifier. Voir le point 4.</dd>
+        </dl>
+        <p>Vous pouvez vous opposer aux traitements fondés sur notre intérêt légitime. Pour les notifications, il suffit de les désactiver dans les réglages. Pour les autres, écrivez à <a href="mailto:contact@asidequest.dev">contact@asidequest.dev</a>.</p>
+
+        <h2 id="destinataires">4. Qui reçoit vos données</h2>
+        <p>Nous ne vendons ni ne louons vos données personnelles, et nous ne les transmettons à personne à des fins publicitaires.</p>
+        <p>Dans l'application, vos tâches, vos points, votre profil et vos photos preuve sont visibles par les membres des groupes que vous avez rejoints, et par eux seuls.</p>
+        <p>Pour faire fonctionner le service, nous faisons appel aux prestataires suivants. Ils agissent sur nos instructions et pour les seules finalités décrites ici.</p>
+
+        <div class="fiche">
+            <span class="qui">Supabase</span>
+            <span class="ou">Union européenne, Irlande</span>
+            <p>Base de données, authentification, stockage des fichiers et fonctions serveur. C'est le seul endroit où vos données sont conservées durablement : l'ensemble des données de votre compte y est hébergé.</p>
+        </div>
+
+        <div class="fiche">
+            <span class="qui">Apple</span>
+            <span class="ou">États-Unis</span>
+            <p>Connexion avec Sign in with Apple, acheminement des notifications push vers les iPhone par le service APNs, et vente de Réglisse+ sur l'App Store. Apple reçoit l'identifiant de votre compte Apple, le jeton de votre appareil, le texte des notifications et les données de la transaction.</p>
+        </div>
+
+        <div class="fiche">
+            <span class="qui">Google</span>
+            <span class="ou">États-Unis</span>
+            <p>Acheminement des notifications push vers les appareils Android par le service Firebase Cloud Messaging, et vente de Réglisse+ sur Google Play, pour la version Android de l'application. Google reçoit le jeton de l'appareil, le texte des notifications et les données de la transaction.</p>
+        </div>
+
+        <div class="fiche">
+            <span class="qui">RevenueCat, Inc.</span>
+            <span class="ou">États-Unis</span>
+            <p>Gestion technique des abonnements Réglisse+. RevenueCat reçoit l'identifiant technique de votre compte Réglisse, des identifiants d'appareil et de magasin d'applications, ainsi que les événements liés à votre abonnement : achat, renouvellement, changement de formule, annulation, remboursement, expiration, transfert. Il ne reçoit ni votre nom, ni votre adresse e-mail, ni vos photos, ni le contenu de vos tâches et de vos groupes.</p>
+        </div>
+
+        <div class="fiche">
+            <span class="qui">GitHub Pages, société Microsoft</span>
+            <span class="ou">États-Unis</span>
+            <p>Hébergement de ce site : page d'accueil, conditions générales, présente politique et page d'invitation. Les serveurs reçoivent l'adresse IP et les données techniques de connexion des visiteurs. Voir le point 11.</p>
+        </div>
+
+        <div class="fiche">
+            <span class="qui">Telegram</span>
+            <span class="ou">Compteur d'inscriptions</span>
+            <p>À chaque nouvelle inscription, un message automatique nous prévient sur un canal privé. Ce message ne contient qu'un nombre total d'inscriptions et une image d'illustration. Ni votre nom, ni votre prénom, ni votre adresse e-mail, ni votre identifiant n'y figurent. Votre adresse e-mail est lue au passage, sur nos serveurs uniquement, dans le seul but d'écarter du décompte les comptes de démonstration, et elle n'est transmise à personne.</p>
+        </div>
+
+        <p>Apple et Google interviennent aussi pour leur propre compte, en tant que responsables autonomes, sur la connexion à votre compte de plateforme et sur l'encaissement des achats. Leurs propres politiques de confidentialité s'appliquent alors à ces traitements.</p>
+        <p>En dehors de ces prestataires et des membres de vos groupes, nous ne communiquons vos données à personne, sauf lorsque la loi nous y oblige, ou pour établir ou défendre nos droits en cas d'abus.</p>
+
+        <h2 id="transferts">5. Les transferts hors de l'Union européenne</h2>
+        <p>La base de données, l'authentification et les fichiers, photos de profil et photos preuve comprises, sont hébergés par Supabase dans l'Union européenne, sur une infrastructure située en Irlande.</p>
+        <p>Certains traitements font toutefois intervenir des prestataires établis aux États-Unis, ou qui y traitent une partie des données : Apple, Google, RevenueCat et GitHub Pages. Ces transferts sont encadrés par les clauses contractuelles types adoptées par la Commission européenne (décision 2021/914) et, pour les prestataires qui y ont adhéré, par le cadre de protection des données entre l'Union européenne et les États-Unis, le Data Privacy Framework.</p>
+        <p>Vous pouvez demander une copie des garanties applicables à <a href="mailto:contact@asidequest.dev">contact@asidequest.dev</a>.</p>
+
+        <h2 id="conservation">6. Combien de temps nous les conservons</h2>
+        <p>Chaque catégorie de données est conservée le temps nécessaire à son usage.</p>
+
+        <div class="important">
+            <span class="titre">Les photos preuve disparaissent au bout de 90 jours</span>
+            <p>Une tâche planifiée s'exécute chaque nuit sur nos serveurs et efface les photos preuve envoyées il y a plus de 90 jours, le fichier lui-même comme le lien qui y renvoyait dans l'application. Vous n'avez aucune démarche à faire.</p>
+            <p>Cette suppression est définitive et ne vous est pas annoncée. Si vous tenez à une photo, enregistrez-la sur votre appareil avant ce délai. Seule la photo disparaît : la tâche et son historique restent en place. Annuler une tâche terminée efface sa photo immédiatement.</p>
+        </div>
+
         <ul>
-            <li>Faire fonctionner l'application (synchronisation des taches entre membres du groupe)</li>
-            <li>Afficher votre profil aux autres membres de vos groupes</li>
-            <li>Calculer les scores et streaks</li>
-            <li>Envoyer des notifications locales de rappel (sur votre appareil uniquement)</li>
+            <li><strong>Compte et profil</strong>, identifiant, prénom, avatar : jusqu'à la suppression de votre compte.</li>
+            <li><strong>Tâches, notes, historique de complétion, plan du logement et boutique du groupe</strong> : tant que le groupe existe. Ces données survivent à la suppression de votre compte, mais détachées de votre identité, comme expliqué au point 10.</li>
+            <li><strong>Récapitulatifs mensuels</strong>, champion du mois et scores du mois : tant que le groupe existe, et supprimés avec lui.</li>
+            <li><strong>Photos preuve</strong> : supprimées automatiquement 90 jours après leur envoi, comme expliqué ci-dessus.</li>
+            <li><strong>Photo de profil</strong> : conservée tant que vous ne la remplacez pas, et effacée avec votre compte.</li>
+            <li><strong>Jeton de notification</strong> : conservé tant que vous restez connecté sur l'appareil. Il est retiré à la déconnexion et à la suppression du compte.</li>
+            <li><strong>Date de fin de vos droits Réglisse+</strong> : conservée tant que votre compte existe, et effacée avec lui.</li>
+            <li><strong>Tentatives de saisie d'un code d'invitation</strong> : 24 heures.</li>
+            <li><strong>Journaux techniques d'accès</strong> : conservés par notre hébergeur selon ses propres durées, à des fins de sécurité.</li>
         </ul>
+        <p>Les informations relatives à vos achats, dates, montants et factures, sont conservées par Apple, Google et RevenueCat pendant la durée qu'imposent leurs obligations comptables et fiscales. Cette conservation est indépendante de la suppression de votre compte Réglisse et nous ne pouvons pas y faire obstacle.</p>
 
-        <h2>3. Partage des donnees</h2>
-        <p>Nous ne vendons, ne louons et ne partageons aucune donnee personnelle avec des tiers. Vos donnees sont visibles uniquement par les membres des groupes que vous avez rejoints.</p>
+        <h2 id="notifications">7. Les notifications</h2>
+        <p>L'application envoie deux types de notifications. Les rappels locaux sont programmés par l'application sur votre appareil et n'en sortent pas. Les notifications push, elles, sont envoyées par notre serveur et déclenchées par l'activité de vos groupes.</p>
+        <p>Huit catégories de notifications push existent, et se règlent une par une dans les réglages de l'application : tâche terminée par un membre, tâche qui vous est assignée, nouvelle tâche dans le groupe, course perdue, invitation à un événement, achat dans la boutique du groupe, arrivée d'un nouveau membre, dépassement au classement. Vous pouvez aussi couper toutes les notifications dans les réglages de votre appareil.</p>
+        <p>L'envoi passe par le service de notifications d'Apple (APNs) sur iOS et de Google (FCM) sur Android, qui reçoivent à cette occasion le jeton de votre appareil et le texte de la notification. Ce texte se limite au prénom d'un membre de votre groupe et au libellé de l'élément concerné, par exemple « Marie t'a assigné Sortir les poubelles ». Aucune photo, qu'il s'agisse d'une photo de profil ou d'une photo preuve, n'est jamais jointe à une notification.</p>
+        <p>Le jeton de votre appareil est supprimé de nos serveurs lorsque vous vous déconnectez et lorsque vous supprimez votre compte.</p>
 
-        <h2>4. Stockage et securite</h2>
-        <p>Les donnees sont stockees de maniere securisee via <a href="https://supabase.com" target="_blank">Supabase</a> (infrastructure hebergee en Europe). Les communications sont chiffrees via HTTPS. L'acces aux donnees est protege par des politiques de securite au niveau de la base de donnees (Row Level Security).</p>
+        <h2 id="abonnement">8. L'abonnement Réglisse+</h2>
+        <p>Réglisse+ est un abonnement facultatif. L'application ne traite aucun moyen de paiement : la vente et l'encaissement sont assurés par l'App Store d'Apple, et par Google Play pour la version Android. Nous ne recevons ni votre moyen de paiement, ni vos coordonnées bancaires, ni votre adresse de facturation.</p>
+        <p>Pour rattacher un abonnement au bon compte, nous faisons appel à RevenueCat, dont le rôle est décrit au point 4. Dans notre propre base, nous ne conservons que la date de fin de vos droits et l'origine de l'achat.</p>
+        <p><strong>Visibilité dans votre groupe.</strong> L'abonnement est personnel, mais ses avantages profitent à tout le groupe. Les autres membres voient donc qu'un abonnement est actif et lequel d'entre eux en est à l'origine. Aucun montant, aucune date de prélèvement et aucune donnée bancaire ne leur est montré.</p>
 
-        <h2>5. Conservation des donnees</h2>
-        <p>Vos donnees sont conservees tant que votre compte est actif. Vous pouvez supprimer votre compte a tout moment depuis les reglages de l'application. La suppression entraine l'effacement definitif de toutes vos donnees.</p>
+        <div class="important">
+            <span class="titre">Supprimer votre compte ne résilie pas votre abonnement</span>
+            <p>La résiliation se fait depuis les réglages d'abonnement de votre compte App Store ou de votre compte Google Play. Faites-la avant de supprimer votre compte Réglisse, sans quoi l'abonnement continue de se renouveler.</p>
+        </div>
 
-        <h2 id="supprimer-compte">6. Supprimer votre compte</h2>
-        <p><strong>Depuis l'application</strong> : ouvrez les <strong>Reglages</strong> (icone en haut de l'ecran d'accueil), puis touchez <strong>Supprimer mon compte</strong> et confirmez. La suppression est immediate et definitive.</p>
-        <p><strong>Sans l'application</strong> : envoyez un email a <a href="mailto:contact@asidequest.dev">contact@asidequest.dev</a> depuis l'adresse associee a votre compte, avec pour objet « Suppression de compte ». Nous traitons la demande sous 30 jours.</p>
-        <p>Dans les deux cas, la suppression efface definitivement l'ensemble des donnees associees au compte : profil, photo de profil, taches, points, photos de preuve et appartenances aux groupes. Aucune donnee personnelle n'est conservee apres la suppression.</p>
-
-        <h2>7. Vos droits</h2>
-        <p>Conformement au RGPD, vous disposez des droits suivants :</p>
+        <h2 id="droits">9. Vos droits</h2>
+        <p>Le RGPD vous reconnaît les droits suivants sur vos données.</p>
         <ul>
-            <li><strong>Acces</strong> : consulter vos donnees depuis l'application</li>
-            <li><strong>Rectification</strong> : modifier votre profil a tout moment</li>
-            <li><strong>Suppression</strong> : supprimer votre compte et toutes vos donnees</li>
-            <li><strong>Portabilite</strong> : nous contacter pour obtenir une copie de vos donnees</li>
+            <li><strong>Accès</strong> (art. 15) : consulter vos données dans l'application, et en obtenir une copie depuis les <strong>Réglages</strong>, rubrique « Exporter mes données ».</li>
+            <li><strong>Rectification</strong> (art. 16) : modifier votre profil et vos tâches à tout moment depuis l'application.</li>
+            <li><strong>Effacement</strong> (art. 17) : supprimer votre compte et les données associées, selon les modalités du point 10.</li>
+            <li><strong>Limitation</strong> (art. 18) : demander la suspension temporaire d'un traitement, par exemple le temps qu'une contestation soit examinée.</li>
+            <li><strong>Opposition</strong> (art. 21) : vous opposer, pour des raisons tenant à votre situation particulière, aux traitements fondés sur notre intérêt légitime, à savoir les notifications push, la sécurité du service et le comptage des inscriptions. Les notifications se désactivent aussi directement dans les réglages.</li>
+            <li><strong>Portabilité</strong> (art. 20) : les <strong>Réglages</strong>, rubrique « Exporter mes données », produisent un fichier au format JSON contenant votre profil, vos scores, vos tâches et vos achats de récompenses. Cet export couvre l'essentiel de votre activité. Pour recevoir la totalité des données vous concernant, votre photo de profil et vos photos preuve comprises, écrivez-nous.</li>
         </ul>
+        <p>Pour exercer l'un de ces droits, écrivez à <a href="mailto:contact@asidequest.dev">contact@asidequest.dev</a> depuis l'adresse associée à votre compte. Nous répondons dans un délai d'un mois, prolongeable de deux mois si la demande est complexe.</p>
+        <p>Vous avez également le droit d'introduire une réclamation auprès d'une autorité de contrôle, notamment celle de votre pays de résidence ou de votre lieu de travail. L'autorité compétente pour l'éditeur est l'Autorité de protection des données, rue de la Presse 35, 1000 Bruxelles, Belgique, <a href="mailto:contact@apd-gba.be">contact@apd-gba.be</a>, <a href="https://www.autoriteprotectiondonnees.be" target="_blank" rel="noopener">www.autoriteprotectiondonnees.be</a>.</p>
 
-        <h2>8. Notifications</h2>
-        <p>L'application peut envoyer des notifications locales (rappels de taches) et des notifications push liees a l'activite de vos groupes, via le service de notifications d'Apple ou de Google. Vous pouvez les desactiver a tout moment dans les reglages de votre appareil ou de l'application.</p>
+        <h2 id="supprimer-compte">10. Supprimer votre compte</h2>
+        <p><strong>Depuis l'application</strong> : dans un groupe, touchez le bouton <strong>…</strong> en haut de l'écran, puis <strong>Réglages</strong>. Depuis la liste de vos groupes, touchez directement <strong>Réglages</strong>. Faites défiler jusqu'en bas, touchez <strong>Supprimer mon compte</strong> et confirmez. La suppression est immédiate et définitive.</p>
+        <p><strong>Sans l'application</strong> : envoyez un e-mail à <a href="mailto:contact@asidequest.dev">contact@asidequest.dev</a> depuis l'adresse associée à votre compte, avec pour objet « Suppression de compte ». Nous traitons la demande sous 30 jours.</p>
+        <p>Dans les deux cas, la suppression efface définitivement tout ce qui vous identifie : votre profil et votre prénom, votre photo de profil, vos photos preuve, vos points et vos scores, vos préférences et vos jetons de notification, votre appartenance à vos groupes, ainsi que votre identifiant dans les récapitulatifs mensuels archivés.</p>
 
-        <h2>9. Cookies et trackers</h2>
-        <p>L'application n'utilise aucun cookie, tracker, ni outil d'analyse tiers.</p>
+        <p>Ce que vous avez créé dans un groupe reste au groupe, mais cesse d'être rattaché à vous. Les tâches et leurs notes, l'historique des complétions, les achats dans la boutique et le plan du logement appartiennent au groupe et continuent d'y vivre sans votre nom : la ligne s'affiche désormais sans auteur. C'est un choix assumé, pour qu'un groupe ne perde pas son histoire quand quelqu'un s'en va, et ces données ne permettent plus de vous identifier. Si vous souhaitez qu'elles disparaissent également, écrivez-nous à <a href="mailto:contact@asidequest.dev">contact@asidequest.dev</a> avant de supprimer votre compte, pendant que nous pouvons encore les retrouver.</p>
+        <p>Deux limites doivent être connues. Des copies de sauvegarde techniques détenues par notre hébergeur peuvent subsister quelques jours avant leur écrasement automatique. Apple, Google et RevenueCat conservent par ailleurs les traces de vos transactions selon leurs propres politiques et leurs obligations comptables, sur lesquelles nous n'avons pas la main. Nous pouvons leur demander l'effacement à votre demande.</p>
+        <p>Rappel, parce que c'est la mauvaise surprise classique : supprimer votre compte Réglisse ne résilie pas votre abonnement Réglisse+. Voir le point 8.</p>
 
-        <h2>10. Enfants</h2>
-        <p>L'application n'est pas destinee aux enfants de moins de 13 ans. Nous ne collectons pas sciemment de donnees aupres de mineurs.</p>
+        <h2 id="site">11. Quand vous visitez ce site</h2>
+        <p>Ce site regroupe la page d'accueil, les conditions générales d'utilisation, la présente politique et la page d'invitation à un groupe. Il est hébergé par GitHub Pages, service de Microsoft établi aux États-Unis. Ses serveurs conservent dans leurs journaux techniques l'adresse IP du visiteur, la date de la visite et la page consultée, à des fins de sécurité et de bon fonctionnement du service. La page d'invitation reçoit en outre, dans l'adresse consultée, le code du groupe qui vous a été partagé.</p>
+        <p>Aucune page de ce site n'appelle de serveur tiers. Les polices de caractères sont servies depuis ce site, jamais depuis un service externe, et votre adresse IP n'est donc communiquée à personne d'autre qu'à l'hébergeur des pages. Les liens sortants, vers l'App Store, Google Play ou les sites cités dans nos pages légales, ne partent que si vous cliquez dessus.</p>
+        <p>Aucun cookie n'est déposé sur votre appareil, ni par ce site, ni par l'application. Aucune mesure d'audience n'est réalisée, ni ici ni dans l'application, qui n'intègre aucun outil d'analyse comportementale et ne suit pas votre activité dans d'autres applications ou sur d'autres sites.</p>
 
-        <h2>11. Contact</h2>
-        <p>Pour toute question concernant cette politique de confidentialite, contactez-nous a :</p>
-        <p><a href="mailto:contact@asidequest.dev">contact@asidequest.dev</a></p>
+        <h2 id="securite">12. Sécurité et violations de données</h2>
+        <p>Les échanges entre l'application et nos serveurs sont chiffrés en transit (HTTPS et TLS), et les données sont chiffrées au repos chez notre hébergeur. L'accès à chaque ligne de la base est filtré par des règles de sécurité appliquées au niveau de la base de données : un membre ne peut lire que les données des groupes auxquels il appartient.</p>
+        <p>Les photos preuve sont conservées dans un espace de stockage privé, sans adresse publique. Leur affichage passe par un lien temporaire, généré à la demande et réservé aux membres du groupe concerné. Les clés techniques et les secrets de nos serveurs sont stockés en dehors du code de l'application.</p>
+        <p>En cas de violation de données susceptible d'engendrer un risque pour vos droits et vos libertés, nous la notifions à l'Autorité de protection des données dans les 72 heures après en avoir pris connaissance, et nous vous en informons directement si ce risque est élevé.</p>
 
-        <h2>12. Modifications</h2>
-        <p>Cette politique peut etre mise a jour. La date de derniere modification est indiquee ci-dessous.</p>
+        <h2 id="age">13. Âge minimum</h2>
+        <p>Réglisse est réservée aux personnes âgées de 15 ans ou plus. Une personne de moins de 15 ans ne peut l'utiliser qu'avec l'accord et sous la responsabilité d'un titulaire de l'autorité parentale, qui peut à tout moment demander la suppression du compte à <a href="mailto:contact@asidequest.dev">contact@asidequest.dev</a>.</p>
+        <p>Lors de la première connexion, l'application vous demande de confirmer que vous avez 15 ans ou plus. Cette confirmation est déclarative et reste enregistrée sur votre appareil : nous ne demandons ni ne conservons aucune date de naissance.</p>
+
+        <h2 id="modifications">14. Modifications et contact</h2>
+        <p>Cette politique peut être mise à jour, notamment si l'application évolue ou si un prestataire change. La date de dernière modification figure en tête de page et au pied de ce document. En cas de changement important, nous vous en informerons dans l'application.</p>
+        <p>Pour toute question sur cette politique ou sur vos données, écrivez à <a href="mailto:contact@asidequest.dev">contact@asidequest.dev</a>. Les conditions générales d'utilisation sont disponibles <a href="cgu.html">sur cette page</a>.</p>
 
         <div class="footer">
-            <p>Derniere mise a jour : 31 aout 2026</p>
-            <p>Réglisse &copy; 2026 asidequest</p>
+            <div class="liens-bas">
+                <a href="index.html">Accueil</a>
+                <a href="mentions-legales.html">Mentions légales</a>
+                <a href="cgu.html">Conditions générales d'utilisation</a>
+                <a href="privacy.html">Politique de confidentialité</a>
+                <a href="privacy.html#supprimer-compte">Supprimer mon compte</a>
+            </div>
+            <p>Dernière mise à jour : 21 septembre 2026.</p>
+            <p>Réglisse &copy; 2026 asidequest.</p>
         </div>
     </div>
 </body>
