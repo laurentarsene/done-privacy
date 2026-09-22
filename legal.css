@@ -4,7 +4,7 @@
    Feuille unique et autonome pour cgu.html, privacy.html et mentions-legales.html.
 
    Parti pris : un document, pas une page de site. Fond quasi blanc, encre neutre,
-   une seule famille de caractères (une serif de labeur), colonne de 70 caractères,
+   une seule famille de caractères (une serif de labeur), colonne de 82 caractères,
    hiérarchie tenue par la graisse et par le blanc. Aucune couleur d'accent, aucun
    arrondi, aucune ombre, aucun fond teinté, aucun appel réseau.
 
@@ -56,8 +56,13 @@
   --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, "Noto Serif",
            "Liberation Serif", "Times New Roman", Times, serif;
 
-  /* Colonne de texte : 36rem à 17px de corps, soit environ 70 signes par ligne. */
-  --mesure: 36rem;
+  /* Colonne de texte : 42rem à 17px de corps, soit environ 82 signes par ligne.
+     Plus large que les 70 signes du manuel de typographie, et c'est voulu : un
+     contrat se parcourt autant qu'il se lit, et une colonne trop étroite sur un
+     grand écran donne une page maigre au milieu de deux déserts. L'interlignage
+     est remonté en conséquence, une ligne longue a besoin de plus d'air pour que
+     l'œil retrouve le début de la suivante. */
+  --mesure: 42rem;
   /* Retrait des blocs mis en exergue. */
   --retrait: 1.15rem;
   /* Sommaire : largeur de la colonne des numéros, et retrait des libellés. */
@@ -94,7 +99,7 @@ body {
   color: var(--encre);
   font-family: var(--serif);
   font-size: 1.0625rem;        /* 17px, mais indexé sur la préférence du lecteur */
-  line-height: 1.62;
+  line-height: 1.66;
   /* Chiffres alignés : les chiffres elzéviriens qui plongeaient sous la ligne de
      base dans « 9. Vos droits » sont l'un des tics à faire disparaître. */
   font-variant-numeric: lining-nums;
@@ -322,23 +327,18 @@ h3 {
 
 p { margin-bottom: 0.9rem; }
 
-/* Texte justifié, en pavés pleins : c'est la composition d'un imprimé, et à
-   70 signes elle tient sans rivières. Le fer à gauche reprend la main sur mobile,
-   où la colonne devient trop étroite pour justifier proprement.
+/* Fer à gauche, pas de pavé justifié. La justification avait été essayée, puis
+   abandonnée après mesure : sans césures, elle étirait 45 espaces sur 1156
+   au-delà de 1,8 fois l'espace normal, jusqu'à 3,7 fois, soit une ligne
+   franchement lâche tous les deux ou trois paragraphes.
 
-   Césures automatiques écartées, après comparaison à l'écran. En français, à
-   cette largeur, elles ne resserrent presque rien : les mots sont longs et le
+   Et les césures automatiques ne sont pas la solution ici. En français, à cette
+   largeur, elles ne resserrent presque rien : les mots sont longs et le
    dictionnaire de coupure reste prudent. En revanche elles coupaient des chaînes
    qui ne doivent pas l'être, « dev.aside-quest.reglisse » pour l'identifiant
    Google Play cité aux articles 3 et 23, « Ar-sène » pour le nom de l'éditeur.
    Un contrat ne peut pas laisser un trait d'union s'inviter dans un identifiant
-   qu'un lecteur va recopier. Le gain était nul, le risque réel. */
-/* GREFFE 1. Le fer a gauche l'emporte sur le pave justifie. Sans cesures, la
-   justification etirait 45 espaces sur 1156 au-dela de 1,8 fois l'espace normal,
-   jusqu'a 3,7 fois, soit une ligne franchement lache tous les deux ou trois
-   paragraphes. Et activer les cesures aurait coupe « dev.asidequest.reglisse »
-   et « Arsène », ce qu'un contrat ne peut pas se permettre. Un contrat imprime
-   au fer a gauche reste un contrat. */
+   qu'un lecteur va recopier. Un imprimé au fer à gauche reste un imprimé. */
 p, li, dd {
   text-align: left;
   hyphens: manual;
@@ -605,8 +605,6 @@ footer .liens a:hover,
 @media (max-width: 600px) {
   body { padding: 1.75rem 1.15rem 3.5rem; font-size: 1.03125rem; }
 
-  /* Sous 70 signes, la justification creuse des trous : retour au fer à gauche. */
-  p, li, dd { text-align: left; hyphens: manual; }
 
   :root { --toc-num: 1.4rem; --toc-indent: 1.8rem; --retrait: 0.95rem; }
 
