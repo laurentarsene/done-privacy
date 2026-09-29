@@ -2,9 +2,16 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <!-- Même verrou que sur les autres pages du site : « default-src 'none' » interdit
+         au navigateur toute requête sortante, et tout ce qui reste autorisé vient de ce
+         dépôt. Ici la feuille de style est un fichier, d'où le 'self' sur style-src ;
+         'unsafe-inline' couvre un éventuel style écrit dans la page. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; font-src 'self'; style-src 'self' 'unsafe-inline'; form-action 'none'; base-uri 'none'">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Réglisse · Politique de confidentialité</title>
     <meta name="description" content="Politique de confidentialité de l'application Réglisse : données collectées, bases légales, destinataires, durées de conservation et vos droits.">
+    <link rel="canonical" href="https://laurentarsene.github.io/done-privacy/privacy.html">
+    <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="legal.css">
 </head>
 <body>

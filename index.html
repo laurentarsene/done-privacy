@@ -2,86 +2,134 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <!-- Le pied de page promet qu'aucun traceur ne tourne ici. Cette ligne le rend
+         vérifiable au lieu de déclaratif : « default-src 'none' » interdit au
+         navigateur toute requête sortante, et tout ce qui est autorisé ensuite
+         vient de ce dépôt. Les deux 'unsafe-inline' sont la contrepartie du style
+         et du script écrits dans la page, ils n'ouvrent la porte à personne
+         d'autre. GitHub Pages ne sait pas poser d'en-tête, d'où la balise. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; font-src 'self'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; form-action 'none'; base-uri 'none'">
+    <!-- Pas de viewport-fit=cover : la page n'a ni fond plein en bord d'écran ni
+         barre collée en bas, elle n'a donc rien à gagner à passer sous l'encoche.
+         En paysage, l'encoche mordait le coin de la carte corail et le bord de la
+         pilule de navigation. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="light">
     <meta name="theme-color" content="#F6F1E7">
-    <title>Réglisse · Les corvées, enfin partagées.</title>
-    <meta name="description" content="L'app qui transforme les corvées en petit jeu d'équipe. En coloc, en couple ou en famille : on répartit, on gagne des points, zéro embrouille. Gratuite jusqu'à 6 personnes.">
+    <title>Réglisse · L'app qui partage les tâches ménagères</title>
+    <meta name="description" content="L'app qui transforme les tâches ménagères en petit jeu d'équipe. En coloc, en couple ou en famille. Gratuite jusqu'à 6 personnes, iPhone et Android.">
     <link rel="canonical" href="https://laurentarsene.github.io/done-privacy/">
+    <!-- Bannière native d'installation dans Safari sur iPhone : le chemin le plus court
+         vers l'App Store depuis une page dont c'est tout le propos. -->
+    <meta name="apple-itunes-app" content="app-id=6762408910">
     <meta property="og:site_name" content="Réglisse">
     <meta property="og:locale" content="fr_FR">
     <meta property="og:title" content="Réglisse · Les corvées, enfin partagées.">
     <meta property="og:description" content="Le ménage en petit jeu d'équipe. On répartit, on gagne des points, zéro embrouille. Et il y a un chat.">
-    <meta property="og:image" content="https://laurentarsene.github.io/done-privacy/og.png?v=3">
-    <meta property="og:image:alt" content="Réglisse, le chat noir de l'app, un plumeau à la patte.">
+    <!-- Carte de partage propre à l'accueil. join.html a la sienne, dont le texte
+         incrusté dit « Rejoins ton groupe », ce qui n'a aucun sens envoyé à quelqu'un
+         qui découvre l'app. Nom de fichier neuf, donc aucun cache à vider et aucun ?v=
+         à traîner. En JPEG et non en PNG : l'image n'a pas de transparence, et
+         l'ancienne carte pesait 819 Ko, bien au-dessus des 300 Ko à partir desquels
+         WhatsApp et Signal renoncent silencieusement à afficher l'aperçu. -->
+    <meta property="og:image" content="https://laurentarsene.github.io/done-privacy/assets/og-accueil.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Réglisse, le chat noir de l'app, à côté du titre Les corvées, enfin partagées.">
     <meta property="og:url" content="https://laurentarsene.github.io/done-privacy/">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Réglisse · Les corvées, enfin partagées.">
     <meta name="twitter:description" content="Le ménage en petit jeu d'équipe. On répartit, on gagne des points, zéro embrouille. Et il y a un chat.">
-    <meta name="twitter:image" content="https://laurentarsene.github.io/done-privacy/og.png?v=3">
+    <meta name="twitter:image" content="https://laurentarsene.github.io/done-privacy/assets/og-accueil.jpg">
+    <meta name="twitter:image:alt" content="Réglisse, le chat noir de l'app, à côté du titre Les corvées, enfin partagées.">
+    <!-- Même déclaration d'icône sur les cinq pages du site : le SVG d'abord, les PNG
+         pour les navigateurs qui ne le prennent pas. -->
+    <link rel="icon" href="icon.svg" type="image/svg+xml">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
     <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 
+    <!-- Réglisse est aussi un bonbon. Ces quelques lignes disent aux moteurs, et aux
+         machines qui répondent à leur place, que celle-ci est une app de ménage
+         partagé, sur quels systèmes elle tourne et ce que coûte son option payante.
+         Aucune note moyenne ici : nous n'en avons pas, et en inventer une se paie. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MobileApplication",
+      "name": "Réglisse",
+      "url": "https://laurentarsene.github.io/done-privacy/",
+      "description": "L'app qui transforme les tâches ménagères en petit jeu d'équipe. En coloc, en couple ou en famille : on répartit, on gagne des points, zéro embrouille.",
+      "applicationCategory": "LifestyleApplication",
+      "operatingSystem": "iOS, Android",
+      "inLanguage": "fr",
+      "image": "https://laurentarsene.github.io/done-privacy/assets/og-accueil.jpg",
+      "downloadUrl": [
+        "https://apps.apple.com/app/id6762408910",
+        "https://play.google.com/store/apps/details?id=dev.asidequest.reglisse"
+      ],
+      "offers": [
+        { "@type": "Offer", "name": "Réglisse+ mensuel", "price": "1.99", "priceCurrency": "EUR" },
+        { "@type": "Offer", "name": "Réglisse+ annuel", "price": "11.99", "priceCurrency": "EUR" },
+        { "@type": "Offer", "name": "Réglisse+ à vie", "price": "29.99", "priceCurrency": "EUR" }
+      ],
+      "publisher": {
+        "@type": "Organization",
+        "name": "asidequest",
+        "email": "contact@asidequest.dev",
+        "url": "https://laurentarsene.github.io/done-privacy/mentions-legales.html"
+      }
+    }
+    </script>
+
     <!-- Les apparitions au scroll ne masquent quelque chose que si cette classe est
          posée. Le script est ici, tout en haut, donc exécuté avant le premier rendu :
-         aucun clignotement. Et s'il ne s'exécute pas, faute de JavaScript ou parce
-         qu'il échoue, rien n'est jamais caché et la page reste entièrement lisible. -->
-    <script>document.documentElement.classList.add("js");</script>
+         aucun clignotement.
+
+         Rien n'est caché tant que cette classe n'est pas posée. Elle ne l'est que si
+         le navigateur sait révéler le contenu, et le script du bas la retire s'il
+         échoue en route. Le test porte sur les trois morceaux d'IntersectionObserver,
+         pas seulement sur son nom : de Chrome 51 à 57 et sur Edge 15 et 16, l'objet
+         existe mais isIntersecting manque, aucune exception n'est levée et les tarifs
+         resteraient invisibles sans le moindre indice. -->
+    <script>if ("IntersectionObserver" in window && "IntersectionObserverEntry" in window && "isIntersecting" in IntersectionObserverEntry.prototype) document.documentElement.classList.add("js");</script>
 
     <!-- POLICES : aucun appel à Google Fonts.
          Un chargement distant transmet l'adresse IP de chaque visiteur à Google sans
          son consentement, ce qui n'a rien à faire sur ce site. Tout est hébergé ici.
 
-         Une seule famille sur cette page, Inter Tight, decoupee en deux jeux par
-         plage Unicode : une page en francais ne telecharge que le jeu « latin »,
-         soit 44 Ko par graisse. Le jeu « ext » n'est recupere que si un caractere
-         d'Europe centrale apparait, par exemple dans le nom d'un groupe.
-         Les pages legales, elles, ont leur propre feuille et leur propre serif.
+         Une seule famille sur cette page, Inter Tight, découpée en deux jeux par
+         plage Unicode : une page en français ne télécharge que le jeu « latin »,
+         soit 44 Ko en tout. Le jeu « ext » n'est récupéré que si un caractère
+         d'Europe centrale apparaît, par exemple dans le nom d'un groupe.
+         Les pages légales, elles, ont leur propre feuille et leur propre serif.
 
-         Inter Tight est découpée en deux jeux par plage Unicode : une page en
-         français ne télécharge que le jeu « latin », soit 44 Ko par graisse. Le jeu
-         « ext » n'est récupéré que si un caractère d'Europe centrale apparaît, par
-         exemple dans le nom d'un groupe.
+         Une seule déclaration par jeu, et non une par graisse : le fichier est une
+         police variable, son axe de graisse fournit à lui seul le 500 des mentions
+         grises, le 600 du texte courant, le 700 des boutons, le 800 des titres de
+         cartes et le 900 des grands titres. Les six déclarations d'avant pointaient
+         sur six fichiers dont le contenu était identique au octet près, et
+         réclamaient trois fois le même téléchargement.
 
-         Les deux familles sont sous licence SIL Open Font License, l'auto-hébergement
+         La plage s'arrête à 500 en bas, volontairement : rien sur cette page ne
+         descend plus maigre, et ce garde-fou évite qu'un texte fin passe un jour
+         sous le seuil de lisibilité sans qu'on le voie venir.
+
+         Inter Tight est sous licence SIL Open Font License, l'auto-hébergement
          est autorisé. -->
     <style>
         @font-face {
             font-family: "Inter Tight";
-            src: url("assets/fonts/inter-tight-600.woff2") format("woff2");
-            font-weight: 600; font-style: normal; font-display: swap;
+            src: url("assets/fonts/inter-tight-var.woff2") format("woff2");
+            font-weight: 500 900; font-style: normal; font-display: swap;
             unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
         }
         @font-face {
             font-family: "Inter Tight";
-            src: url("assets/fonts/inter-tight-600-ext.woff2") format("woff2");
-            font-weight: 600; font-style: normal; font-display: swap;
-            unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-        }
-        @font-face {
-            font-family: "Inter Tight";
-            src: url("assets/fonts/inter-tight-700.woff2") format("woff2");
-            font-weight: 700; font-style: normal; font-display: swap;
-            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-        }
-        @font-face {
-            font-family: "Inter Tight";
-            src: url("assets/fonts/inter-tight-700-ext.woff2") format("woff2");
-            font-weight: 700; font-style: normal; font-display: swap;
-            unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-        }
-        @font-face {
-            font-family: "Inter Tight";
-            src: url("assets/fonts/inter-tight-900.woff2") format("woff2");
-            font-weight: 900; font-style: normal; font-display: swap;
-            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-        }
-        @font-face {
-            font-family: "Inter Tight";
-            src: url("assets/fonts/inter-tight-900-ext.woff2") format("woff2");
-            font-weight: 900; font-style: normal; font-display: swap;
+            src: url("assets/fonts/inter-tight-var-ext.woff2") format("woff2");
+            font-weight: 500 900; font-style: normal; font-display: swap;
             unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
         }
         /* Repli métrique : les polices système recalées sur les vraies métriques
@@ -118,7 +166,11 @@
             --sans: "Inter Tight", "Inter Tight Repli", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; color-scheme: light; }
+        /* La marge de défilement vit sur <html> et non sur les seuls « section,
+           footer » : elle couvre ainsi toutes les ancres et, surtout, les remontées
+           au clavier en Maj+Tab, qui sinon amènent le lien focalisé sous la pilule
+           de navigation (WCAG 2.4.11, Focus non masqué). */
+        html { scroll-behavior: smooth; color-scheme: light; scroll-padding-top: calc(var(--nav-h) + 24px); }
         body {
             font-family: var(--sans);
             background: var(--cream);
@@ -127,8 +179,18 @@
             overflow-x: hidden;
         }
         a { color: inherit; text-decoration: none; }
-        section, footer { scroll-margin-top: calc(var(--nav-h) + 24px); }
-        :focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; border-radius: 4px; }
+        /* Le supplément propre aux boutons de store, par-dessus la marge que <html>
+           donne déjà à toute la page : 36 px de plus, soit nav-h + 60 au total, la
+           valeur qui dégage franchement la pilule de navigation dont le bas est à
+           88 px. Les deux se cumulent, c'est voulu, et c'est pour cela que celle-ci
+           n'est plus écrite en entier. */
+        #stores { scroll-margin-top: 36px; }
+        /* Le contour de focus était au corail, donc invisible sur le corail du héro :
+           1,00:1 sur les deux boutons de store et sur le lien des tarifs, et 2,59:1
+           sous la nav translucide. L'encre passe partout sur les fonds clairs, le
+           crème prend le relais sur les fonds sombres. */
+        :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; border-radius: 4px; }
+        .stories :focus-visible, .plan.plus :focus-visible { outline-color: var(--cream); }
 
         /* ===== Nav pilule flottante ===== */
         .nav {
@@ -156,11 +218,13 @@
             background: rgba(246, 241, 231, 0.85);
             box-shadow: 0 10px 34px rgba(20, 18, 16, 0.14);
         }
-        .brand { font-weight: 900; font-size: 20px; letter-spacing: -0.02em; }
+        .brand { font-weight: 900; font-size: 1.25rem; letter-spacing: -0.02em; }
         .nav-right { display: flex; align-items: center; gap: 18px; }
         .nav-link {
             font-weight: 600;
-            font-size: 15px;
+            font-size: 0.9375rem;
+            /* La hauteur de ligne seule ne donnait que 19 px de cible. */
+            padding: 6px 0;
             color: var(--ink-soft);
             transition: color 0.2s ease;
         }
@@ -169,7 +233,7 @@
             background: var(--ink);
             color: var(--cream);
             font-weight: 700;
-            font-size: 15px;
+            font-size: 0.9375rem;
             padding: 11px 20px;
             border-radius: 999px;
             transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -211,7 +275,6 @@
             max-width: 38ch;
             margin: 26px auto 0;
             line-height: 1.5;
-            opacity: 0;
             animation: fadeUp 0.8s ease 0.55s forwards;
         }
         .store-btns {
@@ -221,7 +284,6 @@
             gap: 12px;
             flex-wrap: wrap;
             margin-top: 36px;
-            opacity: 0;
             animation: fadeUp 0.8s ease 0.7s forwards;
         }
         .btn-store {
@@ -240,27 +302,34 @@
         .store-icon { flex-shrink: 0; }
         .hero-note {
             margin-top: 18px;
-            font-size: 14.5px;
+            font-size: 0.90625rem;
             font-weight: 600;
             /* Même raison que le sous-titre : 2,43:1 sur le corail, il faut l'encre pleine. */
             color: var(--ink);
-            opacity: 0;
             animation: fadeUp 0.8s ease 0.85s forwards;
         }
         /* Le lien passe en encre pleine : c'est la partie cliquable, elle doit se voir. */
         .hero-note a { color: var(--ink); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+        /* Ces quatre-là partaient invisibles en CSS nu, et ne devaient leur retour
+           qu'à une animation. Toute chaîne qui coupe les animations, un outil de
+           capture, un service de rendu PDF, un moteur d'aperçu, héritait d'un héro
+           sans sous-titre et surtout sans ses deux boutons de store. Désormais ils
+           ne se cachent que derrière .js, comme tout le reste de la page. */
+        .js .hero-sub, .js .store-btns, .js .hero-note, .js .bubble { opacity: 0; }
 
         .hero-cat {
             position: relative;
             width: min(480px, 74vw);
             margin: 44px auto -4px;
         }
+        /* Pas de will-change ici : transform est déjà composé, et une couche gardée
+           en mémoire pendant toute la vie de la page coûte plus qu'elle ne rapporte
+           sur un téléphone d'entrée de gamme. */
         .hero-cat img {
             width: 100%;
             height: auto;
             display: block;
-            will-change: transform;
         }
         .bubble {
             position: absolute;
@@ -275,7 +344,6 @@
             line-height: 1.45;
             text-align: left;
             box-shadow: 0 18px 44px rgba(20, 18, 16, 0.18);
-            opacity: 0;
             animation: bubbleIn 0.6s cubic-bezier(0.34, 1.4, 0.64, 1) 1.15s forwards;
             z-index: 2;
         }
@@ -304,29 +372,64 @@
             text-align: center;
         }
         .manifesto .word { transition: color 0.35s ease; }
-        .js .manifesto .word { color: rgba(20, 18, 16, 0.16); }
+        /* 0,46 et non 0,16 : le mot pas encore allumé était à 1,40:1 sur le crème, et
+           huit mots sur vingt et un restent éteints manifeste centré à l'écran. Ce
+           n'est pas un état de passage, c'est du vrai texte, et c'est lui qui porte la
+           chute. À 0,46, #8E8A84 sur le crème, soit 3,05:1. Le mot allumé reste à
+           16,60:1, l'écart continue de se lire comme un allumage. */
+        .js .manifesto .word { color: rgba(20, 18, 16, 0.46); }
         .manifesto .word.lit { color: var(--ink); }
 
         /* ===== Révélations au scroll (tarifs, pied de page) =====
            Tout ce qui est caché au départ l'est derrière .js, la classe que le script
-           d'en-tête pose sur <html>. Sans JavaScript, ou si ce script échoue, aucune
-           de ces règles ne s'applique : la page s'affiche en entier, d'emblée. */
+           d'en-tête pose sur <html>. Rien n'est caché tant que cette classe n'est pas
+           posée. Elle ne l'est que si le navigateur sait révéler le contenu, et le
+           script du bas la retire s'il échoue en route. */
         .reveal {
             transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
         }
         .js .reveal { opacity: 0; transform: translateY(24px); }
         .reveal.in { opacity: 1; transform: none; }
 
-
-        .fallback .fb-cat { font-size: 30px; }
-        .fallback .fb-txt { font-size: 13px; font-weight: 700; color: rgba(20, 18, 16, 0.42); }
-        .shot figcaption {
-            margin-top: 16px;
+        /* ===== Comment ça marche =====
+           Placée juste après le manifeste : la promesse vient d'être faite, c'est
+           le moment où l'on se demande comment ça se passe vraiment. Rien de neuf
+           visuellement, tout est emprunté à la section Tarifs : le même .section-head,
+           des chiffres dans l'idiome de .tarif .n, une cloture dans celui de
+           .prix-ensemble. Trois etapes, pas une quatrieme. */
+        .etapes-wrap { padding: 0 24px clamp(90px, 12vw, 150px); }
+        .etapes-liste {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(26px, 4vw, 50px);
+            max-width: 920px;
+            margin: 0 auto;
             text-align: center;
-            font-size: 15px;
+        }
+        .etapes-liste li {
+            font-size: clamp(1rem, 1.7vw, 1.1rem);
+            font-weight: 600;
+            line-height: 1.5;
+        }
+        /* Corail profond et non corail du hero : sur le creme, le second ne donne
+           que 3,49:1, la même raison qui vaut déjà pour .eyebrow. */
+        .etape-n {
+            display: block;
+            font-size: clamp(2rem, 3.4vw, 2.8rem);
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            color: var(--coral-deep);
+            margin-bottom: 8px;
+        }
+        .etapes-fin {
+            max-width: 920px;
+            margin: clamp(40px, 5vw, 60px) auto 0;
+            text-align: center;
+            font-size: clamp(1.05rem, 2vw, 1.3rem);
             font-weight: 700;
+            line-height: 1.45;
             color: var(--ink-soft);
-            line-height: 1.4;
         }
 
         /* ===== Au programme ===== */
@@ -336,11 +439,16 @@
             color: var(--cream);
             border-radius: var(--radius);
             padding: clamp(90px, 12vw, 150px) clamp(24px, 6vw, 90px) clamp(100px, 13vw, 170px);
+            /* Même plafond que le pied de page, pour que les deux blocs s'alignent.
+               Sans lui, sur un très grand écran, les citations s'étiraient et le
+               regard traversait toute la largeur entre deux phrases voisines. */
+            max-width: 1180px;
+            margin: 0 auto;
         }
         /* En-tête de section, sur fond clair. Partagé par la section Tarifs et,
            pour le surtitre seul, par la section Au programme sur fond sombre. */
         .eyebrow {
-            font-size: 13px;
+            font-size: 0.8125rem;
             font-weight: 700;
             letter-spacing: 0.28em;
             text-transform: uppercase;
@@ -390,23 +498,27 @@
             line-height: 1.55;
         }
         .quote {
+            /* Le titre est écrit avant la phrase, pour qu'une navigation par titres
+               tombe dessus en premier. Ce column-reverse le réaffiche en dessous,
+               là où il a toujours été : rien ne bouge à l'écran. */
+            display: flex;
+            flex-direction: column-reverse;
             max-width: 75%;
             /* Espacement en hauteur d'écran : chaque phrase a son propre moment de scroll. */
             margin: 0 0 clamp(140px, 30vh, 290px);
-            will-change: opacity, transform;
         }
         .js .quote { opacity: 0.13; transform: translateY(22px); }
         .quote:last-of-type { margin-bottom: 0; }
         .quote.right { margin-left: auto; text-align: right; }
-        .quote blockquote {
+        .quote p {
             font-size: clamp(1.7rem, 4.6vw, 3.5rem);
             font-weight: 900;
             letter-spacing: -0.035em;
             line-height: 1.12;
         }
-        .quote figcaption {
+        .quote h3 {
             margin-top: 18px;
-            font-size: 15px;
+            font-size: 0.9375rem;
             font-weight: 700;
             color: var(--coral);
         }
@@ -421,12 +533,15 @@
             letter-spacing: -0.01em;
             margin-bottom: 26px;
         }
-        .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+        .chips { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; }
         .chip {
-            border: 1px solid rgba(246, 241, 231, 0.2);
+            /* 0,36 et non 0,20 : la bordure était à 1,77:1 sur l'encre, la pastille
+               n'avait pour ainsi dire pas de contour. À 0,36, 3,08:1, et elle reste
+               discrète. */
+            border: 1px solid rgba(246, 241, 231, 0.36);
             border-radius: 999px;
             padding: 11px 18px;
-            font-size: 15px;
+            font-size: 0.9375rem;
             font-weight: 600;
             color: rgba(246, 241, 231, 0.82);
         }
@@ -447,6 +562,10 @@
         }
         .plan {
             background: var(--white-warm);
+            /* Le blanc chaud ne se détachait du crème qui le porte qu'à 1,20:1 :
+               la carte Gratuit n'existait pas comme objet, à côté d'une carte
+               Réglisse+ qui tranche à 15,33:1. */
+            border: 1px solid rgba(20, 18, 16, 0.14);
             border-radius: 32px;
             padding: clamp(26px, 3.4vw, 40px);
             display: flex;
@@ -460,7 +579,7 @@
             line-height: 1.1;
         }
         .plan-tag {
-            font-size: 13px;
+            font-size: 0.8125rem;
             font-weight: 700;
             letter-spacing: 0.18em;
             text-transform: uppercase;
@@ -474,7 +593,7 @@
         .plan li {
             position: relative;
             padding-left: 26px;
-            font-size: 16px;
+            font-size: 1rem;
             font-weight: 600;
             line-height: 1.45;
         }
@@ -503,7 +622,7 @@
             font-size: clamp(1.5rem, 2.6vw, 2rem);
             letter-spacing: -0.01em;
         }
-        .tarif .u { font-size: 15px; font-weight: 600; color: rgba(246, 241, 231, 0.6); text-align: right; }
+        .tarif .u { font-size: 0.9375rem; font-weight: 600; color: rgba(246, 241, 231, 0.6); text-align: right; }
         .prix-ensemble {
             max-width: 920px;
             margin: 26px auto 0;
@@ -516,7 +635,7 @@
         .prix-note {
             max-width: 720px;
             margin: 34px auto 0;
-            font-size: 13.5px;
+            font-size: 0.84375rem;
             font-weight: 500;
             line-height: 1.65;
             color: var(--ink-soft);
@@ -547,7 +666,7 @@
             justify-content: space-between;
             min-height: 250px;
         }
-        .foot-brand .name { font-size: 24px; font-weight: 900; letter-spacing: -0.02em; }
+        .foot-brand .name { font-size: 1.5rem; font-weight: 900; letter-spacing: -0.02em; }
         .foot-brand .tagline {
             font-size: clamp(1.4rem, 2.4vw, 1.9rem);
             font-weight: 900;
@@ -556,8 +675,8 @@
         }
         .foot-links { background: var(--cream-card); transition-delay: 0.1s; }
         .cols { display: flex; gap: clamp(32px, 5vw, 80px); flex-wrap: wrap; }
-        .col h4 {
-            font-size: 12px;
+        .col h3 {
+            font-size: 0.75rem;
             font-weight: 700;
             letter-spacing: 0.22em;
             text-transform: uppercase;
@@ -567,9 +686,12 @@
         }
         .col a {
             display: block;
-            font-size: 16px;
+            font-size: 1rem;
             font-weight: 700;
-            margin-bottom: 12px;
+            /* 20 px de cible avant : la moitié de la marge passe en rembourrage,
+               la cible grandit, le rythme vertical bouge à peine. */
+            padding: 6px 0;
+            margin-bottom: 6px;
             transition: color 0.2s ease;
         }
         .col a:hover { color: var(--coral-deep); }
@@ -581,7 +703,7 @@
             flex-wrap: wrap;
             margin-top: 42px;
         }
-        .copyright { font-size: 14px; font-weight: 600; color: var(--ink-soft); }
+        .copyright { font-size: 0.875rem; font-weight: 600; color: var(--ink-soft); }
         .btn-store-mini {
             display: inline-flex;
             align-items: center;
@@ -589,7 +711,7 @@
             background: var(--ink);
             color: var(--cream);
             font-weight: 700;
-            font-size: 15px;
+            font-size: 0.9375rem;
             padding: 13px 22px;
             border-radius: 999px;
             transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -600,7 +722,7 @@
             max-width: 1180px;
             margin: 22px auto 0;
             padding: 0 36px;
-            font-size: 13px;
+            font-size: 0.8125rem;
             font-weight: 500;
             line-height: 1.65;
             color: var(--ink-soft);
@@ -615,11 +737,12 @@
         @media (max-width: 720px) {
             :root { --radius: 30px; --gutter: 10px; --nav-h: 52px; }
             .nav { padding: 0 8px 0 18px; }
-            .brand { font-size: 18px; }
+            .brand { font-size: 1.125rem; }
             .nav-right { gap: 12px; }
-            .btn-dl { padding: 10px 16px; font-size: 14px; }
+            .btn-dl { padding: 10px 16px; font-size: 0.875rem; }
             .hero { padding-top: calc(var(--nav-h) + 66px); }
             .bubble { right: -4%; top: -14%; }
+            .etapes-liste { grid-template-columns: 1fr; gap: 30px; }
             .quote { max-width: 100%; }
             .prix-grid { grid-template-columns: 1fr; }
             .foot-grid { grid-template-columns: 1fr; }
@@ -628,11 +751,39 @@
         }
         @media (prefers-reduced-motion: reduce) {
             html { scroll-behavior: auto; }
-            .hero-title .w, .hero-sub, .store-btns, .hero-note, .bubble { animation: none; opacity: 1; transform: none; }
+            /* opacity en !important depuis que les quatre éléments du héro se cachent
+               derrière .js : sans lui, .js .hero-sub l'emporterait ici par spécificité. */
+            .hero-title .w, .hero-sub, .store-btns, .hero-note, .bubble { animation: none; opacity: 1 !important; transform: none; }
             .foot-card, .quote, .reveal { opacity: 1 !important; transform: none !important; transition: none; }
             .manifesto .word { color: var(--ink) !important; transition: none; }
             .hero-cat img { transform: none !important; }
             }
+
+        /* ===== Impression =====
+           Sans ce bloc, un « enregistrer en PDF » rendait une page vide à partir du
+           manifeste : tout ce qui attend le scroll restait à son état de départ, donc
+           les tarifs, les deux cartes de plan et les liens légaux sortaient à opacité
+           zéro. Calqué sur le bloc du mouvement réduit, avec un piège en plus :
+           les navigateurs n'impriment pas les aplats de couleur, et le texte crème
+           posé dessus se retrouvait crème sur papier blanc, soit 1,13:1. Il faut donc
+           aussi rendre son encre au texte des blocs sombres. */
+        @media print {
+            @page { margin: 1.6cm; }
+            /* Elle est en position fixed : sans cela elle se réimprime en tête de
+               chaque page, par-dessus le texte. */
+            .nav { display: none; }
+            /* transition: none est indispensable. Sans lui, le fondu de 0,7 s démarre
+               au moment où les styles d'impression s'appliquent, et l'instantané
+               attrape les blocs à mi-course. */
+            .js .reveal, .js .foot-card, .js .quote { opacity: 1 !important; transform: none !important; transition: none; }
+            .hero-title .w, .hero-sub, .store-btns, .hero-note, .bubble { animation: none; opacity: 1 !important; transform: none !important; }
+            .manifesto .word, .js .manifesto .word { color: var(--ink) !important; transition: none; }
+            .hero, .stories, .plan, .plan.plus, .foot-brand, .foot-links, .btn-store, .btn-store-mini { background: none !important; }
+            .stories, .quote, .plan.plus, .btn-store, .btn-store-mini, .hero-title .dot, .tarif .n { color: var(--ink) !important; }
+            .stories-sub, .tarif .u, .chip { color: var(--ink-soft) !important; }
+            .chip { border-color: rgba(20, 18, 16, 0.25) !important; }
+            .plan, .prix-note, .foot-legal, .quote { break-inside: avoid; page-break-inside: avoid; }
+        }
     </style>
 </head>
 <body>
@@ -669,7 +820,7 @@
     <div class="nav-right">
         <a class="nav-link secondaire" href="#programme">Au programme</a>
         <a class="nav-link" href="#prix">Tarifs</a>
-        <a class="btn-dl" href="#top">Télécharger</a>
+        <a class="btn-dl" href="#stores">Télécharger</a>
     </div>
 </nav>
 
@@ -679,20 +830,42 @@
         <div class="hero">
             <h1 class="hero-title" id="hero-title">Les corvées de la maison, enfin partagées<span class="dot" id="hero-dot">.</span></h1>
             <p class="hero-sub">En coloc, en couple ou en famille. On répartit, on gagne des points, zéro embrouille.</p>
-            <div class="store-btns">
+            <div class="store-btns" id="stores">
                 <a class="btn-store" href="https://apps.apple.com/app/id6762408910"><svg class="store-icon" width="15" height="18" aria-hidden="true"><use href="#icon-apple"/></svg> App Store</a>
                 <a class="btn-store" href="https://play.google.com/store/apps/details?id=dev.asidequest.reglisse"><svg class="store-icon" width="15" height="16" aria-hidden="true"><use href="#icon-play"/></svg> Google Play</a>
             </div>
             <p class="hero-note">Gratuite jusqu'à 6 personnes. <a href="#prix">Le détail des tarifs</a>.</p>
             <div class="hero-cat">
                 <div class="bubble">« Le lave-vaisselle est plein. Il patiente. Trop. 😼 »</div>
-                <img src="chat-hero.png" alt="Réglisse, le chat noir de l'app, plumeau en patte" id="cat" width="900" height="900">
+                <!-- Le chat est le plus gros élément visuel du héro, et sur téléphone
+                     c'est lui qui décide du temps d'affichage perçu. En PNG plein il
+                     pesait 488 Ko, soit quarante fois le poids du HTML. Le WebP tombe
+                     à 48 Ko en gardant sa transparence, et le PNG de repli à 64 Ko
+                     pour les rares navigateurs qui ignorent le WebP. width et height
+                     restent déclarés : la place est réservée, la page ne saute pas. -->
+                <picture>
+                    <source srcset="chat-hero.webp" type="image/webp">
+                    <img src="chat-hero-repli.png" alt="Réglisse, le chat noir de l'app, plumeau en patte" id="cat" width="900" height="900">
+                </picture>
             </div>
         </div>
     </section>
 
     <section class="manifesto" id="manifeste">
-        <p id="manifesto-text">Réglisse transforme le ménage en petit jeu d'équipe, et votre chez-vous en endroit rangé. Sans tableur, sans reproches, avec un chat.</p>
+        <p id="manifesto-text">Réglisse transforme les tâches ménagères en petit jeu d'équipe, et ton chez-toi en endroit rangé. Sans tableur, sans reproches, avec un chat.</p>
+    </section>
+
+    <section class="etapes-wrap" id="comment-ca-marche">
+        <div class="section-head reveal">
+            <div class="eyebrow">Comment ça marche</div>
+            <h2>Trois étapes, et c'est tout<span class="dot-orange">.</span></h2>
+        </div>
+        <ol class="etapes-liste reveal" role="list">
+            <li><span class="etape-n">1</span>On crée un groupe.</li>
+            <li><span class="etape-n">2</span>On envoie le code aux autres.</li>
+            <li><span class="etape-n">3</span>Chacun prend les corvées qu'il veut. Chaque corvée faite rapporte des points.</li>
+        </ol>
+        <p class="etapes-fin reveal">Le chat, lui, arrive tout seul.</p>
     </section>
 
 
@@ -704,59 +877,65 @@
                 <p class="stories-sub">Zéro faux avis cinq étoiles ici. Juste ce que l'app fait vraiment, raconté honnêtement.</p>
             </div>
 
-            <figure class="quote">
-                <blockquote>La vaisselle du soir revient chaque soir. L'app s'en souvient à ta place.</blockquote>
-                <figcaption>♻️ Les récurrences</figcaption>
-            </figure>
+            <article class="quote">
+                <h3><span aria-hidden="true">♻️</span> Les récurrences</h3>
+                <p>La vaisselle du soir revient chaque soir. L'app s'en souvient à ta place.</p>
+            </article>
 
-            <figure class="quote right">
-                <blockquote>Le plan de chez toi, pièce par pièce. Les corvées se posent dessus, à leur place.</blockquote>
-                <figcaption>🏠 Le plan du logement</figcaption>
-            </figure>
+            <article class="quote right">
+                <h3><span aria-hidden="true">🏠</span> Le plan du logement</h3>
+                <p>Le plan de chez toi, pièce par pièce. Les corvées se posent dessus, à leur place.</p>
+            </article>
 
-            <figure class="quote">
-                <blockquote>Une photo avant, une photo après. Le ménage a enfin ses preuves.</blockquote>
-                <figcaption>📸 La preuve par l'image</figcaption>
-            </figure>
+            <article class="quote">
+                <h3><span aria-hidden="true">📸</span> La preuve par l'image</h3>
+                <p>Une photo avant, une photo après. Le ménage a enfin ses preuves.</p>
+            </article>
 
-            <figure class="quote right">
-                <blockquote>Des séries de jours parfaits, et la pression douce de ne pas les casser.</blockquote>
-                <figcaption>🔥 Les séries</figcaption>
-            </figure>
+            <article class="quote right">
+                <h3><span aria-hidden="true">🔥</span> Les séries</h3>
+                <p>Des séries de jours parfaits, et la pression douce de ne pas les casser.</p>
+            </article>
 
-            <figure class="quote">
-                <blockquote>À la fin du mois, il y a un podium. Et quelqu'un qui fait semblant de s'en moquer.</blockquote>
-                <figcaption>🏆 Le champion du mois</figcaption>
-            </figure>
+            <article class="quote">
+                <h3><span aria-hidden="true">🏆</span> Le champion du mois</h3>
+                <p>À la fin du mois, il y a un podium. Et quelqu'un qui fait semblant de s'en moquer.</p>
+            </article>
 
-            <figure class="quote right">
-                <blockquote>Tes points s'échangent contre une grasse mat' ou un film imposé.</blockquote>
-                <figcaption>🛒 La boutique</figcaption>
-            </figure>
+            <article class="quote right">
+                <h3><span aria-hidden="true">🛒</span> La boutique</h3>
+                <p>Tes points s'échangent contre une grasse mat' ou un film imposé.</p>
+            </article>
 
-            <figure class="quote">
-                <blockquote>Une notification tous les deux jours qui n'annonce absolument rien. C'est le principe.</blockquote>
-                <figcaption>🔔 Les notifications inutiles</figcaption>
-            </figure>
+            <article class="quote">
+                <h3><span aria-hidden="true">🔔</span> Les notifications</h3>
+                <p>On coche, on te double au podium, l'app te prévient. Et se tait le reste du temps.</p>
+            </article>
 
-            <figure class="quote right">
-                <blockquote>Et Réglisse observe tout. Il ne juge pas. Si, un peu.</blockquote>
-                <figcaption>🐈 Le chat</figcaption>
-            </figure>
+            <article class="quote right">
+                <h3><span aria-hidden="true">🐈</span> Le chat</h3>
+                <p>Et Réglisse observe tout. Il ne juge pas. Si, un peu.</p>
+            </article>
 
             <div class="aussi">
                 <h3>Et aussi</h3>
-                <div class="chips">
-                    <span class="chip">Des groupes fermés, sur invitation</span>
-                    <span class="chip">Des tâches sur plusieurs jours</span>
-                    <span class="chip">Des points au poids de la corvée</span>
-                    <span class="chip">Un calendrier et sa carte de chaleur</span>
-                    <span class="chip">Un champion élu chaque mois</span>
-                    <span class="chip">5 widgets sur l'écran d'accueil iPhone</span>
-                    <span class="chip">Connexion avec Apple sur iPhone</span>
-                    <span class="chip">Sur iPhone, à partir d'iOS 17</span>
-                    <span class="chip">L'export de tes données, quand tu veux</span>
-                </div>
+                <ul class="chips" role="list">
+                    <li class="chip">Des groupes fermés, sur invitation</li>
+                    <li class="chip">Des tâches sur plusieurs jours</li>
+                    <li class="chip">Des points au poids de la corvée</li>
+                    <li class="chip">Un calendrier et sa carte de chaleur</li>
+                    <li class="chip">Un champion élu chaque mois</li>
+                    <li class="chip">Une base de corvées prête au premier groupe</li>
+                    <li class="chip">La carte du mois, partagée en image</li>
+                    <li class="chip">5 widgets sur l'écran d'accueil iPhone</li>
+                    <li class="chip">Chaque type de notification se coupe à part</li>
+                    <li class="chip">Traduite en 10 langues</li>
+                    <li class="chip">Connexion Apple sur iPhone, Google ou e-mail sur Android</li>
+                    <li class="chip">iPhone à partir d'iOS 17, Android selon sa fiche Google Play</li>
+                    <li class="chip">Le même groupe sur iPhone et sur Android</li>
+                    <li class="chip">Les photos preuve effacées toutes seules au bout de 90 jours</li>
+                    <li class="chip">L'export de tes données, quand tu veux</li>
+                </ul>
             </div>
         </div>
     </section>
@@ -773,7 +952,7 @@
                 <div class="plan reveal">
                     <div class="plan-name">Gratuit</div>
                     <div class="plan-tag">Pour toujours</div>
-                    <ul>
+                    <ul role="list">
                         <li>Jusqu'à 6 personnes dans un groupe.</li>
                         <li>5 récompenses actives dans la boutique.</li>
                         <li>1 étage sur le plan du logement.</li>
@@ -784,7 +963,7 @@
                 <div class="plan plus reveal">
                     <div class="plan-name">Réglisse+</div>
                     <div class="plan-tag">Quand le groupe grandit</div>
-                    <ul>
+                    <ul role="list">
                         <li>Jusqu'à 20 personnes dans un groupe.</li>
                         <li>Des récompenses sans compteur.</li>
                         <li>Un plan à 3 étages.</li>
@@ -798,11 +977,11 @@
                 </div>
             </div>
 
-            <p class="prix-ensemble reveal">Un seul membre abonné suffit. <span>Tout le groupe passe en Réglisse+ avec lui.</span></p>
+            <p class="prix-ensemble reveal">Un seul membre abonné suffit. <span>Tant qu'il est là, tout le groupe est en Réglisse+ avec lui.</span></p>
 
             <div class="prix-note reveal">
                 <p>Réglisse+ existe en formule mensuelle, annuelle ou en achat définitif. Les montants indiqués ici sont en euros, taxes comprises. Le prix exact, dans votre devise, s'affiche dans l'application et sur la fiche App Store ou Google Play.</p>
-                <p>Les formules mensuelle et annuelle se renouvellent automatiquement. Elles s'arrêtent depuis les réglages de votre compte App Store ou Google Play, au moins 24 heures avant la fin de la période en cours. L'achat définitif ne se renouvelle pas. Quand un essai gratuit est proposé, il porte sur la formule mensuelle et sur elle seule. Il dure 7 jours, et c'est le store qui décide si votre compte y a droit : l'application vous l'annonce avant l'achat, ou ne l'annonce pas.</p>
+                <p>Les formules mensuelle et annuelle se renouvellent automatiquement. Elles s'arrêtent depuis les réglages de votre compte App Store ou Google Play, au moins 24 heures avant la fin de la période en cours. L'achat définitif ne se renouvelle pas. Quand un essai gratuit est proposé, il porte sur la formule mensuelle et sur elle seule. Il dure 7 jours, et c'est le store qui décide si votre compte y a droit : l'application vous l'annonce avant l'achat, ou ne l'annonce pas. À la fin de ces 7 jours, la formule mensuelle démarre et devient payante, sauf si vous l'arrêtez au moins 24 heures avant.</p>
                 <p>Quand un abonnement s'arrête, personne n'est exclu du groupe et rien n'est supprimé. Les récompenses et les étages déjà créés restent en place, l'historique des statistiques est simplement masqué, et seules les créations au-delà des plafonds gratuits redeviennent impossibles.</p>
                 <p>Supprimer votre compte Réglisse n'annule pas l'abonnement. Il se résilie depuis les réglages de votre compte App Store ou Google Play.</p>
             </div>
@@ -818,27 +997,26 @@
             <div class="tagline">Les corvées,<br>enfin partagées.</div>
         </div>
         <div class="foot-card foot-links">
-            <div class="cols">
+            <nav class="cols" aria-label="Pied de page">
                 <div class="col">
-                    <h4>App</h4>
+                    <h3>App</h3>
                     <a href="https://apps.apple.com/app/id6762408910">App Store</a>
                     <a href="https://play.google.com/store/apps/details?id=dev.asidequest.reglisse">Google Play</a>
                     <a href="#programme">Au programme</a>
                     <a href="#prix">Tarifs</a>
                 </div>
                 <div class="col">
-                    <h4>Réglisse</h4>
+                    <h3>Réglisse</h3>
                     <a href="mailto:contact@asidequest.dev">Contact</a>
-                    <a href="join.html">Rejoindre un groupe</a>
                 </div>
                 <div class="col">
-                    <h4>Légal</h4>
+                    <h3>Légal</h3>
                     <a href="mentions-legales.html">Mentions légales</a>
                     <a href="cgu.html">Conditions d'utilisation</a>
                     <a href="privacy.html">Politique de confidentialité</a>
                     <a href="privacy.html#supprimer-compte">Supprimer mon compte</a>
                 </div>
-            </div>
+            </nav>
             <div class="foot-bottom">
                 <div class="copyright">© 2026 Réglisse · fait avec 🖤</div>
                 <div class="store-minis">
@@ -858,97 +1036,140 @@
 (function () {
     var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    /* Titre héro : découper en mots pour l'entrée en cascade */
-    var title = document.getElementById("hero-title");
-    var dot = document.getElementById("hero-dot");
-    var words = title.firstChild.textContent.trim().split(/\s+/);
-    title.removeChild(title.firstChild);
-    words.forEach(function (w, i) {
-        var s = document.createElement("span");
-        s.className = "w";
-        s.style.setProperty("--i", i);
-        s.textContent = w;
-        title.insertBefore(s, dot);
-        if (i < words.length - 1) title.insertBefore(document.createTextNode(" "), dot);
-    });
-    dot.classList.add("w");
-    dot.style.setProperty("--i", words.length);
+    /* Tout ce qui suit est sous filet. La classe .js posée dans l'en-tête masque les
+       tarifs, les cartes du pied de page et atténue les citations, en pariant que ce
+       script les révélera. Si le pari échoue en cours de route, le catch retire la
+       classe et rend la page entière : un défaut d'animation vaut toujours mieux
+       qu'une page dont les prix ont disparu. */
+    try {
 
-    /* Manifeste : découper en mots pour l'allumage au scroll */
-    var mp = document.getElementById("manifesto-text");
-    var mWords = mp.textContent.trim().split(/\s+/);
-    mp.textContent = "";
-    mWords.forEach(function (w, i) {
-        var s = document.createElement("span");
-        s.className = "word";
-        s.textContent = w;
-        mp.appendChild(s);
-        if (i < mWords.length - 1) mp.appendChild(document.createTextNode(" "));
-    });
-    var wordEls = mp.querySelectorAll(".word");
+        /* Le fond opaque de la barre de navigation n'est pas une animation, c'est une
+           question de lisibilité : sans lui, les liens tombent à 4,30:1 sur la carte
+           sombre de la section Au programme. Il passe donc en tête de ce script, avant
+           tout ce qui pourrait échouer, et avant la sortie en mouvement réduit. */
+        var nav = document.getElementById("nav");
+        function fondBarre() { nav.classList.toggle("scrolled", window.scrollY > 8); }
+        window.addEventListener("scroll", fondBarre, { passive: true });
+        fondBarre();
 
-
-    /* Reveals simples (tarifs, pied de page) */
-    var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-            if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
-        });
-    }, { threshold: 0.2 });
-    document.querySelectorAll(".foot-card, .reveal").forEach(function (el) { io.observe(el); });
-
-    /* Le fond opaque de la barre de navigation n'est pas une animation, c'est une
-       question de lisibilite : sans lui, les liens tombent a 4,30:1 sur la carte
-       sombre de la section Au programme. Il doit donc etre branche AVANT la sortie
-       en mouvement reduit, sinon la barre garde eternellement son fond translucide. */
-    var nav = document.getElementById("nav");
-    function fondBarre() { nav.classList.toggle("scrolled", window.scrollY > 8); }
-    window.addEventListener("scroll", fondBarre, { passive: true });
-    fondBarre();
-
-    if (reduced) return;
-
-    var cat = document.getElementById("cat");
-    var quotes = document.querySelectorAll(".quote");
-    var heroWrap = document.querySelector(".hero-wrap");
-    var ticking = false;
-
-    function frame() {
-        ticking = false;
-        var vh = window.innerHeight;
-        var y = window.scrollY;
-
-        /* Parallaxe du chat : il glisse doucement pendant qu'on descend le héro */
-        var heroBottom = heroWrap.offsetTop + heroWrap.offsetHeight;
-        if (y < heroBottom) {
-            cat.style.transform = "translateY(" + Math.min(y * 0.06, 40) + "px)";
+        /* Le bouton de la barre ramenait au héro, ou nulle part quand on y était déjà.
+           Quand la plateforme est connue, il pointe droit sur la bonne fiche de store ;
+           sinon il garde son repli écrit dans le HTML, l'ancre #stores et ses deux
+           vrais boutons. Même détection que join.html. */
+        var ua = navigator.userAgent;
+        var versStore = /Android/i.test(ua)
+            ? "https://play.google.com/store/apps/details?id=dev.asidequest.reglisse"
+            : (/iPhone|iPad|iPod/i.test(ua) ? "https://apps.apple.com/app/id6762408910" : null);
+        if (versStore) {
+            var btnDl = document.querySelector(".btn-dl");
+            if (btnDl) btnDl.href = versStore;
         }
 
-        /* Manifeste : proportion de mots allumés selon la position dans l'écran */
-        var r = mp.getBoundingClientRect();
-        if (r.bottom > 0 && r.top < vh) {
-            var progress = (vh * 0.85 - r.top) / (r.height + vh * 0.45);
-            progress = Math.max(0, Math.min(1, progress));
-            var lit = Math.floor(progress * wordEls.length);
-            wordEls.forEach(function (w, i) { w.classList.toggle("lit", i < lit); });
-        }
+        /* Titre héro : découper en mots pour l'entrée en cascade */
+        var title = document.getElementById("hero-title");
+        var dot = document.getElementById("hero-dot");
+        var words = title.firstChild.textContent.trim().split(/\s+/);
+        title.removeChild(title.firstChild);
+        words.forEach(function (w, i) {
+            var s = document.createElement("span");
+            s.className = "w";
+            s.style.setProperty("--i", i);
+            s.textContent = w;
+            title.insertBefore(s, dot);
+            if (i < words.length - 1) title.insertBefore(document.createTextNode(" "), dot);
+        });
+        dot.classList.add("w");
+        dot.style.setProperty("--i", words.length);
 
-        /* Citations : opacité liée à la distance au centre de l'écran.
-           Bande resserrée : une seule phrase pleinement allumée à la fois. */
-        quotes.forEach(function (q) {
-            var qr = q.getBoundingClientRect();
-            var center = qr.top + qr.height / 2;
-            var d = Math.abs(center - vh * 0.46) / (vh * 0.38);
-            var o = Math.max(0.08, Math.min(1, 1.12 - d * 1.12));
-            q.style.opacity = o;
-            q.style.transform = "translateY(" + Math.max(0, (1 - o) * 34) + "px)";
+        /* Manifeste : découper en mots pour l'allumage au scroll */
+        var mp = document.getElementById("manifesto-text");
+        var mWords = mp.textContent.trim().split(/\s+/);
+        mp.textContent = "";
+        mWords.forEach(function (w, i) {
+            var s = document.createElement("span");
+            s.className = "word";
+            s.textContent = w;
+            mp.appendChild(s);
+            if (i < mWords.length - 1) mp.appendChild(document.createTextNode(" "));
+        });
+        var wordEls = mp.querySelectorAll(".word");
+
+
+        /* Reveals simples (tarifs, pied de page) */
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+            });
+        }, { threshold: 0.2 });
+        document.querySelectorAll(".foot-card, .reveal").forEach(function (el) { io.observe(el); });
+
+        if (reduced) return;
+
+        var cat = document.getElementById("cat");
+        var quotes = document.querySelectorAll(".quote");
+        var heroWrap = document.querySelector(".hero-wrap");
+        var ticking = false;
+
+        function frame() {
+            ticking = false;
+
+            /* Deux temps, et dans cet ordre : on lit toutes les positions d'abord, on
+               n'écrit qu'ensuite. Entrelacer les deux obligeait le navigateur à
+               recalculer la mise en page une dizaine de fois par image de défilement,
+               là où une seule suffit. */
+            var vh = window.innerHeight;
+            var y = window.scrollY;
+            var heroBottom = heroWrap.offsetTop + heroWrap.offsetHeight;
+            var rManifeste = mp.getBoundingClientRect();
+            var rCitations = [];
+            quotes.forEach(function (q) { rCitations.push(q.getBoundingClientRect()); });
+
+            /* Parallaxe du chat : il glisse doucement pendant qu'on descend le héro */
+            if (y < heroBottom) {
+                cat.style.transform = "translateY(" + Math.min(y * 0.06, 40) + "px)";
+            }
+
+            /* Manifeste : proportion de mots allumés selon la position dans l'écran */
+            if (rManifeste.bottom > 0 && rManifeste.top < vh) {
+                var progress = (vh * 0.85 - rManifeste.top) / (rManifeste.height + vh * 0.45);
+                progress = Math.max(0, Math.min(1, progress));
+                var lit = Math.floor(progress * wordEls.length);
+                wordEls.forEach(function (w, i) { w.classList.toggle("lit", i < lit); });
+            }
+
+            /* Citations : opacité liée à la distance au centre de l'écran.
+               Bande resserrée : une seule phrase pleinement allumée à la fois. */
+            quotes.forEach(function (q, i) {
+                var qr = rCitations[i];
+                var center = qr.top + qr.height / 2;
+                var d = Math.abs(center - vh * 0.46) / (vh * 0.38);
+                /* Plancher à 0,36 et non 0,08 : les citations non centrées étaient à
+                   1,21:1 sur l'encre, illisibles dès qu'on arrête de faire défiler.
+                   À 0,36, #65625D sur l'encre, soit 3,08:1. La citation centrée reste
+                   à 1,00 et à 16,60:1, une seule phrase est pleinement allumée. */
+                var o = Math.max(0.36, Math.min(1, 1.12 - d * 1.12));
+                q.style.opacity = o;
+                q.style.transform = "translateY(" + Math.max(0, (1 - o) * 34) + "px)";
+            });
+        }
+        function onScroll() {
+            if (!ticking) { ticking = true; requestAnimationFrame(frame); }
+        }
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll, { passive: true });
+        frame();
+
+    } catch (e) {
+        /* La page redevient celle d'un navigateur sans JavaScript : tout visible,
+           rien d'animé. Le nettoyage des styles en ligne sert au cas où l'exception
+           serait tombée au milieu de frame(), après avoir posé une opacité sur une
+           partie seulement des citations. */
+        document.documentElement.classList.remove("js");
+        document.querySelectorAll(".quote").forEach(function (q) {
+            q.style.opacity = "";
+            q.style.transform = "";
         });
     }
-    function onScroll() {
-        if (!ticking) { ticking = true; requestAnimationFrame(frame); }
-    }
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
-    frame();
 })();
 </script>
 

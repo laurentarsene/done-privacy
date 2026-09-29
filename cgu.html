@@ -15,9 +15,15 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<!-- Même verrou que sur les autres pages du site : « default-src 'none' » interdit
+     au navigateur toute requête sortante, et tout ce qui reste autorisé vient de ce
+     dépôt. Ici la feuille de style est un fichier, d'où le 'self' sur style-src ;
+     'unsafe-inline' couvre un éventuel style écrit dans la page. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; font-src 'self'; style-src 'self' 'unsafe-inline'; form-action 'none'; base-uri 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Réglisse · Conditions générales d'utilisation</title>
 <meta name="description" content="Conditions générales d'utilisation de l'application Réglisse : compte, contenus, abonnement Réglisse+, résiliation, droit applicable.">
+<link rel="canonical" href="https://laurentarsene.github.io/done-privacy/cgu.html">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="legal.css">
 </head>
@@ -195,7 +201,7 @@
 <h2 id="a17"><span class="n">Article 17.</span> Droit applicable, litiges et médiation</h2>
 <p>Les présentes CGU sont soumises au droit belge. Si vous êtes un consommateur résidant dans un autre État membre de l'Union européenne, ce choix ne peut pas vous priver de la protection que vous accordent les dispositions impératives du droit de votre pays de résidence habituelle.</p>
 <p>En cas de litige, une solution amiable sera recherchée en priorité. Vous pouvez écrire à <a href="mailto:contact@asidequest.dev">contact@asidequest.dev</a>. À défaut d'accord, et si vous êtes un consommateur résidant dans l'Union européenne, vous pouvez saisir soit les juridictions belges, soit celles de votre domicile. L'Éditeur, de son côté, ne peut vous assigner que devant les juridictions de l'État membre où vous êtes domicilié. Dans les autres cas, notamment si vous n'agissez pas en qualité de consommateur ou si vous résidez hors de l'Union européenne, les cours et tribunaux belges sont seuls compétents.</p>
-<p>Vous pouvez également recourir gratuitement au Service de médiation pour le consommateur (Belgique), boulevard du Roi Albert II 8 boîte 1, 1000 Bruxelles, <a href="https://mediationconsommateur.be">mediationconsommateur.be</a>. Ce recours est facultatif et ne vous prive d'aucun droit d'agir en justice.</p>
+<p>Vous pouvez également recourir gratuitement au Service de médiation pour le consommateur (Belgique), boulevard du Roi Albert II 8 boîte 1, 1000 Bruxelles, <a href="https://mediationconsommateur.be" target="_blank" rel="noopener">mediationconsommateur.be</a>. Ce recours est facultatif et ne vous prive d'aucun droit d'agir en justice.</p>
 <p>Les achats proposés dans l'Application étant conclus et facturés par l'App Store d'Apple ou par Google Play, les litiges relatifs au paiement, au renouvellement, à la résiliation et au remboursement relèvent des conditions de ces plateformes et se règlent avec elles.</p>
 
 <h2 id="a18"><span class="n">Article 18.</span> Force majeure</h2>

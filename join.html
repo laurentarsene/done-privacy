@@ -2,15 +2,32 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <!-- Même verrou que sur l'accueil : « default-src 'none' » interdit au navigateur
+         toute requête sortante, et tout ce qui reste autorisé vient de ce dépôt. Les
+         deux 'unsafe-inline' sont la contrepartie du style et du script écrits dans la
+         page. L'ouverture de reglisse:// et de intent:// n'est pas concernée, une
+         navigation n'est pas une requête de ressource. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; font-src 'self'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; form-action 'none'; base-uri 'none'">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Rejoins ton groupe sur Réglisse</title>
+    <!-- Hors de l'index : sans code dans l'adresse, cette page n'a rien à offrir à
+         quelqu'un qui arrive d'un moteur de recherche. Les robots d'aperçu des
+         messageries ignorent cette ligne, la vignette du lien d'invitation reste
+         donc entière. « follow » laisse passer les liens du pied de page. -->
+    <meta name="robots" content="noindex, follow">
     <meta name="description" content="Rejoins ton groupe sur Réglisse. L'app de tâches collaborative pour coloc, famille et couple.">
     <meta name="theme-color" content="#F5EFE7">
 
-    <!-- OG / Twitter (preview riche dans Messages, WhatsApp, Discord, etc.) -->
+    <!-- OG / Twitter (preview riche dans Messages, WhatsApp, Discord, etc.)
+         En JPEG et non en PNG : l'image n'a pas de transparence, et l'ancienne carte
+         pesait 819 Ko, bien au-dessus des 300 Ko à partir desquels WhatsApp et Signal
+         renoncent silencieusement à afficher l'aperçu. Sur une page d'invitation qui
+         circule justement par messagerie, c'était l'aperçu le plus utile du site qui
+         tombait. Nom de fichier neuf, donc plus de ?v= à traîner. -->
     <meta property="og:title" content="Un groupe t'attend sur Réglisse">
     <meta property="og:description" content="Les tâches du quotidien, à plusieurs. Ouvre l'app et rejoins avec le code.">
-    <meta property="og:image" content="https://laurentarsene.github.io/done-privacy/og.png?v=3">
+    <meta property="og:image" content="https://laurentarsene.github.io/done-privacy/assets/og-invitation.jpg">
+    <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Réglisse : invitation à rejoindre un groupe">
@@ -21,7 +38,8 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Un groupe t'attend sur Réglisse">
     <meta name="twitter:description" content="Les tâches du quotidien, à plusieurs. Ouvre l'app et rejoins avec le code.">
-    <meta name="twitter:image" content="https://laurentarsene.github.io/done-privacy/og.png?v=3">
+    <meta name="twitter:image" content="https://laurentarsene.github.io/done-privacy/assets/og-invitation.jpg">
+    <meta name="twitter:image:alt" content="Réglisse : invitation à rejoindre un groupe">
 
     <link rel="icon" href="icon.svg" type="image/svg+xml">
     <!-- Aucune police tierce : les fontes viennent du système. Un appel à Google Fonts
@@ -125,6 +143,16 @@
             font-size: 15px;
             line-height: 1.6;
             margin-bottom: 36px;
+        }
+        /* Phrase de presentation : la page d'invitation est souvent le premier
+           contact avec l'app, elle doit dire en une ligne de quoi il s'agit.
+           En sans-serif et en petit, pour ne pas passer pour un second sous-titre. */
+        .pitch {
+            font-family: var(--sans);
+            font-size: 13.5px;
+            line-height: 1.55;
+            color: var(--ink-soft);
+            margin-bottom: 28px;
         }
         .code-box {
             background: rgba(26, 24, 20, 0.035);
@@ -253,9 +281,10 @@
         <div class="tag">Invitation</div>
         <h1>Rejoins ton groupe</h1>
         <p class="sub">
-            <span id="sub-nocode">Ouvre le lien d'invitation qu'on t'a envoyé.<br>Le code voyage avec.</span>
+            <span id="sub-nocode">Ouvre le lien d'invitation qu'on t'a envoyé, le code voyage avec.<br>Sinon, tape le code dans l'app.</span>
             <span id="sub-code" hidden>Tu as reçu une invitation.<br>Ouvre l'app avec ce code.</span>
         </p>
+        <p class="pitch">Les corvées de la maison, enfin partagées. On coche, on marque des points, et plus personne ne compte dans sa tête.</p>
         <div class="code-box" id="code-box" hidden>
             <div class="code-label">Code</div>
             <div class="code" id="code"></div>
@@ -277,6 +306,7 @@
         </div>
         <p class="hint">
             <span id="hint-mobile">Pas encore l'app ? Télécharge-la, puis reviens ici.</span>
+            <span id="hint-mobile-nocode" hidden>Le code arrive avec l'invitation. Rouvre le lien qu'on t'a envoyé, ou tape le code dans l'app, écran des groupes.</span>
             <span id="hint-desktop-code" hidden>Ce lien s'ouvre depuis un téléphone. Installe Réglisse sur le tien, puis saisis ce code à la main.</span>
             <span id="hint-desktop-nocode" hidden>Ce lien s'ouvre depuis un téléphone. Installe Réglisse sur le tien, puis rouvre l'invitation.</span>
         </p>
@@ -325,6 +355,11 @@
         if (!isMobile) {
             document.getElementById('hint-mobile').hidden = true;
             document.getElementById(code ? 'hint-desktop-code' : 'hint-desktop-nocode').hidden = false;
+        } else if (!code) {
+            // Sur téléphone sans code, l'indice par défaut promet un retour utile
+            // alors que revenir ici sans code ne donnera rien. On dit où est le code.
+            document.getElementById('hint-mobile').hidden = true;
+            document.getElementById('hint-mobile-nocode').hidden = false;
         }
 
         // Pas de code dans l'URL : on garde l'état par défaut de la page,
@@ -349,12 +384,36 @@
         const appURL = isAndroid ? androidURL : iosURL;
         openBtn.href = appURL;
 
+        // Ouverture automatique, et son repli.
+        // Android porte le sien dans l'URL : intent:// part au Play Store tout seul
+        // quand l'app manque. iOS n'a pas d'équivalent, un schéma inconnu ne fait
+        // rien du tout et le visiteur reste planté. On surveille donc le départ de
+        // la page : si elle est toujours là au bout de deux secondes et demie, c'est
+        // que l'app n'est pas installée, et on file à l'App Store.
+        function ouvrirLApp() {
+            if (isAndroid) { window.location.href = appURL; return; }
+
+            let parti = document.hidden;
+            const partir = () => { parti = true; };
+            // Seulement le passage en arrière-plan : c'est le seul signal fiable que
+            // l'app a bien pris la main. Un blur suffirait à annuler le repli pour
+            // une simple alerte de Safari, donc justement dans le cas à rattraper.
+            document.addEventListener('visibilitychange', () => { if (document.hidden) partir(); });
+            window.addEventListener('pagehide', partir);
+
+            window.location.href = appURL;
+
+            setTimeout(() => {
+                if (!parti && !document.hidden) window.location.href = appStoreBtn.href;
+            }, 2500);
+        }
+
         // Bouton d'ouverture et auto-ouverture : réservés au téléphone. Le logo suit la
         // plateforme détectée. Un SVG n'a pas de propriété .hidden, d'où removeAttribute.
         if (isMobile) {
             document.getElementById(isAndroid ? 'icon-play' : 'icon-apple').removeAttribute('hidden');
             openBtn.hidden = false;
-            setTimeout(() => { window.location.href = appURL; }, 400);
+            setTimeout(ouvrirLApp, 400);
         }
     })();
     </script>
