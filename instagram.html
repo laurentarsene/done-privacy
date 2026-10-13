@@ -146,16 +146,18 @@
         // Visible dans App Store Connect › Analytics › Campaigns. Vide = lien App Store simple.
         const PT = '128715151';
 
-        // Une campagne par vidéo : /instagram?v=fr1 donne la campagne « ig-fr1 ».
-        // Sans paramètre (lien en bio par exemple), la campagne s'appelle « ig ».
-        // Apple limite le nom à 40 caractères ; on ne garde que [a-z0-9-] pour qu'il
-        // reste lisible et identique dans les deux consoles.
+        // Android : une campagne par vidéo, /instagram?v=fr1 donne « ig-fr1 » (sans paramètre,
+        // lien en bio par exemple : « ig »). On ne garde que [a-z0-9-], 40 caractères au plus.
         const params = new URLSearchParams(window.location.search);
         const v = (params.get('v') || '').toLowerCase().replace(/[^a-z0-9-]+/g, '-').replace(/^-+|-+$/g, '');
         const campagne = ('ig' + (v ? '-' + v : '')).slice(0, 40);
+        // iPhone : une SEULE campagne « ig » pour toutes les vidéos. App Store Connect n'affiche
+        // une campagne qu'à partir de 5 téléchargements ; découpés en 7 vidéos, les chiffres
+        // restaient masqués. La comparaison des vidéos se lit dans Meta (clics par pub).
+        const campagneApple = 'ig';
 
         const appStore = PT
-            ? 'https://apps.apple.com/app/apple-store/id6762408910?pt=' + PT + '&ct=' + encodeURIComponent(campagne) + '&mt=8'
+            ? 'https://apps.apple.com/app/apple-store/id6762408910?pt=' + PT + '&ct=' + campagneApple + '&mt=8'
             : 'https://apps.apple.com/app/id6762408910';
         // Le referrer arrive tel quel dans la Play Console (acquisition par campagne UTM).
         const referrer = 'utm_source=instagram&utm_medium=social&utm_campaign=' + campagne;
