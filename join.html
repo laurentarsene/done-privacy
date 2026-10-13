@@ -1,421 +1,47 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <!-- Même verrou que sur l'accueil : « default-src 'none' » interdit au navigateur
-         toute requête sortante, et tout ce qui reste autorisé vient de ce dépôt. Les
-         deux 'unsafe-inline' sont la contrepartie du style et du script écrits dans la
-         page. L'ouverture de reglisse:// et de intent:// n'est pas concernée, une
-         navigation n'est pas une requête de ressource. -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; font-src 'self'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; form-action 'none'; base-uri 'none'">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Rejoins ton groupe sur Réglisse</title>
-    <!-- Hors de l'index : sans code dans l'adresse, cette page n'a rien à offrir à
-         quelqu'un qui arrive d'un moteur de recherche. Les robots d'aperçu des
-         messageries ignorent cette ligne, la vignette du lien d'invitation reste
-         donc entière. « follow » laisse passer les liens du pied de page. -->
-    <meta name="robots" content="noindex, follow">
-    <meta name="description" content="Rejoins ton groupe sur Réglisse. L'app de tâches collaborative pour coloc, famille et couple.">
-    <meta name="theme-color" content="#F5EFE7">
-
-    <!-- OG / Twitter (preview riche dans Messages, WhatsApp, Discord, etc.)
-         En JPEG et non en PNG : l'image n'a pas de transparence, et l'ancienne carte
-         pesait 819 Ko, bien au-dessus des 300 Ko à partir desquels WhatsApp et Signal
-         renoncent silencieusement à afficher l'aperçu. Sur une page d'invitation qui
-         circule justement par messagerie, c'était l'aperçu le plus utile du site qui
-         tombait. Nom de fichier neuf, donc plus de ?v= à traîner. -->
-    <meta property="og:title" content="Un groupe t'attend sur Réglisse">
-    <meta property="og:description" content="Les tâches du quotidien, à plusieurs. Ouvre l'app et rejoins avec le code.">
-    <meta property="og:image" content="https://laurentarsene.github.io/done-privacy/assets/og-invitation.jpg">
-    <meta property="og:image:type" content="image/jpeg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Réglisse : invitation à rejoindre un groupe">
-    <meta property="og:site_name" content="Réglisse">
-    <meta property="og:locale" content="fr_FR">
-    <meta property="og:url" content="https://laurentarsene.github.io/done-privacy/join.html">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Un groupe t'attend sur Réglisse">
-    <meta name="twitter:description" content="Les tâches du quotidien, à plusieurs. Ouvre l'app et rejoins avec le code.">
-    <meta name="twitter:image" content="https://laurentarsene.github.io/done-privacy/assets/og-invitation.jpg">
-    <meta name="twitter:image:alt" content="Réglisse : invitation à rejoindre un groupe">
-
-    <link rel="icon" href="icon.svg" type="image/svg+xml">
-    <!-- Aucune police tierce : les fontes viennent du système. Un appel à Google Fonts
-         transmettrait l'adresse IP du visiteur à Google, sans consentement ni nécessité. -->
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        [hidden] { display: none !important; }
-        :root {
-            color-scheme: light;
-            --ink: #1A1814;
-            --cream: #F5EFE7;
-            --coral: #E54D2E;
-            --peach: #F4A261;
-            --lavender: #B4B3D6;
-            --dusk: #6B5B8E;
-            /* Opacités relevées : le texte fin doit rester lisible sur le crème. */
-            --ink-soft: rgba(26, 24, 20, 0.68);
-            --ink-faint: rgba(26, 24, 20, 0.62);
-            --ink-whisper: rgba(26, 24, 20, 0.08);
-            --serif: ui-serif, "New York", "Iowan Old Style", Georgia, "Times New Roman", serif;
-            --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-        }
-        body {
-            font-family: var(--sans);
-            background: var(--cream);
-            color: var(--ink);
-            min-height: 100vh;
-            min-height: 100dvh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 48px 24px;
-            -webkit-font-smoothing: antialiased;
-            position: relative;
-            overflow-x: hidden;
-        }
-        /* Sunset gradient overlay */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background:
-                radial-gradient(ellipse at 20% 0%, rgba(244, 162, 97, 0.18) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 100%, rgba(180, 179, 214, 0.22) 0%, transparent 55%);
-            pointer-events: none;
-        }
-        .card {
-            position: relative;
-            background: rgba(255, 253, 249, 0.72);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border-radius: 28px;
-            padding: 52px 36px 40px;
-            max-width: 420px;
-            width: 100%;
-            text-align: center;
-            box-shadow:
-                0 1px 0 rgba(255, 255, 255, 0.8) inset,
-                0 32px 80px rgba(26, 24, 20, 0.08),
-                0 0 0 0.5px rgba(26, 24, 20, 0.06);
-            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            opacity: 0;
-            transform: translateY(16px);
-        }
-        @keyframes fadeUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .logo {
-            font-family: var(--serif);
-            font-weight: 400;
-            font-size: 52px;
-            letter-spacing: -1px;
-            color: var(--ink);
-            margin-bottom: 6px;
-            line-height: 1;
-        }
-        .tag {
-            display: inline-block;
-            font-size: 10px;
-            font-weight: 600;
-            letter-spacing: 2.4px;
-            color: var(--ink-faint);
-            margin-bottom: 40px;
-            text-transform: uppercase;
-        }
-        h1 {
-            font-family: var(--serif);
-            font-weight: 500;
-            font-size: 34px;
-            line-height: 1.1;
-            letter-spacing: -0.5px;
-            margin-bottom: 14px;
-            color: var(--ink);
-        }
-        .sub {
-            color: var(--ink-soft);
-            font-family: var(--serif);
-            font-weight: 400;
-            font-style: italic;
-            font-size: 15px;
-            line-height: 1.6;
-            margin-bottom: 36px;
-        }
-        /* Phrase de presentation : la page d'invitation est souvent le premier
-           contact avec l'app, elle doit dire en une ligne de quoi il s'agit.
-           En sans-serif et en petit, pour ne pas passer pour un second sous-titre. */
-        .pitch {
-            font-family: var(--sans);
-            font-size: 13.5px;
-            line-height: 1.55;
-            color: var(--ink-soft);
-            margin-bottom: 28px;
-        }
-        .code-box {
-            background: rgba(26, 24, 20, 0.035);
-            border: 0.5px solid var(--ink-whisper);
-            border-radius: 18px;
-            padding: 22px 20px;
-            margin-bottom: 32px;
-            position: relative;
-        }
-        .code-box::before,
-        .code-box::after {
-            content: '';
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            border: 1px solid var(--ink-faint);
-        }
-        .code-box::before {
-            top: 8px; left: 8px;
-            border-right: 0; border-bottom: 0;
-        }
-        .code-box::after {
-            bottom: 8px; right: 8px;
-            border-left: 0; border-top: 0;
-        }
-        .code-label {
-            font-size: 10px;
-            font-weight: 600;
-            letter-spacing: 2.2px;
-            color: var(--ink-faint);
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-        .code {
-            font-family: var(--serif);
-            font-weight: 500;
-            font-size: 42px;
-            color: var(--coral);
-            letter-spacing: 5px;
-            line-height: 1.1;
-            font-variant-numeric: tabular-nums;
-            overflow-wrap: anywhere;
-        }
-        .btn-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            align-items: stretch;
-        }
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 15px 28px;
-            border-radius: 40px;
-            font-family: var(--sans);
-            font-weight: 600;
-            font-size: 14px;
-            text-decoration: none;
-            transition: transform 0.18s ease, box-shadow 0.18s ease;
-        }
-        .btn-primary {
-            background: var(--ink);
-            color: var(--cream);
-            box-shadow: 0 8px 24px rgba(26, 24, 20, 0.2);
-        }
-        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 28px rgba(26, 24, 20, 0.25); }
-        .btn-ghost {
-            background: transparent;
-            color: var(--ink);
-            border: 1px solid rgba(26, 24, 20, 0.12);
-        }
-        .btn-ghost:hover { background: rgba(26, 24, 20, 0.03); }
-        .btn:focus-visible {
-            outline: 2px solid var(--coral);
-            outline-offset: 3px;
-        }
-        .hint {
-            font-size: 12px;
-            font-style: italic;
-            color: var(--ink-faint);
-            margin-top: 22px;
-            font-family: var(--serif);
-        }
-        .footer {
-            margin-top: 30px;
-            padding-top: 22px;
-            border-top: 0.5px solid var(--ink-whisper);
-            font-size: 11px;
-            color: var(--ink-faint);
-            letter-spacing: 0.3px;
-        }
-        .footer-links {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-            row-gap: 6px;
-            margin-bottom: 6px;
-        }
-        .footer a { color: var(--ink-soft); text-decoration: none; }
-        .footer a:hover { color: var(--ink); text-decoration: underline; }
-        .footer a:focus-visible { outline: 2px solid var(--coral); outline-offset: 2px; border-radius: 4px; }
-        .dot { opacity: 0.4; margin: 0 6px; }
-        .copyright { margin-top: 10px; }
-        @media (max-width: 380px) {
-            body { padding: 32px 16px; }
-            .card { padding: 40px 22px 32px; border-radius: 24px; }
-            .logo { font-size: 44px; }
-            h1 { font-size: 29px; }
-            .code { font-size: 34px; letter-spacing: 3px; }
-            .footer-links { column-gap: 12px; }
-            .footer-links .dot { display: none; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-            .card { animation: none; opacity: 1; transform: none; }
-            .btn { transition: none; }
-            .btn-primary:hover { transform: none; }
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Réglisse a déménagé</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://asidequest.dev/reglisse/join.html">
+<meta property="og:title" content="Un groupe t'attend sur Réglisse">
+<meta property="og:description" content="Les tâches du quotidien, à plusieurs. Ouvre l'app et rejoins avec le code.">
+<meta property="og:image" content="https://asidequest.dev/reglisse/assets/og-invitation.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Réglisse : invitation à rejoindre un groupe">
+<meta property="og:site_name" content="Réglisse">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:url" content="https://asidequest.dev/reglisse/join.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Un groupe t'attend sur Réglisse">
+<meta name="twitter:description" content="Les tâches du quotidien, à plusieurs. Ouvre l'app et rejoins avec le code.">
+<meta name="twitter:image" content="https://asidequest.dev/reglisse/assets/og-invitation.jpg">
+<meta name="twitter:image:alt" content="Réglisse : invitation à rejoindre un groupe">
+<script>
+  // Ancien site de Réglisse (GitHub Pages) : renvoie vers la même page sur asidequest.dev/reglisse,
+  // en gardant ?requête et #ancre (?code= des invitations, ?v= des pubs, #supprimer-compte).
+  // Les apps déjà publiées et les invitations déjà envoyées pointent encore ici : ne pas supprimer.
+  (function () {
+    var pages = ['', 'index.html', 'join.html', 'privacy.html', 'cgu.html', 'mentions-legales.html', 'instagram.html'];
+    var p = location.pathname.replace(/^\/done-privacy\/?/, '');
+    if (p && p.indexOf('.') < 0 && p.slice(-1) !== '/') p += '.html';   // /join -> join.html
+    if (pages.indexOf(p) < 0) p = '';                                   // chemin inconnu -> accueil
+    location.replace('https://asidequest.dev/reglisse/' + p + location.search + location.hash);
+  })();
+</script>
+<noscript><meta http-equiv="refresh" content="0; url=https://asidequest.dev/reglisse/join.html"></noscript>
+<style>
+  html, body { margin: 0; height: 100%; }
+  body { display: flex; align-items: center; justify-content: center; padding: 24px; box-sizing: border-box; background: #F5EFE7; color: #1A1814; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; text-align: center; }
+  a { color: #E54D2E; }
+</style>
 </head>
 <body>
-    <div class="card">
-        <div class="logo">Réglisse</div>
-        <div class="tag">Invitation</div>
-        <h1>Rejoins ton groupe</h1>
-        <p class="sub">
-            <span id="sub-nocode">Ouvre le lien d'invitation qu'on t'a envoyé, le code voyage avec.<br>Sinon, tape le code dans l'app.</span>
-            <span id="sub-code" hidden>Tu as reçu une invitation.<br>Ouvre l'app avec ce code.</span>
-        </p>
-        <p class="pitch">Les corvées de la maison, enfin partagées. On coche, on marque des points, et plus personne ne compte dans sa tête.</p>
-        <div class="code-box" id="code-box" hidden>
-            <div class="code-label">Code</div>
-            <div class="code" id="code"></div>
-        </div>
-        <div class="btn-stack">
-            <!-- Deux logos en réserve : le script en révèle un seul, selon la plateforme
-                 réellement détectée. Sur ordinateur, le bouton entier reste masqué. -->
-            <a id="open-app" class="btn btn-primary" href="#" hidden>
-                <svg id="icon-apple" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" hidden><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-                <svg id="icon-play" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" hidden><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087L1.337.924zm12.207 10.065l3.258-3.238L3.45.195a1.466 1.466 0 0 0-.946-.179l11.04 10.973zm0 2.067l-11 10.933c.298.036.612-.016.9-.18l13.362-7.514-3.262-3.239z"/></svg>
-                Ouvrir Réglisse
-            </a>
-            <a id="app-store" class="btn btn-ghost" href="https://apps.apple.com/app/id6762408910">
-                Télécharger sur l'App Store
-            </a>
-            <a id="play-store" class="btn btn-ghost" href="https://play.google.com/store/apps/details?id=dev.asidequest.reglisse">
-                Télécharger sur Google Play
-            </a>
-        </div>
-        <p class="hint">
-            <span id="hint-mobile">Pas encore l'app ? Télécharge-la, puis reviens ici.</span>
-            <span id="hint-mobile-nocode" hidden>Le code arrive avec l'invitation. Rouvre le lien qu'on t'a envoyé, ou tape le code dans l'app, écran des groupes.</span>
-            <span id="hint-desktop-code" hidden>Ce lien s'ouvre depuis un téléphone. Installe Réglisse sur le tien, puis saisis ce code à la main.</span>
-            <span id="hint-desktop-nocode" hidden>Ce lien s'ouvre depuis un téléphone. Installe Réglisse sur le tien, puis rouvre l'invitation.</span>
-        </p>
-        <footer class="footer">
-            <nav class="footer-links" aria-label="Liens du site">
-                <a href="index.html">Réglisse</a>
-                <span class="dot" aria-hidden="true">·</span>
-                <a href="privacy.html">Confidentialité</a>
-                <span class="dot" aria-hidden="true">·</span>
-                <a href="cgu.html">Conditions</a>
-                <span class="dot" aria-hidden="true">·</span>
-                <a href="mentions-legales.html">Mentions légales</a>
-            </nav>
-            <nav class="footer-links" aria-label="Compte et contact">
-                <a href="privacy.html#supprimer-compte">Supprimer mon compte</a>
-                <span class="dot" aria-hidden="true">·</span>
-                <a href="mailto:contact@asidequest.dev">Contact</a>
-            </nav>
-            <div class="copyright">© 2026 Réglisse · fait avec 🖤</div>
-        </footer>
-    </div>
-
-    <script>
-    (function () {
-        const params = new URLSearchParams(window.location.search);
-        const code = (params.get('code') || '').toUpperCase().trim();
-
-        const ua = navigator.userAgent;
-        const isAndroid = /Android/i.test(ua);
-        const isIOS = /iPhone|iPad|iPod/i.test(ua);
-        // Ordinateur : ni l'un ni l'autre. Aucun navigateur de bureau ne sait ouvrir
-        // reglisse:// ni intent://, donc cette branche n'aura pas de bouton d'ouverture.
-        const isMobile = isAndroid || isIOS;
-
-        const openBtn = document.getElementById('open-app');
-        const appStoreBtn = document.getElementById('app-store');
-        const playBtn = document.getElementById('play-store');
-
-        // Un seul store quand la plateforme est connue. Sur ordinateur on laisse les deux :
-        // c'est souvent la personne qui reçoit le lien par message, on ignore son téléphone.
-        if (isAndroid) appStoreBtn.hidden = true;
-        if (isIOS) playBtn.hidden = true;
-
-        // Sur ordinateur, à la place d'une ouverture impossible : la marche à suivre.
-        // Le code, lui, reste affiché en grand pour être recopié à la main.
-        if (!isMobile) {
-            document.getElementById('hint-mobile').hidden = true;
-            document.getElementById(code ? 'hint-desktop-code' : 'hint-desktop-nocode').hidden = false;
-        } else if (!code) {
-            // Sur téléphone sans code, l'indice par défaut promet un retour utile
-            // alors que revenir ici sans code ne donnera rien. On dit où est le code.
-            document.getElementById('hint-mobile').hidden = true;
-            document.getElementById('hint-mobile-nocode').hidden = false;
-        }
-
-        // Pas de code dans l'URL : on garde l'état par défaut de la page,
-        // bloc du code masqué et bouton d'ouverture masqué.
-        if (!code) return;
-
-        document.getElementById('code').textContent = code;
-        document.getElementById('code-box').hidden = false;
-        document.getElementById('sub-nocode').hidden = true;
-        document.getElementById('sub-code').hidden = false;
-
-        // Schéma unifié : les deux apps s'enregistrent sur "reglisse://".
-        // ("done://" était l'ancien nom, gardé uniquement par iOS pour les vieux liens.)
-        // iOS : schéma custom simple. Android : intent:// avec repli automatique vers le
-        // Play Store (URL déduite du package) si l'app n'est pas installée.
-        const iosURL = `reglisse://join?code=${encodeURIComponent(code)}`;
-        const playURL = 'https://play.google.com/store/apps/details?id=dev.asidequest.reglisse';
-        const androidURL = 'intent://join?code=' + encodeURIComponent(code)
-            + '#Intent;scheme=reglisse;package=dev.asidequest.reglisse;'
-            + 'S.browser_fallback_url=' + encodeURIComponent(playURL) + ';end';
-
-        const appURL = isAndroid ? androidURL : iosURL;
-        openBtn.href = appURL;
-
-        // Ouverture automatique, et son repli.
-        // Android porte le sien dans l'URL : intent:// part au Play Store tout seul
-        // quand l'app manque. iOS n'a pas d'équivalent, un schéma inconnu ne fait
-        // rien du tout et le visiteur reste planté. On surveille donc le départ de
-        // la page : si elle est toujours là au bout de deux secondes et demie, c'est
-        // que l'app n'est pas installée, et on file à l'App Store.
-        function ouvrirLApp() {
-            if (isAndroid) { window.location.href = appURL; return; }
-
-            let parti = document.hidden;
-            const partir = () => { parti = true; };
-            // Seulement le passage en arrière-plan : c'est le seul signal fiable que
-            // l'app a bien pris la main. Un blur suffirait à annuler le repli pour
-            // une simple alerte de Safari, donc justement dans le cas à rattraper.
-            document.addEventListener('visibilitychange', () => { if (document.hidden) partir(); });
-            window.addEventListener('pagehide', partir);
-
-            window.location.href = appURL;
-
-            setTimeout(() => {
-                if (!parti && !document.hidden) window.location.href = appStoreBtn.href;
-            }, 2500);
-        }
-
-        // Bouton d'ouverture et auto-ouverture : réservés au téléphone. Le logo suit la
-        // plateforme détectée. Un SVG n'a pas de propriété .hidden, d'où removeAttribute.
-        if (isMobile) {
-            document.getElementById(isAndroid ? 'icon-play' : 'icon-apple').removeAttribute('hidden');
-            openBtn.hidden = false;
-            setTimeout(ouvrirLApp, 400);
-        }
-    })();
-    </script>
+<p>Réglisse a déménagé : <a href="https://asidequest.dev/reglisse/join.html">asidequest.dev/reglisse</a></p>
 </body>
 </html>

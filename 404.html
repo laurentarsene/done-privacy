@@ -1,204 +1,31 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <!-- Même verrou que sur les autres pages du site : « default-src 'none' » interdit
-         au navigateur toute requête sortante, et tout ce qui reste autorisé vient de ce
-         dépôt. 'unsafe-inline' est la contrepartie du style écrit dans la page. -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; font-src 'self'; style-src 'unsafe-inline'; form-action 'none'; base-uri 'none'">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Réglisse · Cette page n'existe pas</title>
-    <meta name="theme-color" content="#F5EFE7">
-    <link rel="icon" href="/done-privacy/icon.svg" type="image/svg+xml">
-
-    <!-- GitHub Pages sert ce fichier pour n'importe quelle adresse manquante sous
-         /done-privacy/, y compris /done-privacy/un/chemin/inventé. Les liens sont donc
-         écrits en absolu : en relatif, ils se résoudraient contre l'adresse fautive et
-         mèneraient eux aussi dans le vide. -->
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            color-scheme: light;
-            --ink: #1A1814;
-            --cream: #F5EFE7;
-            --coral: #E54D2E;
-            --ink-soft: rgba(26, 24, 20, 0.68);
-            --ink-faint: rgba(26, 24, 20, 0.62);
-            --ink-whisper: rgba(26, 24, 20, 0.08);
-            --serif: ui-serif, "New York", "Iowan Old Style", Georgia, "Times New Roman", serif;
-            --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-        }
-        body {
-            font-family: var(--sans);
-            background: var(--cream);
-            color: var(--ink);
-            min-height: 100vh;
-            min-height: 100dvh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 48px 24px;
-            -webkit-font-smoothing: antialiased;
-            position: relative;
-            overflow-x: hidden;
-        }
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background:
-                radial-gradient(ellipse at 20% 0%, rgba(244, 162, 97, 0.18) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 100%, rgba(180, 179, 214, 0.22) 0%, transparent 55%);
-            pointer-events: none;
-        }
-        .card {
-            position: relative;
-            background: rgba(255, 253, 249, 0.72);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border-radius: 28px;
-            padding: 52px 36px 40px;
-            max-width: 420px;
-            width: 100%;
-            text-align: center;
-            box-shadow:
-                0 1px 0 rgba(255, 255, 255, 0.8) inset,
-                0 32px 80px rgba(26, 24, 20, 0.08),
-                0 0 0 0.5px rgba(26, 24, 20, 0.06);
-            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            opacity: 0;
-            transform: translateY(16px);
-        }
-        @keyframes fadeUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .logo {
-            font-family: var(--serif);
-            font-weight: 400;
-            font-size: 52px;
-            letter-spacing: -1px;
-            color: var(--ink);
-            margin-bottom: 6px;
-            line-height: 1;
-        }
-        .tag {
-            display: inline-block;
-            font-size: 10px;
-            font-weight: 600;
-            letter-spacing: 2.4px;
-            color: var(--ink-faint);
-            margin-bottom: 40px;
-            text-transform: uppercase;
-        }
-        h1 {
-            font-family: var(--serif);
-            font-weight: 500;
-            font-size: 34px;
-            line-height: 1.1;
-            letter-spacing: -0.5px;
-            margin-bottom: 14px;
-            color: var(--ink);
-        }
-        .sub {
-            color: var(--ink-soft);
-            font-family: var(--serif);
-            font-weight: 400;
-            font-style: italic;
-            font-size: 15px;
-            line-height: 1.6;
-            margin-bottom: 36px;
-        }
-        .btn-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            align-items: stretch;
-        }
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 15px 28px;
-            border-radius: 40px;
-            font-family: var(--sans);
-            font-weight: 600;
-            font-size: 14px;
-            text-decoration: none;
-            transition: transform 0.18s ease, box-shadow 0.18s ease;
-        }
-        .btn-primary {
-            background: var(--ink);
-            color: var(--cream);
-            box-shadow: 0 8px 24px rgba(26, 24, 20, 0.2);
-        }
-        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 28px rgba(26, 24, 20, 0.25); }
-        .btn-ghost {
-            background: transparent;
-            color: var(--ink);
-            border: 1px solid rgba(26, 24, 20, 0.12);
-        }
-        .btn-ghost:hover { background: rgba(26, 24, 20, 0.03); }
-        .btn:focus-visible {
-            outline: 2px solid var(--coral);
-            outline-offset: 3px;
-        }
-        .footer {
-            margin-top: 30px;
-            padding-top: 22px;
-            border-top: 0.5px solid var(--ink-whisper);
-            font-size: 11px;
-            color: var(--ink-faint);
-            letter-spacing: 0.3px;
-        }
-        .footer-links {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-            row-gap: 6px;
-            margin-bottom: 6px;
-        }
-        .footer a { color: var(--ink-soft); text-decoration: none; }
-        .footer a:hover { color: var(--ink); text-decoration: underline; }
-        .footer a:focus-visible { outline: 2px solid var(--coral); outline-offset: 2px; border-radius: 4px; }
-        .dot { opacity: 0.4; margin: 0 6px; }
-        .copyright { margin-top: 10px; }
-        @media (max-width: 380px) {
-            body { padding: 32px 16px; }
-            .card { padding: 40px 22px 32px; border-radius: 24px; }
-            .logo { font-size: 44px; }
-            h1 { font-size: 29px; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-            .card { animation: none; opacity: 1; transform: none; }
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Réglisse a déménagé</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://asidequest.dev/reglisse/">
+<script>
+  // Ancien site de Réglisse (GitHub Pages) : renvoie vers la même page sur asidequest.dev/reglisse,
+  // en gardant ?requête et #ancre (?code= des invitations, ?v= des pubs, #supprimer-compte).
+  // Les apps déjà publiées et les invitations déjà envoyées pointent encore ici : ne pas supprimer.
+  (function () {
+    var pages = ['', 'index.html', 'join.html', 'privacy.html', 'cgu.html', 'mentions-legales.html', 'instagram.html'];
+    var p = location.pathname.replace(/^\/done-privacy\/?/, '');
+    if (p && p.indexOf('.') < 0 && p.slice(-1) !== '/') p += '.html';   // /join -> join.html
+    if (pages.indexOf(p) < 0) p = '';                                   // chemin inconnu -> accueil
+    location.replace('https://asidequest.dev/reglisse/' + p + location.search + location.hash);
+  })();
+</script>
+<noscript><meta http-equiv="refresh" content="0; url=https://asidequest.dev/reglisse/"></noscript>
+<style>
+  html, body { margin: 0; height: 100%; }
+  body { display: flex; align-items: center; justify-content: center; padding: 24px; box-sizing: border-box; background: #F5EFE7; color: #1A1814; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; text-align: center; }
+  a { color: #E54D2E; }
+</style>
 </head>
 <body>
-    <div class="card">
-        <div class="logo">Réglisse</div>
-        <div class="tag">Erreur 404</div>
-
-        <h1>Cette page n'existe pas.</h1>
-        <p class="sub">Réglisse a vérifié deux fois, puis une troisième pour la forme. Il n'y a rien ici, pas même de la poussière.</p>
-
-        <div class="btn-stack">
-            <a class="btn btn-primary" href="/done-privacy/">Retour à l'accueil</a>
-            <a class="btn btn-ghost" href="/done-privacy/#prix">Les tarifs</a>
-            <a class="btn btn-ghost" href="/done-privacy/privacy.html">Politique de confidentialité</a>
-        </div>
-
-        <footer class="footer">
-            <nav class="footer-links" aria-label="Liens du site">
-                <a href="/done-privacy/mentions-legales.html">Mentions légales</a>
-                <span class="dot" aria-hidden="true">·</span>
-                <a href="/done-privacy/cgu.html">Conditions</a>
-                <span class="dot" aria-hidden="true">·</span>
-                <a href="mailto:contact@asidequest.dev">Contact</a>
-            </nav>
-            <div class="copyright">© 2026 Réglisse · fait avec 🖤</div>
-        </footer>
-    </div>
+<p>Réglisse a déménagé : <a href="https://asidequest.dev/reglisse/">asidequest.dev/reglisse</a></p>
 </body>
 </html>
